@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ITLearning.Infrastructure.Common\ITLearning.Infrastructure.DataAccess.Common.csproj" />
-    <ProjectReference Include="..\ITLearning.Infrastructure.DataAccess.Mssql\ITLearning.Infrastructure.DataAccess.Mssql.csproj" />
+    <ProjectReference Include="..\Infrastructure\ITLearning.Infrastructure.Common\ITLearning.Infrastructure.DataAccess.Common.csproj" />
+    <ProjectReference Include="..\Infrastructure\ITLearning.Infrastructure.DataAccess.Mssql\ITLearning.Infrastructure.DataAccess.Mssql.csproj" />
   </ItemGroup>
 
 </Project>

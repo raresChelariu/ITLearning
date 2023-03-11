@@ -10,4 +10,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ITLearning.Infrastructure.Common\ITLearning.Infrastructure.DataAccess.Common.csproj" />
+    <ProjectReference Include="..\ITLearning.Infrastructure.DataAccess.Contracts\ITLearning.Infrastructure.DataAccess.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>
