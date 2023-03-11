@@ -1,21 +1,18 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using ITLearning.TypeGuards;
 using Microsoft.Extensions.Configuration;
 
-namespace ITLearning.Infrastructure.Common;
+namespace ITLearning.Infrastructure.DataAccess.Common;
 
 internal class DatabaseConfiguration : IDatabaseConfiguration
 {
-    public const string ConfigurationKey = "Database";
+    private const string ConfigurationKey = "Database";
 
     public string ConnectionString { get; set; }
-
-    public SqlConnection GetSqlConnection()
-    {
-        return new SqlConnection(ConnectionString);
-    }
-
+    
     public static DatabaseConfiguration GetFromConfiguration(IConfiguration configuration)
     {
-        return configuration.GetSection(ConfigurationKey).Get<DatabaseConfiguration>();
+        var databaseConfiguration = configuration.GetSection(ConfigurationKey).Get<DatabaseConfiguration>();
+        _ = TypeGuard.ThrowIfStringIsNullOrWhitespace(databaseConfiguration.ConnectionString);
+        return databaseConfiguration;
     }
 }

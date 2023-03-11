@@ -1,4 +1,5 @@
-﻿using ITLearning.Infrastructure.Common;
+﻿using ITLearning.Infrastructure.DataAccess.Common;
+using ITLearning.Infrastructure.DataAccess.Mssql;
 
 namespace ITLearningAPI.Web;
 
@@ -6,8 +7,8 @@ public static class ServiceExtensions
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddInfrastructureCommon(configuration);
-
+        services.AddDataAccessCommon(configuration);
+        services.AddDataAccessMssql();
         return services;
     }
 }

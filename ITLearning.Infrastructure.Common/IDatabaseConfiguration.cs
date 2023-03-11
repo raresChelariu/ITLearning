@@ -1,10 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
+﻿namespace ITLearning.Infrastructure.DataAccess.Common;
 
-namespace ITLearning.Infrastructure.Common;
-
-public interface IDatabaseConfiguration
+internal interface IDatabaseConfiguration
 {
     public string ConnectionString { get; }
-
-    public SqlConnection GetSqlConnection();
 }
