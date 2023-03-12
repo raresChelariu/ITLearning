@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ITLearning.Infrastructure.DataAccess.Contracts;
+using ITLearning.TypeGuards;
+using ITLearningAPI.Web.Mappers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ITLearningAPI.Web.Controllers;
 
@@ -6,8 +9,15 @@ namespace ITLearningAPI.Web.Controllers;
 [Route("[controller]")]
 public class VideoController : ControllerBase
 {
-    [HttpPost]
-    public async Task<IActionResult> Upload(List<IFormFile> files)
+    private readonly IVideoRepository _videoRepository;
+
+    public VideoController(IVideoRepository videoRepository)
+    {
+        _videoRepository = TypeGuard.ThrowIfNull(videoRepository);
+    }
+
+    [HttpPatch]
+    public async Task<IActionResult> UploadVideos(List<IFormFile> files)
     {
         var size = files.Sum(f => f.Length);
         foreach (var formFile in files)
@@ -23,8 +33,21 @@ public class VideoController : ControllerBase
             await formFile.CopyToAsync(stream);
         }
 
-        return Ok(new { count = files.Count(), size });
+        return Ok(new { count = files.Count, size });
     }
 
+    [HttpPost]
+    public async Task<IActionResult> Upload(IFormFile file)
+    {
+        var video = await Mapper.MapToVideoAsync(file);
+        await _videoRepository.InsertVideoAsync(video);
+        return NoContent();
+    }
 
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var allVideoEntries = await _videoRepository.GetAllVideosAsync();
+        return new OkObjectResult(allVideoEntries);
+    }
 }

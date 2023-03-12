@@ -4,5 +4,5 @@ namespace ITLearning.Infrastructure.DataAccess.Common.Contracts;
 
 public interface IDatabaseConnector
 {
-    SqlConnection GetSqlConnection { get; }
+    SqlConnection GetSqlConnection();
 }

@@ -2,7 +2,18 @@
 
 public class Video
 {
-    public long Id { get; init; }
-    public byte[] Content { get; init; }
-    public string Name { get; init; }
+    private readonly VideoEntry _entry = new();
+    public long Id
+    {
+        get => _entry.Id;
+        set => _entry.Id = value;
+    }
+
+    public byte[] Content { get; set; }
+
+    public string Name
+    {
+        get => _entry.Name;
+        set => _entry.Name = value;
+    }
 }

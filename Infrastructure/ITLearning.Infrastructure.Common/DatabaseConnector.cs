@@ -13,5 +13,5 @@ internal class DatabaseConnector : IDatabaseConnector
         _databaseConfiguration = TypeGuard.ThrowIfNull(databaseConfiguration);
     }
 
-    public SqlConnection GetSqlConnection => new(_databaseConfiguration.ConnectionString);
+    public SqlConnection GetSqlConnection() => new(_databaseConfiguration.ConnectionString);
 }
