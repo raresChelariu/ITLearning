@@ -7,7 +7,8 @@ public static class DependencyInjectionExtensions
 {
     public static IServiceCollection AddDataAccessMssql(this IServiceCollection services)
     {
-        services.AddSingleton<IVideoRepository, MssqlVideoRepository>();
+        services.AddSingleton<IVideoRepository, SqlServerVideoRepository>();
+        services.AddSingleton<IUserRepository, SqlServerUserRepository>();
         return services;
     } 
 }

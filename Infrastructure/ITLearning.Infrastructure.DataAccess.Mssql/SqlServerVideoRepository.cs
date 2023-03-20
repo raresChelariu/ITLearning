@@ -8,12 +8,12 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 namespace ITLearning.Infrastructure.DataAccess.Mssql;
 
-internal class MssqlVideoRepository : IVideoRepository
+internal class SqlServerVideoRepository : IVideoRepository
 {
-    private readonly ILogger<MssqlVideoRepository> _logger;
+    private readonly ILogger<SqlServerVideoRepository> _logger;
     private readonly IDatabaseConnector _databaseConnector;
 
-    public MssqlVideoRepository(ILogger<MssqlVideoRepository> logger, IDatabaseConnector databaseConnector)
+    public SqlServerVideoRepository(ILogger<SqlServerVideoRepository> logger, IDatabaseConnector databaseConnector)
     {
         _logger = TypeGuard.ThrowIfNull(logger);
         _databaseConnector = TypeGuard.ThrowIfNull(databaseConnector);
