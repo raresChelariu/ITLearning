@@ -12,9 +12,9 @@ internal class AuthorizationSettings : IAuthorizationSettings
     public static AuthorizationSettings GetFromConfiguration(IConfiguration configuration)
     {
         var settings = configuration.GetSection(ConfigurationKey).Get<AuthorizationSettings>();
-        TypeGuard.ThrowIfStringIsNullOrWhitespace(settings.Secret);
-        TypeGuard.ThrowIfStringIsNullOrWhitespace(settings.Audience);
-        TypeGuard.ThrowIfStringIsNullOrWhitespace(settings.Issuer);
+        TypeGuard.ThrowIfStringIsNullOrWhitespace(settings?.Secret);
+        TypeGuard.ThrowIfStringIsNullOrWhitespace(settings?.Audience);
+        TypeGuard.ThrowIfStringIsNullOrWhitespace(settings?.Issuer);
         return settings;
     }
 }
