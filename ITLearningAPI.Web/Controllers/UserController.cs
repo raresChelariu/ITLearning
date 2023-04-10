@@ -3,12 +3,14 @@ using System.Security.Claims;
 using System.Text;
 using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Contracts;
+using ITLearning.Services;
 using ITLearning.TypeGuards;
 using ITLearningAPI.Web.Authorization;
 using ITLearningAPI.Web.Contracts.User;
 using ITLearningAPI.Web.Mappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ITLearningAPI.Web.Controllers;
@@ -37,23 +39,26 @@ public class UserController : ControllerBase
         {
             return Conflict();
         }
-        return Ok(user);
+        return NoContent();
     }
 
     [AllowAnonymous]
     [HttpPost("login")]
     public async Task<ActionResult<string>> Login([FromBody] UserLogin request)
     {
-        var user = await _userRepository.GetUserByUsernameAsync(request.Username);
+        var user = await _userRepository.GetUserByUserIdentifierAsync(request.UserIdentifier);
         
-        if (user == null)
+        if (user == null || !Hasher.VerifyPasswordHash(request.Password, user.PasswordSalt, user.PasswordHash))
         {
-            return BadRequest();
+            return Unauthorized();
         }
 
         var jwtToken = CreateToken(user, DateTime.Now.AddDays(1));
 
-        return Ok(jwtToken);
+        return Ok(new
+        {
+            Token = jwtToken
+        });
     }
 
     [HttpGet]
@@ -78,10 +83,16 @@ public class UserController : ControllerBase
             new(ClaimTypes.Role, user.Role.ToString())
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(user.Username));
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authorizationSettings.Secret));
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var token = new JwtSecurityToken(_authorizationSettings.Issuer, _authorizationSettings.Audience, claims: claims, expires: expirationDateTime, signingCredentials: credentials);
+        var token = new JwtSecurityToken(
+            issuer: _authorizationSettings.Issuer,
+            audience: _authorizationSettings.Audience, 
+            claims: claims,
+            expires: expirationDateTime, 
+            signingCredentials: credentials
+        );
         
         var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 

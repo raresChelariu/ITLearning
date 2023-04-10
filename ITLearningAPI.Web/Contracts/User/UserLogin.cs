@@ -1,7 +1,12 @@
-﻿namespace ITLearningAPI.Web.Contracts.User;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ITLearningAPI.Web.Contracts.User;
 
 public class UserLogin
 {
-    public string Username { get; set; }
+    [Required]
+    public string UserIdentifier { get; set; }
+
+    [Required]
     public string Password { get; set; }
 }

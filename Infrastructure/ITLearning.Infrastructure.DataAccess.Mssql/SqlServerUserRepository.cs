@@ -26,16 +26,28 @@ public class SqlServerUserRepository : IUserRepository
         {
             await using var connection = _databaseConnector.GetSqlConnection();
             await using var command = new SqlCommand("UsersInsert", connection);
+            command.CommandType = CommandType.StoredProcedure;
             await connection.OpenAsync();
-            command.Parameters.AddWithValue("@Username", user.Username);
+            command.Parameters.Add(new SqlParameter 
+            {
+                ParameterName = "@Username",
+                Value = user.Username,
+                Size = 256
+            });
             command.Parameters.AddWithValue("@PasswordHash", user.PasswordHash);
             command.Parameters.AddWithValue("@PasswordSalt", user.PasswordSalt);
             command.Parameters.AddWithValue("@Role", (short) user.Role);
-            command.Parameters.AddWithValue("@Email", user.Email);
+            command.Parameters.Add(new SqlParameter
+            {
+                ParameterName = "@Email",
+                Value = user.Email,
+                Size = 256
+            });
             command.Parameters.Add(new SqlParameter
             {
                 Direction = ParameterDirection.Output,
-                ParameterName = "@Id"
+                ParameterName = "@Id",
+                SqlDbType = SqlDbType.BigInt
             });
             await command.ExecuteNonQueryAsync();
             var userId = -1L;
@@ -53,15 +65,16 @@ public class SqlServerUserRepository : IUserRepository
         }
     }
 
-    public async Task<User> GetUserByUsernameAsync(string username)
+    public async Task<User> GetUserByUserIdentifierAsync(string username)
     {
-        const string query = "SELECT [ID], [Username], [PasswordHash], [PasswordSalt], [Email], [Role] FROM [dbo].[Users] WHERE [User] = @Username";
+        const string query = "SELECT [ID], [Username], [PasswordHash], [PasswordSalt], [Email], [Role] " + 
+                             "FROM [dbo].[Users] WHERE [Username] = @UserIdentifier OR [Email] = @UserIdentifier";
         try
         {
             await using var connection = _databaseConnector.GetSqlConnection();
             await using var command = new SqlCommand(query, connection);
             await connection.OpenAsync();
-            command.Parameters.AddWithValue("@Username", username);
+            command.Parameters.AddWithValue("@UserIdentifier", username);
 
             var reader = await command.ExecuteReaderAsync();
             await reader.ReadAsync();
@@ -71,7 +84,7 @@ public class SqlServerUserRepository : IUserRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetUserByUsernameAsync), ex);
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetUserByUserIdentifierAsync), ex);
             return null;
         }
     }
@@ -94,7 +107,7 @@ public class SqlServerUserRepository : IUserRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetUserByUsernameAsync), ex);
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetUserByUserIdentifierAsync), ex);
             return null;
         }
     }

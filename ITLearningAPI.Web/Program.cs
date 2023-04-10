@@ -1,5 +1,6 @@
 using ITLearningAPI.Web;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,20 @@ builder.Services
        .AddItLearningServices(builder.Configuration);
 
 builder.Services
-       .AddAuthentication().AddJwtBearer();
+       .AddAuthentication()
+       .AddJwtBearer(options =>
+       {
+           options.SaveToken = true;
+           options.RequireHttpsMetadata = false;
+           options.TokenValidationParameters = new TokenValidationParameters
+           {
+               ValidateIssuer = true,
+               ValidateAudience = true,
+               ValidAudience = builder.Configuration["authorization:Audience"],
+               ValidIssuer = builder.Configuration["authorization:Issuer"],
+               IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["authorization:Secret"]))
+           };
+       });
 
 var app = builder.Build();
 
@@ -26,8 +40,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

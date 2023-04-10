@@ -1,5 +1,6 @@
 ﻿using ITLearning.Infrastructure.DataAccess.Common;
 using ITLearning.Infrastructure.DataAccess.Mssql;
+using ITLearningAPI.Web.Authorization;
 
 namespace ITLearningAPI.Web;
 
@@ -9,6 +10,7 @@ public static class ServiceExtensions
     {
         services.AddDataAccessCommon(configuration);
         services.AddDataAccessMssql();
+        services.AddApiAuthorizationSettings(configuration);
         return services;
     }
 }
