@@ -10,7 +10,6 @@ using ITLearningAPI.Web.Contracts.User;
 using ITLearningAPI.Web.Mappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ITLearningAPI.Web.Controllers;
