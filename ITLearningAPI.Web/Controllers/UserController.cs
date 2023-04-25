@@ -31,7 +31,7 @@ public class UserController : ControllerBase
     [HttpPost("register")]
     public async Task<ActionResult<User>> Register([FromBody] UserRegister request)
     {
-        var user = Mapper.ToUser(request);
+        var user = UserMapper.ToUser(request);
 
         var userId = await _userRepository.InsertUserAsync(user);
         if (userId == -1)

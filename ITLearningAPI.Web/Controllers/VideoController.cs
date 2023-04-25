@@ -39,7 +39,7 @@ public class VideoController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Upload(IFormFile file)
     {
-        var video = await Mapper.ToVideoAsync(file);
+        var video = await VideoMapper.ToVideoAsync(file);
         await _videoRepository.InsertVideoAsync(video);
         return NoContent();
     }

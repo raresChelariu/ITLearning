@@ -9,6 +9,7 @@ public static class DependencyInjectionExtensions
     {
         services.AddSingleton<IVideoRepository, SqlServerVideoRepository>();
         services.AddSingleton<IUserRepository, SqlServerUserRepository>();
+        services.AddSingleton<ICourseRepository, SqlServerCourseRepository>();
         return services;
     } 
 }
