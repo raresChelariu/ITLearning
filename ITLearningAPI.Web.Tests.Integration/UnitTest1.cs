@@ -1,3 +1,4 @@
+using ITLearning.Services;
 using Microsoft.Data.SqlClient;
 using Xunit.Abstractions;
 
@@ -20,5 +21,13 @@ public class UnitTest1
 
         await connection.OpenAsync();
         _testOutputHelper.WriteLine("hey");
+    }
+
+    [Fact]
+    public void HasherTest()
+    {
+        const string pw = "somePassword";
+        Hasher.CreatePasswordHash(pw, out var passwordHash, out var passwordSalt);
+        Hasher.VerifyPasswordHash(pw, passwordSalt, passwordHash).Should().BeTrue();
     }
 }

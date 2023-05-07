@@ -118,8 +118,8 @@ public class SqlServerUserRepository : IUserRepository
         {
             Id = reader.GetFromColumn<long>("Id"),
             Username = reader.GetFromColumn<string>("Username"),
-            PasswordSalt = reader.GetFromColumn<byte[]>("PasswordHash"),
-            PasswordHash = reader.GetFromColumn<byte[]>("PasswordSalt"),
+            PasswordHash = reader.GetFromColumn<byte[]>("PasswordHash"),
+            PasswordSalt = reader.GetFromColumn<byte[]>("PasswordSalt"),
             Email = reader.GetFromColumn<string>("Email"),
             Role = (UserRole) reader.GetFromColumn<short>("Role")
         };

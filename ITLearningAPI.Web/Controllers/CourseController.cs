@@ -51,7 +51,7 @@ public class CourseController : ControllerBase
         return Ok(courses);
     }
 
-    [HttpGet]
+    [HttpGet("/all")]
     public async Task<IActionResult> GetAllCourses()
     {
         var courses = await _courseRepository.GetAll();

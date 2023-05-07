@@ -56,7 +56,8 @@ public class UserController : ControllerBase
 
         return Ok(new
         {
-            Token = jwtToken
+            Token = jwtToken,
+            Role = user.Role.ToString().ToLowerInvariant(),
         });
     }
 
