@@ -12,10 +12,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ITLearningAPI.Web.Controllers;
+namespace ITLearningAPI.Web.Controllers.Api;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class UserController : ControllerBase
 {
     private readonly IAuthorizationSettings _authorizationSettings;
@@ -46,7 +46,7 @@ public class UserController : ControllerBase
     public async Task<ActionResult<string>> Login([FromBody] UserLogin request)
     {
         var user = await _userRepository.GetUserByUserIdentifierAsync(request.UserIdentifier);
-        
+
         if (user == null || !Hasher.VerifyPasswordHash(request.Password, user.PasswordSalt, user.PasswordHash))
         {
             return Unauthorized();
@@ -62,7 +62,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles="Administrator,Teacher")]
+    [Authorize(Roles = "Administrator,Teacher")]
     public IActionResult SomeEndpoint()
     {
         var user = CurrentUser.GetFromHttpContext(HttpContext);
@@ -88,12 +88,12 @@ public class UserController : ControllerBase
 
         var token = new JwtSecurityToken(
             issuer: _authorizationSettings.Issuer,
-            audience: _authorizationSettings.Audience, 
+            audience: _authorizationSettings.Audience,
             claims: claims,
-            expires: expirationDateTime, 
+            expires: expirationDateTime,
             signingCredentials: credentials
         );
-        
+
         var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
         return jwt;

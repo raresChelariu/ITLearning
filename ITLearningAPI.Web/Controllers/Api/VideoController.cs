@@ -3,10 +3,10 @@ using ITLearning.TypeGuards;
 using ITLearningAPI.Web.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ITLearningAPI.Web.Controllers;
+namespace ITLearningAPI.Web.Controllers.Api;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class VideoController : ControllerBase
 {
     private readonly IVideoRepository _videoRepository;

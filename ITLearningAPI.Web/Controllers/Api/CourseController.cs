@@ -5,10 +5,10 @@ using ITLearningAPI.Web.Contracts.Course;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ITLearningAPI.Web.Controllers;
+namespace ITLearningAPI.Web.Controllers.Api;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class CourseController : ControllerBase
 {
     private readonly ICourseRepository _courseRepository;
@@ -23,7 +23,7 @@ public class CourseController : ControllerBase
     public async Task<IActionResult> CreateCourse([FromBody] CourseCreateRequest request)
     {
         var user = CurrentUser.GetFromHttpContext(HttpContext);
-        
+
         var course = new Course
         {
             Name = request.CourseName,

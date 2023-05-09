@@ -1,0 +1,56 @@
+*{
+font-family: 'Roboto Condensed', sans-serif;
+}
+
+body{
+  background: #cbe2ec;
+}
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color:#463ddb;
+  color: white;
+}
+
+.topnav-right {
+  float: right;
+}
+
+.subtitle, .title {
+text-align: center;
+color: #505050;
+}
+
+.title {
+  font-weight: bolder;
+  font-size: 60px;
+}
+
+.white-box {
+    padding-left:16px;
+    background-color: white;
+    color: black;
+}
+
+
+.subtitle {
+    font-size: 30px;
+    font-weight: bold;
+}

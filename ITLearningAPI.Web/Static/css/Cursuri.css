@@ -1,0 +1,107 @@
+*{
+font-family: 'Roboto Condensed', sans-serif;
+}
+
+body{
+  background: #cbe2ec;
+}
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color:#463ddb;
+  color: white;
+}
+
+.topnav-right {
+  float: right;
+}
+
+.white-box {
+    padding-left:16px;
+    padding-right: 16px;
+    background-color: white;
+    color: black;
+}
+
+.grid-container {
+  display: grid;
+  gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+}
+
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+  padding: 20px;
+  font-size: 20px;
+}
+
+.item1 {
+  grid-column: 1 / span 3;
+  grid-row: 1;
+}
+
+.item2 {
+  grid-column: 1/ span 3;
+  grid-row: 2 ;
+}
+
+.item3 {
+  grid-column: 1/ span 3;
+  grid-row: 3;
+}
+.content {
+  font-size: 20px;
+}
+
+.btn-group button {
+  background-color: #f2f2f2;
+  border: 1px solid black;
+  color: black;
+  font-size: 20px;
+  padding: 10px 24px;
+  cursor: pointer;
+  width: 100%;
+  display: block;
+  text-align: left;
+}
+
+.btn-group button:not(:last-child) {
+  border-bottom: none;
+}
+
+.btn-group button:hover {
+  background-color: #ddd;
+}
+
+.addmore{
+  float: right;
+  background-color: #463ddb;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 2px 2px;
+  cursor: pointer;
+}

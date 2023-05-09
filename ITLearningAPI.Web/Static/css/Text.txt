@@ -1,0 +1,47 @@
+Definiția bazei de date
+O bază de date este o colecție organizată de informații sau de date structurate, stocate electronic într-un computer. O bază de date este controlată, de regulă, de un sistem de management al bazelor de date (DBSM). Cumulat, datele, DBMS și aplicațiile asociate reprezintă un sistem de baze de date, denumit prescurtat bază de date.
+
+Datele din cele mai obișnuite tipuri de baze de date sunt distribuite de regulă pe linii și coloane, în diferite tabele, pentru eficientizarea procesării și interogării datelor. Datele pot fi accesate, gestionate, modificate, actualizate, controlate și organizate cu ușurință. Majoritatea bazelor de date utilizează un limbaj structurat de interogare (SQL) pentru scrierea și interogarea datelor.
+
+Ce este limbajul structurat de interogare (SQL)?
+SQL este un limbaj de programare utilizat de aproape toate bazele de date relaționale, pentru interogarea, gestionarea și definirea datelor, precum și pentru controlul oferirii accesului. SQL a fost dezvoltat mai întâi de IBM în anii 1970, cu ajutorul esențial al companiei Oracle, ceea ce a condus la implementarea standardului SQL ANSI, ulterior SQL extinzându-se de la companii precum IBM, Oracle și Microsoft. Deși SQL este în continuare utilizat la scară largă, apar în continuare noi limbaje de programare.
+
+Evoluția bazelor de date
+De la apariția lor, la începutul anilor 1960, bazele de date au evoluat semnificativ. Bazele de date pentru navigare, precum cele cu o structură ierarhică, (care se bazau pe un model arborescent și permiteau numai interacțiuni de acest tip) și bazele de date în rețea (un model mai flexibil, care permite interacțiuni mai complexe), au constituit sistemele inițiale de stocare și gestionare a datelor. Deși erau simple, aceste sisteme nu erau flexibile. În anii 1980, bazele de date relaționale au devenit populare, fiind urmate de bazele de date orientate pe obiecte, în anii 1990. Ulterior au apărut bazele de date NoSQL, ca rezultat al dezvoltării internetului și a necesității de procesare mai rapidă a datelor nestructurate. Astăzi, bazele de date în cloud și bazele de date autonome revoluționează modul în care datele sunt colectate, stocate, gestionate și utilizate.
+
+Care este diferența dintre o bază de date și o foaie de calcul?
+Bazele de date și foile de calcul (precum Microsoft Excel) reprezintă modalități alternative de a stoca informațiile. Diferențele principale dintre acestea sunt:
+
+modul în care datele sunt stocate și gestionate
+accesul la date
+cantitatea de date care poate fi stocată
+Foile de calcul au fost create inițial pentru un singur utilizator și caracteristicile acestora reflectă acest lucru. Ambele sunt excelente pentru un singur utilizator sau pentru un număr mic de utilizatori care nu trebuie să gestioneze date foarte complexe. Bazele de date, pe de altă parte, sunt concepute pentru a stoca și organiza un volum mult mai mare - uneori, uriaș - de informații colectate. Bazele de date permit mai multor utilizatori să acceseze și să interogheze simultan și securizat datele, utilizând algoritmi și limbaje complexe.
+
+Tipuri de baze de date
+Există multe tipuri de baze de date. Cea mai bună baze de date pentru o anumită organizație depinde de modul în care organizația intenționează să o utilizeze.
+
+Baze de date relaționale
+Bazele de date relaționale au avut cea mai mare pondere în anii 1980. Elementele dintr-o bază de date relațională sunt organizate ca un set te tabele, cu rânduri și coloane. Tehnologia bazelor de date relaționale oferă cel mai eficient și flexibil mod de a accesa informațiile structurate.
+Baze de date orientate pe obiecte
+Informațiile dintr-o bază de date orientată pe obiecte sunt reprezentate sub formă de obiecte, așa cum se întâmplă în programarea orientată pe obiecte.
+Baze de date distribuite
+O bază de date distribuită constă în două sau mai multe fișiere aflate în site-uri diferite. Baza de date poate fi stocată pe mai multe computere aflate în aceeași locație fizică sau aflate în diferite rețele.
+Depozite de date
+Un depozit central de date, reprezentând un tip de baze de date creat special pentru interogări și analize rapide.
+Baze de date NoSQL
+O bază de date NoSQL sau o bază de date nerelațională, permite stocarea și gestionarea datelor nestructurate sau semi-structurate (spre deosebire de o bază de date relațională, care definește modul în care trebuie compuse toate datele introduse). Bazele de date NoSQL au fost populare ca aplicații web, devenind din ce în ce mai uzuale și mai complexe.
+Baze de date grafice
+O bază de date grafice stochează datele sub forma unor entități și a relațiilor dintre acestea.
+Baze de date OLTP O bază de date OLTP este o bază de date rapidă, pentru analize, destinată rulării unui număr mare de tranzacții efectuate de mai mulți utilizatori.
+Acestea sunt numai câteva tipuri de baze de date dintre zecile de baze de date utilizate în prezent. Celelalte baze de date, mai puțin întâlnite, sunt personalizate pentru funcționalități științifice, financiare sau de alt tip. În plus față de diferitele tipuri de baze de date, schimbările în abordarea dezvoltării tehnologice și progresele substanțiale precum cloudul și automatizarea, propulsează bazele de date în direcții complet noi. Unele dintre cele mai recente baze de date includ
+
+Baze de date open source
+Un sistem de baze de date open source are codul sursă de tip open source, de exemplu bazele de date SQL sau NoSQL.
+Baze de date în cloud
+O bază de date în cloud este o colecție de date structurată sau nestructurată, aflată pe o platformă de calcul în cloud privată, publică sau hibridă. Există două tipuri de baze de date în cloud: tradiționale și baza de date ca serviciu (DBaaS). Cu DBaaS, activitățile administrative și de mentenanță sunt efectuare de furnizorul serviciului.
+Baze de date multi-model
+Bazele de date multi-model combină diferite tipuri de modele de baze de date într-un singur sistem back-end integrat. Acest lucru înseamnă că puteți acomoda diverse tipuri de date.
+Baze de date pentru documente/JSON
+Concepute pentru stocarea, preluarea și gestionarea informațiilor sub formă de documente, bazele de date pentru documente sunt o modalitate modernă de stocare a datelor în format JSON, nu pe rânduri și coloane.
+Baze de date autonome
+Cel mai nou și mai revoluționar tip de baze de date, bazele de date autonome funcționează în cloud și utilizează machine learning pentru a automatiza reglarea, securizarea, backupul, actualizarea și alte activități obișnuite de management, efectuate de regulă de către administratorii bazelor de date.
