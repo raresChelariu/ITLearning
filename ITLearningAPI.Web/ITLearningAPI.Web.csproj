@@ -58,6 +58,7 @@
     <ProjectReference Include="..\Infrastructure\ITLearning.Infrastructure.Common\ITLearning.Infrastructure.DataAccess.Common.csproj" />
     <ProjectReference Include="..\Infrastructure\ITLearning.Infrastructure.DataAccess.Mssql\ITLearning.Infrastructure.DataAccess.Mssql.csproj" />
     <ProjectReference Include="..\ITLearning.Services\ITLearning.Services.csproj" />
+    <ProjectReference Include="..\ITLearning.Utils\ITLearning.Utils.csproj" />
     <ProjectReference Include="..\ITLearning.Web.StaticAssets\ITLearning.Web.StaticAssets.csproj" />
   </ItemGroup>
 

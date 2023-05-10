@@ -25,7 +25,7 @@ public class CourseScriptController : ControllerBase
     [Authorize(Roles = "Teacher")]
     public async Task<IActionResult> CreateScript([FromBody] ScriptCreateRequest request)
     {
-        var user = CurrentUser.GetFromHttpContext(HttpContext);
+        var user = CurrentUser.GetUser(HttpContext);
 
         var authorsCourse = await _courseRepository.GetByAuthorIdAndCourseId(user.Id, request.CourseId);
         if (authorsCourse == null)

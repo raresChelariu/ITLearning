@@ -1,6 +1,5 @@
 using ITLearningAPI.Web;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using ITLearningAPI.Web.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,21 +11,7 @@ builder.Services
        .AddItLearningServices(builder.Configuration);
 
 builder.Services
-       .AddAuthentication()
-       .AddJwtBearer(options =>
-       {
-           var secret = builder.Configuration["authorization:Secret"] ?? throw new ArgumentNullException(nameof(options));
-           options.SaveToken = true;
-           options.RequireHttpsMetadata = false;
-           options.TokenValidationParameters = new TokenValidationParameters
-           {
-               ValidateIssuer = true,
-               ValidateAudience = true,
-               ValidAudience = builder.Configuration["authorization:Audience"],
-               ValidIssuer = builder.Configuration["authorization:Issuer"],
-               IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
-           };
-       });
+       .AddAuthJwtOrCookie(builder.Configuration);
 
 builder.Services.AddOutputCache();
 

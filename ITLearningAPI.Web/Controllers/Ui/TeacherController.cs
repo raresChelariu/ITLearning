@@ -1,4 +1,5 @@
 ﻿using ITLearning.Web.StaticAssets;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITLearningAPI.Web.Controllers.Ui;
@@ -16,6 +17,7 @@ public class TeacherController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "Administrator,Teacher")]
     public async Task GetPage()
     {
         await HttpContext.Response.RespondWithStaticAsset(_staticAssetsConfiguration.DiskPath, "Teacher.html", "html", "text/html");

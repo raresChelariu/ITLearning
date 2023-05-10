@@ -22,7 +22,7 @@ public class CourseController : ControllerBase
     [Authorize(Roles = "Teacher")]
     public async Task<IActionResult> CreateCourse([FromBody] CourseCreateRequest request)
     {
-        var user = CurrentUser.GetFromHttpContext(HttpContext);
+        var user = HttpContext.GetUser();
 
         var course = new Course
         {
@@ -41,7 +41,7 @@ public class CourseController : ControllerBase
     [Authorize(Roles = "Teacher")]
     public async Task<IActionResult> GetCoursesForAuthor()
     {
-        var user = CurrentUser.GetFromHttpContext(HttpContext);
+        var user = HttpContext.GetUser();
 
         var courses = await _courseRepository.GetByAuthorId(user.Id);
 

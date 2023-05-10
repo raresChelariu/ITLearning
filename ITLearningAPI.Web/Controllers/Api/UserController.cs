@@ -5,9 +5,12 @@ using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using ITLearning.Services;
 using ITLearning.TypeGuards;
+using ITLearning.Utils.Contracts;
 using ITLearningAPI.Web.Authorization;
 using ITLearningAPI.Web.Contracts.User;
 using ITLearningAPI.Web.Mappers;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -20,18 +23,20 @@ public class UserController : ControllerBase
 {
     private readonly IAuthorizationSettings _authorizationSettings;
     private readonly IUserRepository _userRepository;
-
-    public UserController(IAuthorizationSettings authorizationSettings, IUserRepository userRepository)
+    private readonly IDateTimeProvider _dateTimeProvider;
+    
+    public UserController(IAuthorizationSettings authorizationSettings, IUserRepository userRepository, IDateTimeProvider dateTimeProvider)
     {
         _authorizationSettings = TypeGuard.ThrowIfNull(authorizationSettings);
         _userRepository = TypeGuard.ThrowIfNull(userRepository);
+        _dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
     }
 
     [AllowAnonymous]
     [HttpPost("register")]
     public async Task<ActionResult<User>> Register([FromBody] UserRegister request)
     {
-        var user = UserMapper.ToUser(request);
+        var user = request.ToUser();
 
         var userId = await _userRepository.InsertUserAsync(user);
         if (userId == -1)
@@ -52,7 +57,9 @@ public class UserController : ControllerBase
             return Unauthorized();
         }
 
-        var jwtToken = CreateToken(user, DateTime.Now.AddDays(1));
+        var jwtToken = CreateToken(user, _dateTimeProvider.UtcNow.AddDays(1));
+
+        await AddAuthCookie(user, HttpContext);
 
         return Ok(new
         {
@@ -61,11 +68,39 @@ public class UserController : ControllerBase
         });
     }
 
+    private async Task AddAuthCookie(User user, HttpContext context)
+    {
+        var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
+        identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Email));
+        identity.AddClaim(new Claim(ClaimTypes.Name, user.Email));
+        identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.ToString()));
+        var principal = new ClaimsPrincipal(identity);
+        await context.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            principal,
+            new AuthenticationProperties
+            {
+                IsPersistent = true,
+                AllowRefresh = true,
+                ExpiresUtc = _dateTimeProvider.UtcNow.AddDays(1)
+            });
+    }
+
+    [AllowAnonymous]
+    [HttpGet]
+    [Route("logout")]
+    public async Task<bool> Logout()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+        return true;
+    }
+
     [HttpGet]
     [Authorize(Roles = "Administrator,Teacher")]
     public IActionResult SomeEndpoint()
     {
-        var user = CurrentUser.GetFromHttpContext(HttpContext);
+        var user = HttpContext.GetUser();
         return Ok(new
         {
             user.Username,
@@ -76,13 +111,14 @@ public class UserController : ControllerBase
 
     private string CreateToken(User user, DateTime expirationDateTime)
     {
+        var userForRead = user.ToUserForRead();
+        var serializedUser = userForRead.JsonSerialized();
         var claims = new List<Claim>
         {
-            new(ClaimTypes.NameIdentifier, user.Username),
-            new(ClaimTypes.Email, user.Email),
-            new(ClaimTypes.Role, user.Role.ToString())
+            new(ClaimTypes.NameIdentifier, serializedUser),
+            new(ClaimTypes.Role, userForRead.Role.ToString())
         };
-
+        
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authorizationSettings.Secret));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 

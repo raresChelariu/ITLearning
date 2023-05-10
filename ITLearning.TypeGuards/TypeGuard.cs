@@ -24,4 +24,15 @@ public static class TypeGuard
 
         throw new ArgumentException($"{parameterName} is null or whitespace string !");
     }
+
+    public static int ThrowIfZeroOrNegative(int arg,
+        [CallerArgumentExpression("arg")] string parameterName = "param")
+    {
+        if (arg > 0)
+        {
+            return arg;
+        }
+
+        throw new ArgumentException($"{parameterName} is zero or negative !");
+    }
 }
