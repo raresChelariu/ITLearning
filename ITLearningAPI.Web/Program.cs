@@ -3,6 +3,12 @@ using ITLearningAPI.Web.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpClient("Internal", httpClient =>
+{
+    var internalUrl = builder.Configuration["InternalUrl"];
+    httpClient.BaseAddress = new Uri(internalUrl);
+});
+
 builder.Services.AddControllers();
 
 builder.Services

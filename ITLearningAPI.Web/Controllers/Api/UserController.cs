@@ -89,11 +89,12 @@ public class UserController : ControllerBase
     [AllowAnonymous]
     [HttpGet]
     [Route("logout")]
-    public async Task<bool> Logout()
+    public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-        return true;
+        HttpContext.Response.Cookies.Delete(".AspNetCore.Session");
+        HttpContext.Response.Cookies.Delete(".AspNetCore.Cookies");
+        return Ok();
     }
 
     [HttpGet]

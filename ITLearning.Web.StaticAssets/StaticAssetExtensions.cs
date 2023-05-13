@@ -9,7 +9,7 @@ public static class StaticAssetExtensions
 {
     public static async Task RespondWithStaticAsset(this HttpResponse response,
         string rootDiskPath, string receivedPath,
-        string targetFolderName, string contentType)
+        string targetFolderName = "html", string contentType = "text/html")
     {
 
         var fileDiskPath = Path.Combine(rootDiskPath, targetFolderName, receivedPath);

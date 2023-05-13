@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Static\html\AccessDenied.html" />
     <None Remove="Static\html\CourseCreate.html" />
     <None Remove="Static\html\CoursesAll.html" />
     <None Remove="Static\html\CoursesMine.html" />
@@ -32,6 +33,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Static\html\Index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Static\html\AccessDenied.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Static\html\Logout.html">
