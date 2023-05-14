@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using ITLearning.Web.StaticAssets;
+using ITLearningAPI.Web.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITLearningAPI.Web.Controllers.Ui;
@@ -8,11 +8,11 @@ namespace ITLearningAPI.Web.Controllers.Ui;
 [ApiController]
 public class IndexController : ControllerBase
 {
-    private readonly IStaticAssetsConfiguration _staticAssetsConfiguration;
+    private readonly IStaticAssetResponseService _staticAssetResponseService;
 
-    public IndexController(IStaticAssetsConfiguration staticAssetsConfiguration)
+    public IndexController(IStaticAssetResponseService staticAssetResponseService)
     {
-        _staticAssetsConfiguration = staticAssetsConfiguration ?? throw new ArgumentNullException(nameof(staticAssetsConfiguration));
+        _staticAssetResponseService = staticAssetResponseService ?? throw new ArgumentNullException(nameof(staticAssetResponseService));
     }
 
     [HttpGet]
@@ -49,10 +49,6 @@ public class IndexController : ControllerBase
 
     private async Task DirectToSignIn(HttpResponse response)
     {
-        await response.RespondWithStaticAsset(
-            rootDiskPath: _staticAssetsConfiguration.DiskPath,
-            receivedPath: "Index.html",
-            targetFolderName: "html",
-            contentType: "text/html");
+        await _staticAssetResponseService.RespondWithStaticAsset(response, "Index.html");
     }
 }

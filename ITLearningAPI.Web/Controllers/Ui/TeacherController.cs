@@ -1,4 +1,4 @@
-﻿using ITLearning.Web.StaticAssets;
+﻿using ITLearningAPI.Web.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,17 +9,17 @@ namespace ITLearningAPI.Web.Controllers.Ui;
 [Route("[controller]")]
 public class TeacherController : ControllerBase
 {
-    private readonly IStaticAssetsConfiguration _staticAssetsConfiguration;
+    private readonly IStaticAssetResponseService _staticAssetResponseService;
 
-    public TeacherController(IStaticAssetsConfiguration staticAssetsConfiguration)
+    public TeacherController(IStaticAssetResponseService staticAssetResponseService)
     {
-        _staticAssetsConfiguration = staticAssetsConfiguration ?? throw new ArgumentNullException(nameof(staticAssetsConfiguration));
+        _staticAssetResponseService = staticAssetResponseService ?? throw new ArgumentNullException(nameof(staticAssetResponseService));
     }
 
     [HttpGet]
     [Authorize(Roles = "Administrator,Teacher")]
     public async Task GetPage()
     {
-        await HttpContext.Response.RespondWithStaticAsset(_staticAssetsConfiguration.DiskPath, "Teacher.html");
+        await _staticAssetResponseService.RespondWithStaticAsset(Response, "Teacher.html");
     }
 }

@@ -1,4 +1,4 @@
-﻿using ITLearning.Web.StaticAssets;
+﻿using ITLearningAPI.Web.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITLearningAPI.Web.Controllers.Ui;
@@ -7,18 +7,18 @@ namespace ITLearningAPI.Web.Controllers.Ui;
 [Route("[controller]")]
 public class AccountController : ControllerBase
 {
-    private readonly IStaticAssetsConfiguration _staticAssetsConfiguration;
+    private readonly IStaticAssetResponseService _staticAssetResponseService;
 
-    public AccountController(IStaticAssetsConfiguration staticAssetsConfiguration)
+    public AccountController(IStaticAssetResponseService staticAssetResponseService)
     {
-        _staticAssetsConfiguration = staticAssetsConfiguration ?? throw new ArgumentNullException(nameof(staticAssetsConfiguration));
+        _staticAssetResponseService = staticAssetResponseService ?? throw new ArgumentNullException(nameof(staticAssetResponseService));
     }
 
     [HttpGet]
     [Route("AccessDenied")]
     public async Task<IActionResult> GetAccessDeniedPage()
     {
-        await HttpContext.Response.RespondWithStaticAsset(_staticAssetsConfiguration.DiskPath, "AccessDenied.html");
+        await _staticAssetResponseService.RespondWithStaticAsset(Response, "AccessDenied.html");
         return Ok();
     }
 }

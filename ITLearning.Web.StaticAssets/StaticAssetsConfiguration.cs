@@ -4,7 +4,8 @@ namespace ITLearning.Web.StaticAssets;
 
 internal class StaticAssetsConfiguration : IStaticAssetsConfiguration
 {
-    public string DiskPath { get; set; }
+    public string RootDiskPath { get; set; }
+    public IEnumerable<StaticAssetType> StaticAssetTypes { get; set; }
 
     public static StaticAssetsConfiguration GetFromConfiguration(IConfiguration configuration)
     {

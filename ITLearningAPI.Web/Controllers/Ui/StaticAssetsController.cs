@@ -1,4 +1,4 @@
-﻿using ITLearning.Web.StaticAssets;
+﻿using ITLearningAPI.Web.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 
@@ -7,20 +7,19 @@ namespace ITLearningAPI.Web.Controllers.Ui;
 [ApiController]
 public class StaticAssetsController : ControllerBase
 {
-    private readonly IStaticAssetsConfiguration _staticAssetsConfiguration;
+    private readonly IStaticAssetResponseService _staticAssetResponseService;
 
-    public StaticAssetsController(IStaticAssetsConfiguration staticAssetsConfiguration)
+    public StaticAssetsController(IStaticAssetResponseService staticAssetResponseService)
     {
-        _staticAssetsConfiguration = staticAssetsConfiguration ?? throw new ArgumentNullException(nameof(staticAssetsConfiguration));
+        _staticAssetResponseService = staticAssetResponseService ?? throw new ArgumentNullException(nameof(staticAssetResponseService));
     }
     
-
     [HttpGet]
     [Route("/css/{*path}")]
     [OutputCache]
     public async Task GetCss(string path)
     {
-        await HttpContext.Response.RespondWithStaticAsset(_staticAssetsConfiguration.DiskPath, path, "css", "text/css");
+        await _staticAssetResponseService.RespondWithStaticAsset(Response, path);
     }
 
     [HttpGet]
@@ -28,10 +27,7 @@ public class StaticAssetsController : ControllerBase
     [OutputCache]
     public async Task GetJs(string path)
     {
-        await HttpContext.Response.RespondWithStaticAsset(_staticAssetsConfiguration.DiskPath,
-            receivedPath: path,
-            targetFolderName: "js",
-            contentType: "text/javascript");
+        await _staticAssetResponseService.RespondWithStaticAsset(Response, path);
     }
 
     [HttpGet]
@@ -39,10 +35,7 @@ public class StaticAssetsController : ControllerBase
     [OutputCache]
     public async Task GetImages(string path)
     {
-        await HttpContext.Response.RespondWithStaticAsset(_staticAssetsConfiguration.DiskPath,
-            receivedPath: path,
-            targetFolderName: "image",
-            contentType: "image/png");
+        await _staticAssetResponseService.RespondWithStaticAsset(Response, path);
     }
 
 }

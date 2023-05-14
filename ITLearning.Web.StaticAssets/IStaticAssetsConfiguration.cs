@@ -4,5 +4,7 @@ public interface IStaticAssetsConfiguration
 {
     const string ConfigurationKey = "staticAssets";
 
-    string DiskPath { get; }
+    string RootDiskPath { get; }
+
+    public IEnumerable<StaticAssetType> StaticAssetTypes { get; }
 }

@@ -1,4 +1,4 @@
-﻿using ITLearning.Web.StaticAssets;
+﻿using ITLearningAPI.Web.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITLearningAPI.Web.Controllers.Ui;
@@ -7,12 +7,12 @@ namespace ITLearningAPI.Web.Controllers.Ui;
 public class LogoutController : ControllerBase
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly IStaticAssetsConfiguration _staticAssetsConfiguration;
+    private readonly IStaticAssetResponseService _staticAssetResponseService;
 
-    public LogoutController(IHttpClientFactory httpClientFactory, IStaticAssetsConfiguration staticAssetsConfiguration)
+    public LogoutController(IHttpClientFactory httpClientFactory, IStaticAssetResponseService staticAssetResponseService)
     {
         _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
-        _staticAssetsConfiguration = staticAssetsConfiguration ?? throw new ArgumentNullException(nameof(staticAssetsConfiguration));
+        _staticAssetResponseService = staticAssetResponseService ?? throw new ArgumentNullException(nameof(staticAssetResponseService));
     }
 
     [HttpGet]
@@ -22,8 +22,7 @@ public class LogoutController : ControllerBase
         var httpClient = _httpClientFactory.CreateClient("Internal");
         await httpClient.PostAsync("/api/user/logout", new StringContent(string.Empty));
         HttpContext.Response.Cookies.Delete(".AspNetCore.Cookies");
-        await HttpContext.Response.RespondWithStaticAsset(_staticAssetsConfiguration.DiskPath,
-            receivedPath: "Logout.html");
+        await _staticAssetResponseService.RespondWithStaticAsset(Response, "Logout.html");
         return Ok();
     }
 }

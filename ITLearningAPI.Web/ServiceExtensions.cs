@@ -2,6 +2,8 @@
 using ITLearning.Infrastructure.DataAccess.Mssql;
 using ITLearning.Utils;
 using ITLearning.Web.StaticAssets;
+using ITLearningAPI.Web.Interfaces;
+using ITLearningAPI.Web.Services;
 
 namespace ITLearningAPI.Web;
 
@@ -13,6 +15,7 @@ public static class ServiceExtensions
         services.AddDataAccessMssql();
         services.AddStaticAssets(configuration);
         services.AddUtils();
+        services.AddSingleton<IStaticAssetResponseService, StaticAssetResponseService>();
         return services;
     }
 }
