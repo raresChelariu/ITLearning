@@ -1,8 +1,8 @@
-﻿namespace ITLearning.Web.StaticAssets.Configuration;
+﻿namespace ITLearning.Web.StaticAssets;
 
 public interface IStaticAssetsConfiguration
 {
-    const string ConfigurationKey = "StaticAssets";
+    const string ConfigurationKey = "staticAssets";
 
     string RootDiskPath { get; }
 

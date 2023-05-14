@@ -1,4 +1,4 @@
-﻿using ITLearning.Web.StaticAssets.Contracts;
+﻿using ITLearningAPI.Web.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITLearningAPI.Web.Controllers.Ui;

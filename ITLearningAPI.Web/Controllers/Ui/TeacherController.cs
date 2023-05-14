@@ -1,4 +1,4 @@
-﻿using ITLearning.Web.StaticAssets.Contracts;
+﻿using ITLearningAPI.Web.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

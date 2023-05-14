@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace ITLearning.Web.StaticAssets.Contracts;
+﻿namespace ITLearningAPI.Web.Interfaces;
 
 public interface IStaticAssetResponseService
 {

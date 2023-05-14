@@ -1,12 +1,11 @@
 ﻿using System.Collections.Immutable;
+using ITLearning.Web.StaticAssets;
+using Microsoft.Net.Http.Headers;
 using System.Net;
 using System.Text;
-using ITLearning.Web.StaticAssets.Configuration;
-using ITLearning.Web.StaticAssets.Contracts;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Net.Http.Headers;
+using ITLearningAPI.Web.Interfaces;
 
-namespace ITLearning.Web.StaticAssets.Services;
+namespace ITLearningAPI.Web.Services;
 
 public class StaticAssetResponseService : IStaticAssetResponseService
 {
@@ -18,7 +17,7 @@ public class StaticAssetResponseService : IStaticAssetResponseService
         _staticAssetsConfiguration = staticAssetsConfiguration ?? throw new ArgumentNullException(nameof(staticAssetsConfiguration));
         _staticTypesMapping = BuildMappingDictionary(staticAssetsConfiguration.StaticAssetTypes);
     }
-
+    
     public async Task RespondWithStaticAsset(HttpResponse response, string receivedPath)
     {
         var extensionIndex = receivedPath.LastIndexOf(".", StringComparison.InvariantCultureIgnoreCase);
@@ -33,7 +32,7 @@ public class StaticAssetResponseService : IStaticAssetResponseService
         {
             response.StatusCode = (int)HttpStatusCode.NotFound;
             return;
-        }
+        } 
 
         var fileDiskPath = Path.Combine(_staticAssetsConfiguration.RootDiskPath, staticType.DiskFolder, receivedPath);
         if (!File.Exists(fileDiskPath))
