@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using ITLearningAPI.Web.Interfaces;
+using ITLearning.Web.StaticAssets.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITLearningAPI.Web.Controllers.Ui;

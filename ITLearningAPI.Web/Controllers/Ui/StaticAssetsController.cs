@@ -1,4 +1,4 @@
-﻿using ITLearningAPI.Web.Interfaces;
+﻿using ITLearning.Web.StaticAssets.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 

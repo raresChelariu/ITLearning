@@ -1,4 +1,4 @@
-﻿namespace ITLearning.Web.StaticAssets;
+﻿namespace ITLearning.Web.StaticAssets.Configuration;
 
 public record StaticAssetType
 {
@@ -6,5 +6,5 @@ public record StaticAssetType
     public string ContentType { get; init; }
 
     public string DiskFolder { get; init; }
-    
+
 }

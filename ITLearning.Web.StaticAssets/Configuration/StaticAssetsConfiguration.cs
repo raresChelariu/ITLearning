@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace ITLearning.Web.StaticAssets;
+namespace ITLearning.Web.StaticAssets.Configuration;
 
 internal class StaticAssetsConfiguration : IStaticAssetsConfiguration
 {
