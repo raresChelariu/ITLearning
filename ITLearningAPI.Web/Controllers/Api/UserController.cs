@@ -4,7 +4,6 @@ using System.Text;
 using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using ITLearning.Services;
-using ITLearning.TypeGuards;
 using ITLearning.Utils.Contracts;
 using ITLearningAPI.Web.Authorization;
 using ITLearningAPI.Web.Contracts.User;
@@ -27,8 +26,8 @@ public class UserController : ControllerBase
     
     public UserController(IAuthorizationSettings authorizationSettings, IUserRepository userRepository, IDateTimeProvider dateTimeProvider)
     {
-        _authorizationSettings = TypeGuard.ThrowIfNull(authorizationSettings);
-        _userRepository = TypeGuard.ThrowIfNull(userRepository);
+        _authorizationSettings = authorizationSettings ?? throw new ArgumentNullException(nameof(authorizationSettings));
+        _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         _dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
     }
 

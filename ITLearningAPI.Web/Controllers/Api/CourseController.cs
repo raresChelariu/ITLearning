@@ -1,6 +1,5 @@
 ﻿using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Contracts;
-using ITLearning.TypeGuards;
 using ITLearningAPI.Web.Contracts.Course;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +14,7 @@ public class CourseController : ControllerBase
 
     public CourseController(ICourseRepository courseRepository)
     {
-        _courseRepository = TypeGuard.ThrowIfNull(courseRepository);
+        _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
     }
 
     [HttpPost]

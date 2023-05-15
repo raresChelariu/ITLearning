@@ -1,5 +1,4 @@
 ﻿using ITLearning.Infrastructure.DataAccess.Contracts;
-using ITLearning.TypeGuards;
 using ITLearningAPI.Web.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +12,7 @@ public class VideoController : ControllerBase
 
     public VideoController(IVideoRepository videoRepository)
     {
-        _videoRepository = TypeGuard.ThrowIfNull(videoRepository);
+        _videoRepository = videoRepository ?? throw new ArgumentNullException(nameof(videoRepository));
     }
 
     [HttpPatch]

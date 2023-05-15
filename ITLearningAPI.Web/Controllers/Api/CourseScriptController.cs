@@ -1,6 +1,5 @@
 ﻿using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Contracts;
-using ITLearning.TypeGuards;
 using ITLearningAPI.Web.Contracts;
 using ITLearningAPI.Web.Contracts.Course;
 using Microsoft.AspNetCore.Authorization;
@@ -17,15 +16,15 @@ public class CourseScriptController : ControllerBase
 
     public CourseScriptController(ICourseScriptRepository courseScriptRepository, ICourseRepository courseRepository)
     {
-        _courseScriptRepository = TypeGuard.ThrowIfNull(courseScriptRepository);
-        _courseRepository = TypeGuard.ThrowIfNull(courseRepository);
+        _courseScriptRepository = courseScriptRepository ?? throw new ArgumentNullException(nameof(courseScriptRepository));
+        _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
     }
 
     [HttpPost]
     [Authorize(Roles = "Teacher")]
     public async Task<IActionResult> CreateScript([FromBody] ScriptCreateRequest request)
     {
-        var user = CurrentUser.GetUser(HttpContext);
+        var user = HttpContext.GetUser();
 
         var authorsCourse = await _courseRepository.GetByAuthorIdAndCourseId(user.Id, request.CourseId);
         if (authorsCourse == null)

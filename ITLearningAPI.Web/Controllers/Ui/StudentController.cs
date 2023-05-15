@@ -8,7 +8,6 @@ namespace ITLearningAPI.Web.Controllers.Ui;
 [Route("[controller]")]
 public class StudentController : ControllerBase
 {
-
     private readonly IStaticAssetResponseService _staticAssetResponseService;
 
     public StudentController(IStaticAssetResponseService staticAssetResponseService)
