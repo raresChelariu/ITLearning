@@ -2,7 +2,6 @@
 using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Common.Contracts;
 using ITLearning.Infrastructure.DataAccess.Contracts;
-using ITLearning.TypeGuards;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 
@@ -15,16 +14,16 @@ internal class SqlServerCourseScriptRepository : ICourseScriptRepository
 
     public SqlServerCourseScriptRepository(ILogger<SqlServerCourseScriptRepository> logger, IDatabaseConnector databaseConnector)
     {
-        _logger = TypeGuard.ThrowIfNull(logger);
-        _databaseConnector = TypeGuard.ThrowIfNull(databaseConnector);
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _databaseConnector = databaseConnector ?? throw new ArgumentNullException(nameof(databaseConnector));
     }
 
-    public async Task<int> CreateScript(CourseScript courseScript)
+    public async Task<long> CreateScript(CourseScript courseScript)
     {
         const string query = "CourseScriptInsert";
+        await using var connection = _databaseConnector.GetSqlConnection();
         try
         {
-            var connection = _databaseConnector.GetSqlConnection();
             await connection.OpenAsync();
             var command = new SqlCommand
             {
@@ -40,19 +39,59 @@ internal class SqlServerCourseScriptRepository : ICourseScriptRepository
             });
 
             await command.ExecuteNonQueryAsync();
-            var scriptId = -1;
+            var scriptId = -1L;
             if (command.Parameters["@Id"].Value != DBNull.Value)
             {
-                scriptId = (int) command.Parameters["@Id"].Value;
+                scriptId = (int)command.Parameters["@Id"].Value;
             }
+
             courseScript.ScriptId = scriptId;
             return scriptId;
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
-            throw;
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(CreateScript), ex);
+            return -1;
         }
+        finally
+        { 
+            await connection.DisposeAsync();
+        }
+    }
 
+    public async Task<CourseScript> GetScriptsByScriptId(long scriptId)
+    {
+        const string query = "SELECT ScriptID, CourseID, DatabaseSystem, ScriptName, SeedingScript FROM CourseScripts WHERE [ScriptID] = @ScriptId";
+        await using var connection = _databaseConnector.GetSqlConnection();
+        try
+        {
+            await connection.OpenAsync();
+            await using var command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@ScriptId", scriptId);
+            var reader = await command.ExecuteReaderAsync();
+            if (await reader.ReadAsync())
+            {
+                var courseScript = CreateScriptFromReader(reader);
+                return courseScript;
+            }
+            return null;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetScriptsByScriptId), ex);
+            return null;
+        }
+    }
+
+    private static CourseScript CreateScriptFromReader(SqlDataReader reader)
+    {
+        return new CourseScript
+        {
+            CourseId = reader.GetFromColumn<long>("CourseID"),
+            DatabaseSystem = reader.GetFromColumn<string>("DatabaseSystem"),
+            ScriptId = reader.GetFromColumn<long>("ScriptID"),
+            ScriptName = reader.GetFromColumn<string>("ScriptName"),
+            SeedingScript = reader.GetFromColumn<string>("SeedingScript")
+        };
     }
 }

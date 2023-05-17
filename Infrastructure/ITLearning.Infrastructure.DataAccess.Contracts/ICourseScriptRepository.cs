@@ -4,5 +4,5 @@ namespace ITLearning.Infrastructure.DataAccess.Contracts;
 
 public interface ICourseScriptRepository
 {
-    Task<int> CreateScript(CourseScript courseScript);
+    Task<long> CreateScript(CourseScript courseScript);
 }

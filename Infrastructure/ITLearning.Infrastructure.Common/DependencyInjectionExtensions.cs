@@ -1,4 +1,5 @@
 ﻿using ITLearning.Infrastructure.DataAccess.Common.Contracts;
+using ITLearning.Infrastructure.DataAccess.Common.Internals;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

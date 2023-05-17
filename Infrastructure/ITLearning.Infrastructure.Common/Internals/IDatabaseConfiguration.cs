@@ -1,4 +1,4 @@
-﻿namespace ITLearning.Infrastructure.DataAccess.Common;
+﻿namespace ITLearning.Infrastructure.DataAccess.Common.Internals;
 
 internal interface IDatabaseConfiguration
 {

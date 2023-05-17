@@ -2,7 +2,7 @@
 using ITLearning.TypeGuards;
 using Microsoft.Data.SqlClient;
 
-namespace ITLearning.Infrastructure.DataAccess.Common;
+namespace ITLearning.Infrastructure.DataAccess.Common.Internals;
 
 internal class DatabaseConnector : IDatabaseConnector
 {

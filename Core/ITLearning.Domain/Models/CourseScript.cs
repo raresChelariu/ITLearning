@@ -7,5 +7,5 @@ public class CourseScript
     public long CourseId { get; set; }
 
     public string ScriptName { get; set; }
-    public int ScriptId { get; set; }
+    public long ScriptId { get; set; }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using ITLearning.Domain.Models;
-using ITLearning.Infrastructure.DataAccess.Common;
 using ITLearning.Infrastructure.DataAccess.Common.Contracts;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using ITLearning.TypeGuards;

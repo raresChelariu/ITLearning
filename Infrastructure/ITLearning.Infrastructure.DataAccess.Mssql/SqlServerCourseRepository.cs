@@ -1,9 +1,7 @@
 ﻿using System.Data;
 using ITLearning.Domain.Models;
-using ITLearning.Infrastructure.DataAccess.Common;
 using ITLearning.Infrastructure.DataAccess.Common.Contracts;
 using ITLearning.Infrastructure.DataAccess.Contracts;
-using ITLearning.TypeGuards;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 
@@ -16,8 +14,8 @@ internal class SqlServerCourseRepository : ICourseRepository
 
     public SqlServerCourseRepository(ILogger<SqlServerUserRepository> logger, IDatabaseConnector databaseConnector)
     {
-        _logger = TypeGuard.ThrowIfNull(logger);
-        _databaseConnector = TypeGuard.ThrowIfNull(databaseConnector);
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _databaseConnector = databaseConnector ?? throw new ArgumentNullException(nameof(databaseConnector));
     }
 
     public async Task<long> Insert(Course course)
@@ -55,13 +53,13 @@ internal class SqlServerCourseRepository : ICourseRepository
                 courseId = (long) command.Parameters["@ID"].Value;
             }
             course.Id = courseId;
+            return courseId;
         }
         catch (Exception ex)
         {
             _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetAll), ex);
             return -1;
         }
-        throw new NotImplementedException();
     }
 
     public async Task<IEnumerable<Course>> GetByAuthorId(long authorId)

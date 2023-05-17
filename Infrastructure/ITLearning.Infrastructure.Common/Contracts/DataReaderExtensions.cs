@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 
-namespace ITLearning.Infrastructure.DataAccess.Common;
+namespace ITLearning.Infrastructure.DataAccess.Common.Contracts;
 
 public static class DataReaderExtensions
 {
@@ -8,7 +8,7 @@ public static class DataReaderExtensions
     {
         if (reader != null && reader[columnName] != DBNull.Value)
         {
-            return (T) reader[columnName];
+            return (T)reader[columnName];
         }
 
         return default;
