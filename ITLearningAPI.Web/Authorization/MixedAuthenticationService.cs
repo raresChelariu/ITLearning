@@ -43,9 +43,9 @@ public class MixedAuthenticationService : IMixedAuthenticationService
     private static string GetToken(string authorizationHeader, string cookieAuthToken)
     {
         var token = GetTokenFromAuthorizationHeader(authorizationHeader);
-        if (token is null)
+        if (token is not null)
         {
-            return null;
+            return token;
         }
         token = GetTokenFromCookies(cookieAuthToken);
         return token;
@@ -53,7 +53,7 @@ public class MixedAuthenticationService : IMixedAuthenticationService
 
     private static string GetTokenFromCookies(string cookieAuthToken)
     {
-        return null;
+        return cookieAuthToken;
     }
 
     private static string GetTokenFromAuthorizationHeader(string authHeader)

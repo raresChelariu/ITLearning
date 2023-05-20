@@ -2,5 +2,5 @@
 
 public static class AuthorizationSchemas
 {
-    public const string MixedCookieOrJwtAuthorizationSchema = "MixedCookieOrAuth";
+    public const string MixedSchema = "MixedCookieOrAuth";
 }

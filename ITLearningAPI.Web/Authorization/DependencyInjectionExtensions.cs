@@ -17,7 +17,7 @@ public static class DependencyInjectionExtensions
     public static AuthenticationBuilder AddMixedJwtCookieAuthentication(this AuthenticationBuilder builder)
     {
         builder.AddScheme<AuthenticationSchemeOptions, MixedAuthenticationHandler>(
-            AuthorizationSchemas.MixedCookieOrJwtAuthorizationSchema, _ => {}
+            AuthorizationSchemas.MixedSchema, _ => {}
         );
         return builder;
     }

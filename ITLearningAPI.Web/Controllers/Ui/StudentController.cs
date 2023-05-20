@@ -15,15 +15,15 @@ public class StudentController : ControllerBase
         _staticAssetResponseService = staticAssetResponseService ?? throw new ArgumentNullException(nameof(staticAssetResponseService));
     }
 
+    [Authorize(Roles = "AdminOrStudent")]
     [HttpGet]
-    [Authorize(Roles = "Administrator,Student")]
     public async Task GetPage()
     {
         await _staticAssetResponseService.RespondWithStaticAsset(Response, "Student.html");
     }
 
+    [Authorize(Roles = "AdminOrStudent")]
     [HttpGet("courses")]
-    [Authorize(Roles = "Administrator,Student")]
     public async Task GetStudentCourses()
     {
         await _staticAssetResponseService.RespondWithStaticAsset(Response, "CoursesAll.html");

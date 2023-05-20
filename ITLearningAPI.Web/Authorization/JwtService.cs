@@ -30,7 +30,8 @@ public class JwtService : IJwtService
             issuer: _authorizationSettings.Issuer,
             audience: _authorizationSettings.Audience,
             claims: claims,
-            signingCredentials: credentials
+            signingCredentials: credentials,
+            expires: expiration
         );
 
         var jwt = new JwtSecurityTokenHandler().WriteToken(token);
@@ -61,7 +62,8 @@ public class JwtService : IJwtService
         {
             ValidIssuer = _authorizationSettings.Issuer,
             IssuerSigningKey = key,
-            ValidateIssuerSigningKey = true
+            ValidateIssuerSigningKey = true,
+            ValidateAudience = false
         };
         return validationParameters;
     }

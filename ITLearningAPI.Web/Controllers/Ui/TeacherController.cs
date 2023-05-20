@@ -16,8 +16,8 @@ public class TeacherController : ControllerBase
         _staticAssetResponseService = staticAssetResponseService ?? throw new ArgumentNullException(nameof(staticAssetResponseService));
     }
 
+    [Authorize(Roles = "AdminOrTeacher")]
     [HttpGet]
-    [Authorize(Roles = "Administrator,Teacher")]
     public async Task GetPage()
     {
         await _staticAssetResponseService.RespondWithStaticAsset(Response, "Teacher.html");
