@@ -1,18 +1,14 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+﻿using System.Security.Claims;
 using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using ITLearning.Services;
 using ITLearning.Utils.Contracts;
-using ITLearningAPI.Web.Authorization;
 using ITLearningAPI.Web.Contracts.User;
 using ITLearningAPI.Web.Mappers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace ITLearningAPI.Web.Controllers.Api;
 
@@ -20,13 +16,12 @@ namespace ITLearningAPI.Web.Controllers.Api;
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly IAuthorizationSettings _authorizationSettings;
     private readonly IUserRepository _userRepository;
     private readonly IDateTimeProvider _dateTimeProvider;
     
-    public UserController(IAuthorizationSettings authorizationSettings, IUserRepository userRepository, IDateTimeProvider dateTimeProvider)
+    public UserController(IUserRepository userRepository, 
+        IDateTimeProvider dateTimeProvider)
     {
-        _authorizationSettings = authorizationSettings ?? throw new ArgumentNullException(nameof(authorizationSettings));
         _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         _dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
     }
@@ -56,7 +51,7 @@ public class UserController : ControllerBase
             return Unauthorized();
         }
 
-        var jwtToken = CreateToken(user, _dateTimeProvider.UtcNow.AddDays(1));
+        var jwtToken = CreateToken(user);
 
         await AddAuthCookie(user, HttpContext);
 
@@ -109,7 +104,7 @@ public class UserController : ControllerBase
         });
     }
 
-    private string CreateToken(User user, DateTime expirationDateTime)
+    private static string CreateToken(User user)
     {
         var userForRead = user.ToUserForRead();
         var serializedUser = userForRead.JsonSerialized();
@@ -119,20 +114,9 @@ public class UserController : ControllerBase
             new(ClaimTypes.Role, userForRead.Role.ToString())
         };
         
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authorizationSettings.Secret));
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        
 
-        var token = new JwtSecurityToken(
-            issuer: _authorizationSettings.Issuer,
-            audience: _authorizationSettings.Audience,
-            claims: claims,
-            expires: expirationDateTime,
-            signingCredentials: credentials
-        );
-
-        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-        return jwt;
+        return null;
     }
 
 }

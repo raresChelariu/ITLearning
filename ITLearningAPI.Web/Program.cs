@@ -9,7 +9,11 @@ builder.Services.AddHttpClient("Internal", httpClient =>
     httpClient.BaseAddress = new Uri(internalUrl);
 });
 
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+    .AddControllersAsServices();
+
+builder.Services.AddRouting();
 
 builder.Services
        .AddEndpointsApiExplorer()
@@ -17,25 +21,16 @@ builder.Services
        .AddItLearningServices(builder.Configuration);
 
 builder.Services
-       .AddAuthJwtOrCookie(builder.Configuration);
-
-builder.Services.AddOutputCache();
+    .AddAuthorizationDependencies(builder.Configuration)
+    .AddAuthentication()
+    .AddMixedJwtCookieAuthentication();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseRouting();
 
-app.UseOutputCache();
-
-app.UseHttpsRedirection();
-
-app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(ep => ep.MapControllers());
 
 app.Run();

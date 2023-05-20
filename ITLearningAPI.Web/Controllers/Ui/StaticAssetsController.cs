@@ -1,6 +1,5 @@
 ﻿using ITLearningAPI.Web.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OutputCaching;
 
 namespace ITLearningAPI.Web.Controllers.Ui;
 
@@ -16,7 +15,6 @@ public class StaticAssetsController : ControllerBase
     
     [HttpGet]
     [Route("/css/{*path}")]
-    [OutputCache]
     public async Task GetCss(string path)
     {
         await _staticAssetResponseService.RespondWithStaticAsset(Response, path);
@@ -24,7 +22,6 @@ public class StaticAssetsController : ControllerBase
 
     [HttpGet]
     [Route("/js/{*path}")]
-    [OutputCache]
     public async Task GetJs(string path)
     {
         await _staticAssetResponseService.RespondWithStaticAsset(Response, path);
@@ -32,7 +29,6 @@ public class StaticAssetsController : ControllerBase
 
     [HttpGet]
     [Route("/images/{*path}")]
-    [OutputCache]
     public async Task GetImages(string path)
     {
         await _staticAssetResponseService.RespondWithStaticAsset(Response, path);
