@@ -20,8 +20,8 @@ public class CourseScriptController : ControllerBase
         _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
     }
 
+    [Authorize(Policy = "AdminOrTeacher")]
     [HttpPost]
-    [Authorize(Roles = "Teacher")]
     public async Task<IActionResult> CreateScript([FromBody] ScriptCreateRequest request)
     {
         var user = HttpContext.GetUser();

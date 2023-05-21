@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ITLearningAPI.Web.Controllers.Ui;
 
-
 [ApiController]
 public class IndexController : ControllerBase
 {
@@ -19,7 +18,7 @@ public class IndexController : ControllerBase
     [Route("/")]
     public async Task<IActionResult> GetDefaultPage()
     {
-        if (!HttpContext.User.Identity.IsAuthenticated)
+        if (HttpContext.User.Identity is null || !HttpContext.User.Identity.IsAuthenticated)
         {
             await DirectToSignIn(HttpContext.Response);
             return Ok();

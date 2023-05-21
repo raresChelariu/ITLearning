@@ -145,4 +145,8 @@
     <Folder Include="Configuration\" />
   </ItemGroup>
 
+	<ItemGroup>
+		<InteralsVisibleTo Include="$(AssemblyName).Tests"/>
+		<InteralsVisibleTo Include="DynamicProxyGenAssembly2" />
+	</ItemGroup>
 </Project>

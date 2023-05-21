@@ -17,8 +17,8 @@ public class CourseController : ControllerBase
         _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
     }
 
+    [Authorize(Policy = "AdminOrTeacher")]
     [HttpPost]
-    [Authorize(Roles = "Teacher")]
     public async Task<IActionResult> CreateCourse([FromBody] CourseCreateRequest request)
     {
         var user = HttpContext.GetUser();
@@ -36,8 +36,8 @@ public class CourseController : ControllerBase
         return CreatedAtAction(nameof(CreateCourse), request);
     }
 
+    [Authorize(Policy = "AdminOrTeacher")]
     [HttpGet]
-    [Authorize(Roles = "Teacher")]
     public async Task<IActionResult> GetCoursesForAuthor()
     {
         var user = HttpContext.GetUser();

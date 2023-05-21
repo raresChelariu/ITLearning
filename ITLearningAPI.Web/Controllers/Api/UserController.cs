@@ -1,6 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+﻿using System.Security.Claims;
 using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using ITLearning.Services;
@@ -8,11 +6,8 @@ using ITLearning.Utils.Contracts;
 using ITLearningAPI.Web.Authorization;
 using ITLearningAPI.Web.Contracts.User;
 using ITLearningAPI.Web.Mappers;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace ITLearningAPI.Web.Controllers.Api;
 
@@ -20,15 +15,17 @@ namespace ITLearningAPI.Web.Controllers.Api;
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly IAuthorizationSettings _authorizationSettings;
     private readonly IUserRepository _userRepository;
     private readonly IDateTimeProvider _dateTimeProvider;
-    
-    public UserController(IAuthorizationSettings authorizationSettings, IUserRepository userRepository, IDateTimeProvider dateTimeProvider)
+    private readonly IJwtService _jwtService;
+
+    public UserController(IUserRepository userRepository
+        , IDateTimeProvider dateTimeProvider
+        , IJwtService jwtService)
     {
-        _authorizationSettings = authorizationSettings ?? throw new ArgumentNullException(nameof(authorizationSettings));
         _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         _dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
+        _jwtService = jwtService ?? throw new ArgumentNullException(nameof(jwtService));
     }
 
     [AllowAnonymous]
@@ -56,9 +53,9 @@ public class UserController : ControllerBase
             return Unauthorized();
         }
 
-        var jwtToken = CreateToken(user, _dateTimeProvider.UtcNow.AddDays(1));
+        var jwtToken = CreateToken(user);
 
-        await AddAuthCookie(user, HttpContext);
+        AddAuthCookie(jwtToken, HttpContext);
 
         return Ok(new
         {
@@ -67,37 +64,17 @@ public class UserController : ControllerBase
         });
     }
 
-    private async Task AddAuthCookie(User user, HttpContext context)
-    {
-        var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
-        identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Email));
-        identity.AddClaim(new Claim(ClaimTypes.Name, user.Email));
-        identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.ToString()));
-        var principal = new ClaimsPrincipal(identity);
-        await context.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            principal,
-            new AuthenticationProperties
-            {
-                IsPersistent = true,
-                AllowRefresh = true,
-                ExpiresUtc = _dateTimeProvider.UtcNow.AddDays(1)
-            });
-    }
-
     [AllowAnonymous]
     [HttpGet]
     [Route("logout")]
-    public async Task<IActionResult> Logout()
+    public Task<IActionResult> Logout()
     {
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        HttpContext.Response.Cookies.Delete(".AspNetCore.Session");
-        HttpContext.Response.Cookies.Delete(".AspNetCore.Cookies");
-        return Ok();
+        HttpContext.Response.Cookies.Delete("AuthToken");
+        return Task.FromResult<IActionResult>(Ok());
     }
 
+    [Authorize(Policy = "Administrator,Teacher")]
     [HttpGet]
-    [Authorize(Roles = "Administrator,Teacher")]
     public IActionResult SomeEndpoint()
     {
         var user = HttpContext.GetUser();
@@ -109,30 +86,29 @@ public class UserController : ControllerBase
         });
     }
 
-    private string CreateToken(User user, DateTime expirationDateTime)
+    private string CreateToken(User user)
     {
         var userForRead = user.ToUserForRead();
-        var serializedUser = userForRead.JsonSerialized();
+        var uniquenessId = Guid.NewGuid().ToString();
         var claims = new List<Claim>
         {
-            new(ClaimTypes.NameIdentifier, serializedUser),
-            new(ClaimTypes.Role, userForRead.Role.ToString())
+            new(ClaimTypes.Name, userForRead.Username),
+            new(ClaimTypes.Role, userForRead.Role.ToString()),
+            new(ClaimTypes.NameIdentifier, userForRead.Id.ToString()),
+            new(ClaimTypes.Email, userForRead.Email),
+            new(ClaimTypes.GivenName, uniquenessId)
         };
-        
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authorizationSettings.Secret));
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        var token = new JwtSecurityToken(
-            issuer: _authorizationSettings.Issuer,
-            audience: _authorizationSettings.Audience,
-            claims: claims,
-            expires: expirationDateTime,
-            signingCredentials: credentials
-        );
-
-        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-        return jwt;
+        var token = _jwtService.CreateJwtToken(claims);
+        return token;
     }
 
+    private void AddAuthCookie(string cookieValue, HttpContext context)
+    {
+        context.Response.Cookies.Append("AuthToken", cookieValue, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            Expires = _dateTimeProvider.UtcNow.AddMinutes(60)
+        });
+    }
 }
