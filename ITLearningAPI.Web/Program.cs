@@ -53,6 +53,10 @@ builder.Services.AddAuthorization(options =>
     {
         policy.RequireClaim(ClaimTypes.Role, "Administrator", "Student");
     });
+    options.AddPolicy("User", policy =>
+    {
+        policy.RequireClaim(ClaimTypes.Role, "Administrator", "Student", "Teacher");
+    });
 });
 
 var app = builder.Build();

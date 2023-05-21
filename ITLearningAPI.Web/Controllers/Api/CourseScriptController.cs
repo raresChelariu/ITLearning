@@ -32,11 +32,16 @@ public class CourseScriptController : ControllerBase
             return Conflict(new ApiError { ErrorMessage = "Course does not match the courses of the teacher" });
         }
 
+        if (!Enum.TryParse(request.DatabaseSystem, ignoreCase: true, out DatabaseSystems databaseSystem))
+        {
+            return BadRequest(ApiError.WithParameterException(request.DatabaseSystem));
+        }
+
         var courseScript = new CourseScript
         {
             CourseId = request.CourseId,
             SeedingScript = request.SeedingScript,
-            DatabaseSystem = request.DatabaseSystem,
+            DatabaseSystem = databaseSystem,
             ScriptName = request.ScriptName
         };
 

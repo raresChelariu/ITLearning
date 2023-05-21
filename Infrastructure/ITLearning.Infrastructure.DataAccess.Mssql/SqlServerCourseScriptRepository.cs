@@ -85,10 +85,12 @@ internal class SqlServerCourseScriptRepository : ICourseScriptRepository
 
     private static CourseScript CreateScriptFromReader(SqlDataReader reader)
     {
+        var databaseSystem = reader.GetFromColumn<short>("DatabaseSystemID");
+
         return new CourseScript
         {
             CourseId = reader.GetFromColumn<long>("CourseID"),
-            DatabaseSystem = reader.GetFromColumn<string>("DatabaseSystem"),
+            DatabaseSystem = (DatabaseSystems) databaseSystem,
             ScriptId = reader.GetFromColumn<long>("ScriptID"),
             ScriptName = reader.GetFromColumn<string>("ScriptName"),
             SeedingScript = reader.GetFromColumn<string>("SeedingScript")

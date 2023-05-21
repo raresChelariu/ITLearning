@@ -15,7 +15,7 @@ public static class TypeGuard
     }
 
     public static string ThrowIfStringIsNullOrWhitespace(string arg,
-        [CallerArgumentExpression("arg")] string parameterName = "param")
+        [CallerArgumentExpression(nameof(arg))] string parameterName = "param")
     {
         if (!string.IsNullOrWhiteSpace(arg))
         {
@@ -26,7 +26,7 @@ public static class TypeGuard
     }
 
     public static int ThrowIfZeroOrNegative(int arg,
-        [CallerArgumentExpression("arg")] string parameterName = "param")
+        [CallerArgumentExpression(nameof(arg))] string parameterName = "param")
     {
         if (arg > 0)
         {
