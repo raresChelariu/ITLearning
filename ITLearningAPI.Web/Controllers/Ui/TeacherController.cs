@@ -22,4 +22,19 @@ public class TeacherController : ControllerBase
     {
         await _staticAssetResponseService.RespondWithStaticAsset(Response, "Teacher.html");
     }
+
+    [Authorize(Policy = "AdminOrTeacher")]
+    [HttpGet("courses/mine")]
+    public async Task GetTeacherCourses()
+    {
+        await _staticAssetResponseService.RespondWithStaticAsset(Response, "CoursesMine.html");
+    }
+
+    [Authorize(Policy = "AdminOrTeacher")]
+    [HttpGet("courses/all")]
+    public async Task GetAllCourses()
+    {
+        await _staticAssetResponseService.RespondWithStaticAsset(Response, "CoursesAll.html");
+    }
 }
+

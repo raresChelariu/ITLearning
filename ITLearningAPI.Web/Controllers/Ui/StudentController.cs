@@ -23,8 +23,8 @@ public class StudentController : ControllerBase
     }
 
     [Authorize(Policy = "AdminOrStudent")]
-    [HttpGet("courses")]
-    public async Task GetStudentCourses()
+    [HttpGet("courses/all")]
+    public async Task GetAllCourses()
     {
         await _staticAssetResponseService.RespondWithStaticAsset(Response, "CoursesAll.html");
     }

@@ -108,7 +108,8 @@ public class UserController : ControllerBase
         {
             HttpOnly = true,
             Secure = true,
-            Expires = _dateTimeProvider.UtcNow.AddMinutes(60)
+            Expires = _dateTimeProvider.UtcNow.AddMinutes(60),
+            SameSite = SameSiteMode.Strict
         });
     }
 }
