@@ -5,5 +5,5 @@ namespace ITLearningAPI.Web.Contracts.Course;
 public class CourseCreateRequest
 {
     [Required]
-    public string CourseName;
+    public string CourseName { get; set; }
 }

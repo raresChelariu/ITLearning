@@ -29,15 +29,15 @@ internal class SqlServerCourseRepository : ICourseRepository
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add(new SqlParameter
             {
-                ParameterName = "@Name",
-                Value = course.Name,
-                SqlDbType = SqlDbType.VarChar,
-                Size = 128
+                ParameterName = "@AuthorID",
+                Value = course.AuthorId
             });
             command.Parameters.Add(new SqlParameter
             {
-                ParameterName = "@AuthorID",
-                Value = course.AuthorId
+                ParameterName = "@Name",
+                Value = course.Name,
+                Size = 128,
+                SqlDbType = SqlDbType.VarChar
             });
             command.Parameters.Add(new SqlParameter
             {

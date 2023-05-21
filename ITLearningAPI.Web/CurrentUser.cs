@@ -12,13 +12,18 @@ public static class CurrentUser
             return null;
         }
 
-        var userClaims = identity.Claims.ToDictionary(x => x.Type, x => x);
-        
+        var userClaims = identity.Claims.ToDictionary(x => x.Type, x => x.Value);
+        if (!long.TryParse(userClaims[ClaimTypes.NameIdentifier], out var userId))
+        {
+            return null;
+        }
+
         return new User
         {
-            Username = userClaims[ClaimTypes.NameIdentifier].Value,
-            Email = userClaims[ClaimTypes.Email].Value,
-            Role = Enum.Parse<UserRole>(userClaims[ClaimTypes.Role].Value, ignoreCase: true)
+            Username = userClaims[ClaimTypes.Name],
+            Role = Enum.Parse<UserRole>(userClaims[ClaimTypes.Role], ignoreCase: true),
+            Id = userId,
+            Email = userClaims[ClaimTypes.Email]
         };
     }
 }
