@@ -1,6 +1,9 @@
-using System.Security.Claims;
+using System.Diagnostics;
 using ITLearningAPI.Web;
 using ITLearningAPI.Web.Authorization;
+using ITLearningAPI.Web.Middleware;
+
+Activity.DefaultIdFormat = ActivityIdFormat.W3C;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,30 +36,7 @@ builder.Services
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("Teacher", policy =>
-    {
-        policy.RequireClaim(ClaimTypes.Role, "Teacher");
-    });
-    options.AddPolicy("Administrator", policy =>
-    {
-        policy.RequireClaim(ClaimTypes.Role, "Administrator");
-    });
-    options.AddPolicy("Student", policy =>
-    {
-        policy.RequireClaim(ClaimTypes.Role, "Student");
-    });
-    options.AddPolicy("AdminOrTeacher", policy =>
-    {
-        policy.RequireClaim(ClaimTypes.Role, "Administrator", "Teacher");
-    });
-    options.AddPolicy("AdminOrStudent", policy =>
-    {
-        policy.RequireClaim(ClaimTypes.Role, "Administrator", "Student");
-    });
-    options.AddPolicy("User", policy =>
-    {
-        policy.RequireClaim(ClaimTypes.Role, "Administrator", "Student", "Teacher");
-    });
+    options.AddItLearningPolicies();
 });
 
 var app = builder.Build();
@@ -66,7 +46,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseRouting();
-
+app.UseMiddleware<RequestLoggingMiddleware>();
 app.UseAuthorization();
 
 app.UseEndpoints(ep => ep.MapControllers());
