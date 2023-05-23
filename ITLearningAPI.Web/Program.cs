@@ -40,15 +40,15 @@ builder.Services.AddAuthorization(options =>
 });
 
 var app = builder.Build();
-if (app.Environment.IsDevelopment()) 
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseAuthentication();
 app.UseRouting();
-app.UseMiddleware<RequestLoggingMiddleware>();
 app.UseAuthorization();
-
 app.UseEndpoints(ep => ep.MapControllers());
-
+app.UseMiddleware<RequestLoggingMiddleware>();
 app.Run();

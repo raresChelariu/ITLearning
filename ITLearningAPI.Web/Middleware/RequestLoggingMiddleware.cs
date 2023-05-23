@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System;
 using System.Text;
 
 namespace ITLearningAPI.Web.Middleware;

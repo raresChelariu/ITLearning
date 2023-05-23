@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using ITLearningAPI.Web.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITLearningAPI.Web.Controllers.Ui;
@@ -7,21 +7,14 @@ namespace ITLearningAPI.Web.Controllers.Ui;
 [ApiController]
 public class IndexController : ControllerBase
 {
-    private readonly IStaticAssetResponseService _staticAssetResponseService;
-
-    public IndexController(IStaticAssetResponseService staticAssetResponseService)
-    {
-        _staticAssetResponseService = staticAssetResponseService ?? throw new ArgumentNullException(nameof(staticAssetResponseService));
-    }
-
+    [AllowAnonymous]
     [HttpGet]
     [Route("/")]
     public async Task<IActionResult> GetDefaultPage()
     {
         if (HttpContext.User.Identity is null || !HttpContext.User.Identity.IsAuthenticated)
         {
-            await DirectToSignIn(HttpContext.Response);
-            return Ok();
+            return Redirect("/login");
         }
 
         var claims = HttpContext.User.Claims;
@@ -29,25 +22,18 @@ public class IndexController : ControllerBase
         var roleValue = roleClaim?.Value;
         if (string.IsNullOrEmpty(roleValue))
         {
-            await DirectToSignIn(HttpContext.Response);
-            return Ok();
+            return Redirect("/login");
         }
 
         roleValue = roleValue.ToLowerInvariant();
         switch (roleValue)
         {
             case "teacher":
-                return RedirectPreserveMethod("https://localhost:7032/teacher");
+                return Redirect("/teacher");
             case "student":
-                return RedirectPermanent("https://localhost:7032/student");
+                return Redirect("/student");
             default:
-                await DirectToSignIn(HttpContext.Response);
-                return Ok();
+                return Redirect("/login");
         }
-    }
-
-    private async Task DirectToSignIn(HttpResponse response)
-    {
-        await _staticAssetResponseService.RespondWithStaticAsset(response, "Index.html");
     }
 }

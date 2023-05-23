@@ -23,6 +23,7 @@ public class MixedAuthenticationHandler : AuthenticationHandler<AuthenticationSc
     {
         var authorizationHeader = Request.Headers["Authorization"].ToString();
         var cookieAuthToken = Request.Cookies["AuthToken"];
-        return await _authenticationService.GetAuthenticationResultFromHeaders(authorizationHeader, cookieAuthToken, Scheme.Name);
+        var authenticateResult = await _authenticationService.GetAuthenticationResultFromHeaders(authorizationHeader, cookieAuthToken, Scheme.Name);
+        return authenticateResult;
     }
 }

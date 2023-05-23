@@ -1,6 +1,5 @@
 ﻿using System.Collections.Immutable;
 using ITLearning.Web.StaticAssets;
-using Microsoft.Net.Http.Headers;
 using System.Net;
 using System.Text;
 using ITLearningAPI.Web.Interfaces;
@@ -24,6 +23,7 @@ public class StaticAssetResponseService : IStaticAssetResponseService
         if (extensionIndex == -1)
         {
             response.StatusCode = (int)HttpStatusCode.NotFound;
+            await response.CompleteAsync();
             return;
         }
         var extension = receivedPath[(extensionIndex + 1)..];
@@ -31,6 +31,7 @@ public class StaticAssetResponseService : IStaticAssetResponseService
         if (!isStaticTypeDefined)
         {
             response.StatusCode = (int)HttpStatusCode.NotFound;
+            await response.CompleteAsync();
             return;
         } 
 
@@ -38,13 +39,14 @@ public class StaticAssetResponseService : IStaticAssetResponseService
         if (!File.Exists(fileDiskPath))
         {
             response.StatusCode = (int)HttpStatusCode.NotFound;
+            await response.CompleteAsync();
             return;
         }
-
-        response.Headers[HeaderNames.ContentType] = staticType.ContentType;
-
+        
         var contents = await File.ReadAllTextAsync(fileDiskPath);
+        response.StatusCode = (int)HttpStatusCode.OK;
         await response.Body.WriteAsync(Encoding.UTF8.GetBytes(contents));
+        await response.CompleteAsync();
     }
 
     private static IImmutableDictionary<string, StaticAssetType> BuildMappingDictionary(IEnumerable<StaticAssetType> staticAssetTypes)
