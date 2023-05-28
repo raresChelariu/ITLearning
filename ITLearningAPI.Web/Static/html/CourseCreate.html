@@ -2,57 +2,23 @@
 <html lang="ro">
 <head>
     <title>ITLearning</title>
-    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/Creare.css">
+    <link rel="stylesheet" href="/css/Creare.css">
     <meta charset="utf-8">
 
 </head>
 <body>
     <div class="topnav">
-        <div onclick="Acasa()" class="acasa">
-            <script>
-                function Acasa() {
-                    location.href = ("Profesor.html")
-                }
-            </script>
-            <a href="#home">Acasa</a>
-        </div>
-        <div onclick="toatecursurile()" class="toate-cursurile">
-            <script>
-                function toatecursurile() {
-                    location.href = ("ToateCursurile.html")
-                }
-            </script>
-            <a href="#toatecursurile">Toate cursurile</a>
-        </div>
-        <div onclick="cursuri()" class="cursuri">
-            <script>
-                function cursuri() {
-                    location.href = ("Cursuri.html")
-                }
-            </script>
-            <a href="#cursuri">Cursurile mele</a>
-        </div>
-        <div onclick="Creare()" class="creare">
-            <script>
-                function Creare() {
-                    location.href = ("Creare.html")
-                }
-            </script>
-            <a class="active" href="#creeare">Creare curs</a>
+        <div class="acasa">
+            <a href="/">Acasa</a>
         </div>
         <div class="topnav-right">
-            <div onclick="Logout()" class="logout">
-                <script>
-                    function Logout() {
-                        location.href = ("homepage.html")
-                    }
-                </script>
-                <a href="#search">Log out</a>
+            <div class="logout">
+                <a href="/logout">Log out</a>
             </div>
         </div>
 
@@ -67,10 +33,10 @@
             <span class="icon icon-cross"></span>
         </a>
         <br>
-        <a onclick="Acasa()" href="#">Acasa</a>
-        <a onclick="Text()" href="#">Curs Text</a>
-        <a onclick="Video()" href="#">Curs Video</a>
-        <a onclick="Quizz()" href="#">Quizz</a>
+        <a href="#">Acasa</a>
+        <a href="#">Curs Text</a>
+        <a href="#">Curs Video</a>
+        <a href="#">Quizz</a>
     </nav>
     <main>
         <br>
