@@ -6,6 +6,7 @@ using ITLearningAPI.Web.Middleware;
 Activity.DefaultIdFormat = ActivityIdFormat.W3C;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddSerilogLogging();
 
 builder.Services.AddHttpClient("Internal", httpClient =>
 {
