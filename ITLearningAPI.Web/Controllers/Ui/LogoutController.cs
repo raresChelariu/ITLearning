@@ -17,12 +17,11 @@ public class LogoutController : ControllerBase
 
     [HttpGet]
     [Route("/logout")]
-    public async Task<IActionResult> GetLogoutPage()
+    public async Task GetLogoutPage()
     {
         var httpClient = _httpClientFactory.CreateClient("Internal");
         await httpClient.PostAsync("/api/user/logout", new StringContent(string.Empty));
         HttpContext.Response.Cookies.Delete("AuthToken");
         await _staticAssetResponseService.RespondWithStaticAsset(Response, "Logout.html");
-        return Ok();
     }
 }
