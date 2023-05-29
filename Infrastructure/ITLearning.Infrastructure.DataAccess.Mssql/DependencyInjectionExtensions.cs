@@ -12,6 +12,7 @@ public static class DependencyInjectionExtensions
         services.AddSingleton<ICourseRepository, SqlServerCourseRepository>();
         services.AddSingleton<ICourseScriptRepository, SqlServerCourseScriptRepository>();
         services.AddSingleton<IQuizRepository, SqlServerQuizRepository>();
+        services.AddSingleton<ICourseWikiRepository, SqlServerCourseWikiRepository>();
         return services;
     } 
 }

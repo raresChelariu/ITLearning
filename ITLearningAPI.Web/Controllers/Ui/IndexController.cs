@@ -26,14 +26,11 @@ public class IndexController : ControllerBase
         }
 
         roleValue = roleValue.ToLowerInvariant();
-        switch (roleValue)
+        return roleValue switch
         {
-            case "teacher":
-                return Redirect("/teacher");
-            case "student":
-                return Redirect("/student");
-            default:
-                return Redirect("/login");
-        }
+            "teacher" => Redirect("/teacher"),
+            "student" => Redirect("/student"),
+            _ => Redirect("/login")
+        };
     }
 }

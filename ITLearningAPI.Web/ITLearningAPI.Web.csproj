@@ -108,9 +108,6 @@
     <None Update="Static\css\Text.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Static\css\Text.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Static\css\ToateCursurile.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

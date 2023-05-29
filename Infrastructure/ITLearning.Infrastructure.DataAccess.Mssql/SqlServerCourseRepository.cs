@@ -137,6 +137,31 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
     }
 
+    public async Task<Course> GetById(long courseId)
+    {
+        const string query = "SELECT [ID], [Name], [AuthorId], [CreatedDateTime] FROM [dbo].[Courses] WHERE [ID]=@CourseId";
+        try
+        {
+            await using var connection = _databaseConnector.GetSqlConnection();
+            await connection.OpenAsync();
+            await using var command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@CourseId", courseId);
+            var reader = await command.ExecuteReaderAsync();
+            if (!await reader.ReadAsync())
+            {
+                return null;
+            }
+
+            var course = CreateCourseFromReader(reader);
+            return course;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetAll), ex);
+            return null;
+        }
+    }
+
     private static Course CreateCourseFromReader(SqlDataReader reader)
     {
         return new Course

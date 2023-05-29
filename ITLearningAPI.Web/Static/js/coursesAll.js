@@ -21,7 +21,7 @@ fetch("https://localhost:7033/api/course/all", {
         const courseId = responseResult[i]["id"];
         course.dataset.id = courseId;
         course.addEventListener("click", () => {
-            window.location.replace(`/courses/${courseId}`);
+            window.location.replace(`/course/${courseId}`);
         });
 
         listCourses.appendChild(course);
