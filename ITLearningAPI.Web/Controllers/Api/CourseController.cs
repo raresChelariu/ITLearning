@@ -1,5 +1,6 @@
 ﻿using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Contracts;
+using ITLearningAPI.Web.Authorization;
 using ITLearningAPI.Web.Contracts.Course;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ public class CourseController : ControllerBase
         _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
     }
 
-    [Authorize(Policy = "AdminOrTeacher")]
+    [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]
     [HttpPost]
     public async Task<IActionResult> CreateCourse([FromBody] CourseCreateRequest request)
     {
@@ -36,7 +37,7 @@ public class CourseController : ControllerBase
         return CreatedAtAction(nameof(CreateCourse), request);
     }
 
-    [Authorize(Policy = "AdminOrTeacher")]
+    [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]
     [HttpGet]
     public async Task<IActionResult> GetCoursesForAuthor()
     {
@@ -50,7 +51,7 @@ public class CourseController : ControllerBase
         return Ok(courses);
     }
 
-    [Authorize(Policy = "User")]
+    [Authorize(Policy = AuthorizationPolicies.User)]
     [HttpGet("all")]
     public async Task<IActionResult> GetAllCourses()
     {
@@ -61,5 +62,7 @@ public class CourseController : ControllerBase
 
         return Ok(courses);
     }
+    
+    
 }
 

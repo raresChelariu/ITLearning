@@ -1,4 +1,5 @@
-﻿using ITLearningAPI.Web.Interfaces;
+﻿using ITLearningAPI.Web.Authorization;
+using ITLearningAPI.Web.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,14 +16,14 @@ public class StudentController : ControllerBase
         _staticAssetResponseService = staticAssetResponseService ?? throw new ArgumentNullException(nameof(staticAssetResponseService));
     }
 
-    [Authorize(Policy = "AdminOrStudent")]
+    [Authorize(Policy = AuthorizationPolicies.AdminOrStudent)]
     [HttpGet]
     public async Task GetPage()
     {
         await _staticAssetResponseService.RespondWithStaticAsset(Response, "Student.html");
     }
 
-    [Authorize(Policy = "AdminOrStudent")]
+    [Authorize(Policy = AuthorizationPolicies.AdminOrStudent)]
     [HttpGet("courses/all")]
     public async Task GetAllCourses()
     {

@@ -1,5 +1,6 @@
 ﻿using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Contracts;
+using ITLearningAPI.Web.Authorization;
 using ITLearningAPI.Web.Contracts;
 using ITLearningAPI.Web.Contracts.Quiz;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +21,7 @@ public class QuizController : ControllerBase
         _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
     }
 
-    [Authorize(Policy = "Teacher")]
+    [Authorize(Policy =  AuthorizationPolicies.Teacher)]
     [HttpPost]
     public async Task<IActionResult> CreateQuiz([FromBody] QuizCreateRequest request)
     {

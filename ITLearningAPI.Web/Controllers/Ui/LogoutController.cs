@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ITLearningAPI.Web.Controllers.Ui;
 
 [ApiController]
+[Route("[controller]")]
 public class LogoutController : ControllerBase
 {
     private readonly IHttpClientFactory _httpClientFactory;
@@ -16,7 +17,6 @@ public class LogoutController : ControllerBase
     }
 
     [HttpGet]
-    [Route("/logout")]
     public async Task GetLogoutPage()
     {
         var httpClient = _httpClientFactory.CreateClient("Internal");

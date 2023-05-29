@@ -5,6 +5,11 @@ namespace ITLearningAPI.Web.Authorization;
 
 public static class AuthorizationPolicies
 {
+    public const string Teacher = "Teacher";
+    public const string AdminOrTeacher = "AdminOrTeacher";
+    public const string AdminOrStudent = "AdminOrStudent";
+    public const string User = "User";
+    
     public static void AddItLearningPolicies(this AuthorizationOptions options)
     {
         options.AddPolicy("Teacher", policy =>
