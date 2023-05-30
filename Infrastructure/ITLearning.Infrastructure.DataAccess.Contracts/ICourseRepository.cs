@@ -9,4 +9,5 @@ public interface ICourseRepository
     Task<IEnumerable<Course>> GetAll();
     Task<Course> GetByAuthorIdAndCourseId(long authorId, long courseId);
     Task<Course> GetById(long courseId);
+    Task<IEnumerable<CourseTitle>> GetTitlesByCourseId(long courseId);
 }

@@ -62,7 +62,13 @@ public class CourseController : ControllerBase
 
         return Ok(courses);
     }
-    
-    
+
+    [Authorize(Policy = AuthorizationPolicies.User)]
+    [HttpGet("{courseId:long}/titles")]
+    public async Task<IActionResult> GetCourseTitles([FromRoute] long courseId)
+    {
+        var courseTitles = await _courseRepository.GetTitlesByCourseId(courseId);
+        return Ok(courseTitles?.Select(x => new { x.ItemId, x.ItemTitle, Type = x.ItemType.ToString()}));
+    }
 }
 

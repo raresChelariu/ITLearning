@@ -1,7 +1,10 @@
 ﻿using System.Data;
+using Dapper;
 using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Common.Contracts;
 using ITLearning.Infrastructure.DataAccess.Contracts;
+using ITLearning.Infrastructure.DataAccess.Mssql.DatabaseModelMapping;
+using ITLearning.Infrastructure.DataAccess.Mssql.DatabaseModels;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 
@@ -162,6 +165,27 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
     }
 
+    public async Task<IEnumerable<CourseTitle>> GetTitlesByCourseId(long courseId)
+    {
+        const string query = "CourseGetTitlesByCourseID";
+        try
+        {
+            await using var connection = _databaseConnector.GetSqlConnection();
+            await connection.OpenAsync();
+            var parameters = new DynamicParameters(new
+            {
+                CourseID = courseId
+            });
+            var result = await connection.QueryAsync<CourseTitleDbDto>(query, parameters, null, null, CommandType.StoredProcedure);
+            return result?.Select(x => x.ToCourseTitle());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetAll), ex);
+            return null;
+        }
+    }
+    
     private static Course CreateCourseFromReader(SqlDataReader reader)
     {
         return new Course
