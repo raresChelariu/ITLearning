@@ -10,7 +10,7 @@ public class IndexController : ControllerBase
     [AllowAnonymous]
     [HttpGet]
     [Route("/")]
-    public async Task<IActionResult> GetDefaultPage()
+    public IActionResult GetDefaultPage()
     {
         if (HttpContext.User.Identity is null || !HttpContext.User.Identity.IsAuthenticated)
         {
