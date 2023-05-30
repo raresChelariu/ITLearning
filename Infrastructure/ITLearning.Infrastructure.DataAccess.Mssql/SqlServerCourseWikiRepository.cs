@@ -28,7 +28,8 @@ public class SqlServerCourseWikiRepository : ICourseWikiRepository
             var parameters = new DynamicParameters(new
             {
                 CourseID = wiki.CourseId,
-                WikiText = wiki.CourseWikiText                
+                WikiText = wiki.CourseWikiText,
+                WikiTitle = wiki.Title
             });
             var result = await connection.QueryFirstOrDefaultAsync<long>(query, parameters, null, null, CommandType.StoredProcedure);
             if (result == default)

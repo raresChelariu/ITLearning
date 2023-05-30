@@ -1,4 +1,6 @@
-console.log(GetCourseId())
+const courseId = GetCourseId(); 
+console.log(courseId);
+
 function GetCourseId()
 {
     const url = window.location.href;

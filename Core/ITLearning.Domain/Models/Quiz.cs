@@ -7,4 +7,5 @@ public class Quiz
     public string QuestionText { get; set; }
     
     public List<QuizChoice> PossibleAnswers { get; set; }
+    public string QuizTitle { get; set; }
 }

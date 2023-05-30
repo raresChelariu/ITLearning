@@ -35,6 +35,7 @@ public class SqlServerQuizRepository : IQuizRepository
             {
                 CourseID = quiz.CourseId,
                 quiz.QuestionText,
+                quiz.QuizTitle,
                 PossibleAnswers = choicesDataTable.AsTableValuedParameter("QuizChoicesList")
             });
             var quizResult = await connection.QueryFirstOrDefaultAsync<long>(query, parameters, commandType: CommandType.StoredProcedure);

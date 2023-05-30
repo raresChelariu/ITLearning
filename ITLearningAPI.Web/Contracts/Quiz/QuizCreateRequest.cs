@@ -6,4 +6,5 @@ public class QuizCreateRequest
     public string QuestionText { get; set; }
 
     public IEnumerable<QuizChoiceTextAndCorrectnessRequestDto> Choices { get; set; }
+    public string QuizTitle { get; set; }
 }

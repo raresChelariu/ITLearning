@@ -41,6 +41,7 @@ public class QuizController : ControllerBase
         {
             CourseId = request.CourseId,
             QuestionText = request.QuestionText,
+            QuizTitle = request.QuizTitle,
             PossibleAnswers = request.Choices.Select(x => new QuizChoice
             {
                 ChoiceText = x.ChoiceText,

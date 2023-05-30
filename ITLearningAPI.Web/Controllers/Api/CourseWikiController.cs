@@ -39,7 +39,8 @@ public class CourseWikiController : ControllerBase
         var wiki = new CourseWiki
         {
             CourseId = request.CourseId,
-            CourseWikiText = request.CourseWikiText
+            CourseWikiText = request.CourseWikiText,
+            Title = request.Title
         };
         var result = await _courseWikiRepository.CreateWiki(wiki);
         if (result == -1)
