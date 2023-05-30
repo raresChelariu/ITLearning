@@ -42,7 +42,8 @@ public class StaticAssetResponseService : IStaticAssetResponseService
             await response.CompleteAsync();
             return;
         }
-        
+
+        response.Headers.ContentType = staticType.ContentType;
         var contents = await File.ReadAllTextAsync(fileDiskPath);
         response.StatusCode = (int)HttpStatusCode.OK;
         await response.Body.WriteAsync(Encoding.UTF8.GetBytes(contents));
