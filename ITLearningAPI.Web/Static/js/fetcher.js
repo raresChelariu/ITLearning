@@ -1,4 +1,4 @@
-export function fetchHttpGet(path) {
+export function FetchHttpGet(path) {
     const fetchPromise = fetch(path, {
         method: "GET",
         mode: "cors",
@@ -19,7 +19,7 @@ export function fetchHttpGet(path) {
     });
 }
 
-export function fetchHttpPost(path, requestBody) {
+export function FetchHttpPost(path, requestBody) {
     const fetchPromise = fetch("api/user/login",
         {
             method: "POST",
