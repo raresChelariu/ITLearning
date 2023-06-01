@@ -1,4 +1,5 @@
-﻿using ITLearning.Infrastructure.DataAccess.Common;
+﻿using ITLearning.Course.Core;
+using ITLearning.Infrastructure.DataAccess.Common;
 using ITLearning.Infrastructure.DataAccess.Mssql;
 using ITLearning.Utils;
 using ITLearning.Web.StaticAssets;
@@ -17,6 +18,7 @@ public static class ServiceExtensions
         services.AddStaticAssets(configuration);
         services.AddUtils();
         services.AddSingleton<IStaticAssetResponseService, StaticAssetResponseService>();
+        services.AddCourseCore();
         return services;
     }
 

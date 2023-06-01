@@ -3,11 +3,11 @@ using ITLearning.Infrastructure.DataAccess.Mssql.DatabaseModels;
 
 namespace ITLearning.Infrastructure.DataAccess.Mssql.DatabaseModelMapping;
 
-public static class CourseTitleMapperExtensions
+internal static class ItemDetailMapperExtensions
 {
-    public static CourseTitle ToCourseTitle(this CourseTitleDbDto dto)
+    public static ItemDetail ToItemDetails(this ItemDetailsDbDto dto)
     {
-        return new CourseTitle
+        return new ItemDetail
         {
             ItemId = dto.ItemId,
             ItemTitle = dto.ItemTitle,

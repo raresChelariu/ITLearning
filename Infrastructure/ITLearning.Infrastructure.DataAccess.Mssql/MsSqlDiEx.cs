@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ITLearning.Infrastructure.DataAccess.Mssql;
 
-public static class DependencyInjectionExtensions
+public static class MsSqlDiEx
 {
     public static IServiceCollection AddDataAccessMssql(this IServiceCollection services)
     {
@@ -13,6 +13,7 @@ public static class DependencyInjectionExtensions
         services.AddSingleton<ICourseScriptRepository, SqlServerCourseScriptRepository>();
         services.AddSingleton<IQuizRepository, SqlServerQuizRepository>();
         services.AddSingleton<ICourseWikiRepository, SqlServerCourseWikiRepository>();
+        services.AddSingleton<ICourseItemRepository, SqlServerCourseItemRepository>();
         return services;
     } 
 }

@@ -21,7 +21,7 @@ function GetCourseId() {
 }
 
 function GetCourseTitles(courseId) {
-    return fetchHttpGet(`/api/course/${courseId}/titles`);
+    return fetchHttpGet(`/api/item/course/${courseId}`);
 }
 
 function GetTitleElement(data) {

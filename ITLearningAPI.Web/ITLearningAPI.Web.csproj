@@ -67,6 +67,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core\ITLearning.Course.Core\ITLearning.Course.Core.csproj" />
     <ProjectReference Include="..\Infrastructure\ITLearning.Infrastructure.Common\ITLearning.Infrastructure.DataAccess.Common.csproj" />
     <ProjectReference Include="..\Infrastructure\ITLearning.Infrastructure.DataAccess.Mssql\ITLearning.Infrastructure.DataAccess.Mssql.csproj" />
     <ProjectReference Include="..\ITLearning.Services\ITLearning.Services.csproj" />

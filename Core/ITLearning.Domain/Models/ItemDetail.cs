@@ -1,6 +1,6 @@
 namespace ITLearning.Domain.Models;
 
-public class CourseTitle
+public class ItemDetail
 {
     public long ItemId { get; set; }
     public string ItemTitle { get; set; }
