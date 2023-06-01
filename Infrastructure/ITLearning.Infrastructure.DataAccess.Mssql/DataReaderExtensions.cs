@@ -1,8 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 
-namespace ITLearning.Infrastructure.DataAccess.Common.Contracts;
+namespace ITLearning.Infrastructure.DataAccess.Mssql;
 
-public static class DataReaderExtensions
+internal static class DataReaderExtensions
 {
     public static T GetFromColumn<T>(this SqlDataReader reader, string columnName)
     {

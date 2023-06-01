@@ -5,7 +5,7 @@ using ITLearning.Infrastructure.DataAccess.Common.Contracts;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using Microsoft.Extensions.Logging;
 
-namespace ITLearning.Infrastructure.DataAccess.Mssql;
+namespace ITLearning.Infrastructure.DataAccess.Mssql.Services;
 
 public class SqlServerCourseWikiRepository : ICourseWikiRepository
 {

@@ -6,7 +6,7 @@ using ITLearning.TypeGuards;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 
-namespace ITLearning.Infrastructure.DataAccess.Mssql;
+namespace ITLearning.Infrastructure.DataAccess.Mssql.Services;
 
 public class SqlServerUserRepository : IUserRepository
 {

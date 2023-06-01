@@ -7,7 +7,7 @@ using ITLearning.Infrastructure.DataAccess.Mssql.DatabaseModelMapping;
 using ITLearning.Infrastructure.DataAccess.Mssql.DatabaseModels;
 using Microsoft.Extensions.Logging;
 
-namespace ITLearning.Infrastructure.DataAccess.Mssql;
+namespace ITLearning.Infrastructure.DataAccess.Mssql.Services;
 
 public class SqlServerCourseItemRepository : ICourseItemRepository
 {

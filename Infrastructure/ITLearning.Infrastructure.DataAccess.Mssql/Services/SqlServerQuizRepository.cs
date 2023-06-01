@@ -1,13 +1,13 @@
 ﻿using System.Data;
+using Dapper;
 using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Common.Contracts;
 using ITLearning.Infrastructure.DataAccess.Contracts;
-using Microsoft.Extensions.Logging;
-using Dapper;
 using ITLearning.Infrastructure.DataAccess.Mssql.DatabaseModelMapping;
 using ITLearning.Infrastructure.DataAccess.Mssql.DatabaseModels;
+using Microsoft.Extensions.Logging;
 
-namespace ITLearning.Infrastructure.DataAccess.Mssql;
+namespace ITLearning.Infrastructure.DataAccess.Mssql.Services;
 
 public class SqlServerQuizRepository : IQuizRepository
 {

@@ -5,7 +5,7 @@ using ITLearning.Infrastructure.DataAccess.Contracts;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 
-namespace ITLearning.Infrastructure.DataAccess.Mssql;
+namespace ITLearning.Infrastructure.DataAccess.Mssql.Services;
 
 internal class SqlServerCourseRepository : ICourseRepository
 {
