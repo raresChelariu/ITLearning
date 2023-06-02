@@ -1,15 +1,20 @@
 export function BuildCourseWiki(data)
 {
-    const resultElements = []
     const title = buildTitle(data);
-    resultElements.push(title);
-
-    return resultElements;   
+    const text = buildText(data);
+    return [title, text]
 }
 
 function buildTitle(data) {
-    const title = document.createElement("div");
-    title.classList.add("title");
-    title.innerText = data["title"];
-    return title;
+    const titleDiv = document.createElement("div");
+    titleDiv.classList.add("title");
+    titleDiv.innerText = data["title"];
+    return titleDiv;
+}
+
+function buildText(data) {
+    const textDiv = document.createElement("div");
+    const text = data["courseWikiText"]
+    textDiv.innerHTML = marked.parse(text);
+    return textDiv;
 }

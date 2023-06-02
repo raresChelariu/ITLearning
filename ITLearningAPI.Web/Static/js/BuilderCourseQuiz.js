@@ -1,10 +1,8 @@
 export function BuildCourseQuiz(data)
 {
-    const resultElements = []
     const title = buildTitle(data);
-    resultElements.push(title);
     
-    return resultElements;
+    return [title];
 }
 
 function buildTitle(data) {
