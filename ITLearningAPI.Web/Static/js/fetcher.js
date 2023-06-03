@@ -20,7 +20,7 @@ export function FetchHttpGet(path) {
 }
 
 export function FetchHttpPost(path, requestBody) {
-    const fetchPromise = fetch("api/user/login",
+    const fetchPromise = fetch(path,
         {
             method: "POST",
             mode: "cors",
