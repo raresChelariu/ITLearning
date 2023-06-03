@@ -1,4 +1,5 @@
-﻿using ITLearning.Domain.Models;
+﻿using ITLearning.Course.Core.Contracts;
+using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using ITLearningAPI.Web.Authorization;
 using ITLearningAPI.Web.Contracts;
@@ -14,14 +15,20 @@ public class QuizController : ControllerBase
 {
     private readonly IQuizRepository _quizRepository;
     private readonly ICourseRepository _courseRepository;
+    private readonly IQuizChoiceValidator _quizChoiceValidator;
 
-    public QuizController(IQuizRepository quizRepository, ICourseRepository courseRepository)
+    public QuizController(
+        IQuizRepository quizRepository,
+        ICourseRepository courseRepository,
+        IQuizChoiceValidator quizChoiceValidator
+    )
     {
         _quizRepository = quizRepository ?? throw new ArgumentNullException(nameof(quizRepository));
         _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
+        _quizChoiceValidator = quizChoiceValidator ?? throw new ArgumentNullException(nameof(quizChoiceValidator));
     }
 
-    [Authorize(Policy =  AuthorizationPolicies.Teacher)]
+    [Authorize(Policy = AuthorizationPolicies.Teacher)]
     [HttpPost]
     public async Task<IActionResult> CreateQuiz([FromBody] QuizCreateRequest request)
     {
@@ -53,6 +60,18 @@ public class QuizController : ControllerBase
         {
             return BadRequest();
         }
+
         return CreatedAtAction(nameof(CreateQuiz), quiz);
+    }
+
+    [Authorize(Policy = AuthorizationPolicies.User)]
+    [HttpPost("validate")]
+    public async Task<IActionResult> ValidateQuizChoice(QuizChoiceValidationRequest request)
+    {
+        var isValidChoiceSet = await _quizChoiceValidator.Validate(request.QuizId, request.QuizChoiceIds);
+        return Ok(new
+        {
+            isValid = isValidChoiceSet
+        });
     }
 }

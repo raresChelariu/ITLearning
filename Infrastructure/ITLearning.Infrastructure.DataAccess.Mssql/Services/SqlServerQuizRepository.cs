@@ -74,7 +74,7 @@ public class SqlServerQuizRepository : IQuizRepository
             return null;
         }
     }
-
+    
     private static DataTable CreateChoicesDataTable(IEnumerable<QuizChoiceTextAndCorrectness> choices)
     {
         var table = new DataTable();
