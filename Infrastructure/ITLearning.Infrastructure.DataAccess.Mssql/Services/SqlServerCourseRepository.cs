@@ -187,7 +187,7 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetAll), ex);
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetNextItemId), ex);
             return null;
         }
     }
@@ -206,10 +206,9 @@ internal class SqlServerCourseRepository : ICourseRepository
             });
             await connection.ExecuteAsync(query, parameters, null, null, CommandType.StoredProcedure);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            Console.WriteLine(e);
-            throw;
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(UpdateUserCourseProgress), ex);
         }
     }
     
