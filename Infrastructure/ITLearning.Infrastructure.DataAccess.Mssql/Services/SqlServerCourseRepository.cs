@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Dapper;
 using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Common.Contracts;
 using ITLearning.Infrastructure.DataAccess.Contracts;
@@ -161,7 +162,56 @@ internal class SqlServerCourseRepository : ICourseRepository
             return null;
         }
     }
-    
+
+    public async Task<NextItemIdResult> GetNextItemId(long courseId, long itemId)
+    {
+        const string query = "CourseGetNextItem";
+        try
+        {
+            var connection = _databaseConnector.GetSqlConnection();
+            var parameters = new DynamicParameters(new
+            {
+                CourseID = courseId,
+                ItemID = itemId
+            });
+            parameters.Add("EndOfCourse", null, DbType.Binary, ParameterDirection.Output);
+            parameters.Add("NextID", null, DbType.Int64, ParameterDirection.Output);
+            await connection.ExecuteAsync(query, parameters, null, null, CommandType.StoredProcedure);
+            var isEndOfCourse = parameters.Get<bool>("EndOfCourse");
+            var nextId = parameters.Get<long>("NextID");
+            return new NextItemIdResult
+            {
+                IsEndOfCourse = isEndOfCourse,
+                NextItemId = nextId
+            };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetAll), ex);
+            return null;
+        }
+    }
+
+    public async Task UpdateUserCourseProgress(long userId, long courseId, long itemId)
+    {
+        const string query = "UserCourseProgressUpdate";
+        try
+        {
+            var connection = _databaseConnector.GetSqlConnection();
+            var parameters = new DynamicParameters(new
+            {
+                UserID = userId,
+                CourseID = courseId,
+                ItemID = itemId
+            });
+            await connection.ExecuteAsync(query, parameters, null, null, CommandType.StoredProcedure);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
     
     private static Course CreateCourseFromReader(SqlDataReader reader)
     {
