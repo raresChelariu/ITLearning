@@ -2,6 +2,7 @@ import { BuildCourseWiki } from "/js/BuilderCourseWiki.js";
 import { BuildCourseQuiz } from "/js/BuilderCourseQuiz.js";
 
 export function BuildDomItemCollectionFromApiResponse(data) {
+    console.log("Got to item builder");
     const itemType = data["type"];
     
     switch (itemType) {

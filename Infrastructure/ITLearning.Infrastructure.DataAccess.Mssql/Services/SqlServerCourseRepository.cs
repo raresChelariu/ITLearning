@@ -174,7 +174,7 @@ internal class SqlServerCourseRepository : ICourseRepository
                 CourseID = courseId,
                 ItemID = itemId
             });
-            parameters.Add("EndOfCourse", null, DbType.Binary, ParameterDirection.Output);
+            parameters.Add("EndOfCourse", null, DbType.Boolean, ParameterDirection.Output);
             parameters.Add("NextID", null, DbType.Int64, ParameterDirection.Output);
             await connection.ExecuteAsync(query, parameters, null, null, CommandType.StoredProcedure);
             var isEndOfCourse = parameters.Get<bool>("EndOfCourse");

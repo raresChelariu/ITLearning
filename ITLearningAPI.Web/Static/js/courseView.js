@@ -6,6 +6,7 @@ const courseId = GetCourseId();
 const titleList = document.getElementById("courseTitleList");
 
 const itemParent = document.getElementById("itemContainer");
+itemParent.dataset.courseId = courseId + "";
 
 GetCourseTitles(courseId)
     .then(response => {
@@ -21,6 +22,7 @@ GetCourseTitles(courseId)
     })
     .then(itemIds => {
         const firstItemId = itemIds[0];
+        itemParent.dataset.itemId = firstItemId;
         return FetchHttpGet(`/api/item?itemId=${firstItemId}`);
     })
     .then(response => {

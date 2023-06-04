@@ -1,5 +1,10 @@
-import { FetchHttpPost } from "/js/fetcher.js";
+import {FetchHttpPost} from "/js/fetcher.js";
+import {BuildNextStepButton} from "/js/NextStep.js";
 
+const htmlEntities = {
+    rightChoices: "&#9989;",
+    wrongChoices: "&#10060;"
+}
 export function BuildCourseQuiz(data) {
     const title = buildTitle(data);
     const quiz = buildQuiz(data);
@@ -17,12 +22,15 @@ function buildTitle(data) {
 function buildQuiz(data) {
     const quiz = document.createElement("div");
     quiz.classList.add("Quizz");
-
+    quiz.dataset.id = data["itemId"];
+    quiz.id = "quiz";
+    
     const question = document.createElement("div");
     question.classList.add("intrebare");
 
     const questionText = document.createElement("h2");
-    questionText.innerText = data["questionText"];
+    questionText.id = "questionText";
+    questionText.innerHTML = data["questionText"];
     question.appendChild(questionText);
 
     quiz.appendChild(question);
@@ -39,7 +47,7 @@ function buildQuizChoice(dataChoice) {
     const parent = document.createElement("div");
 
     const choiceInput = document.createElement("input");
-    
+
     const choiceId = dataChoice["quizChoiceId"];
     const htmlElementId = `choice${choiceId}`;
     choiceInput.setAttribute("type", "checkbox");
@@ -56,27 +64,63 @@ function buildQuizChoice(dataChoice) {
     return parent;
 }
 
-function buildCheckChoice(data) {
+function buildCheckChoice() {
     const button = document.createElement("button");
     button.innerText = "Verifica raspunsul";
     button.classList.add("QuizCheckChoice");
-    button.addEventListener('click', () => {
-        const requestBody = {
-            quizId: data["itemId"],
-            quizChoiceIds: getUserChoices()
-        };
-        console.log(requestBody);
-        FetchHttpPost("/api/quiz/validate", requestBody)
-            .then(x => {
-                // TODO Handle API Response
-                console.log("API RESPONSE VALIDATE")
-                console.log(x);
-            });
-    })
+    button.addEventListener('click', buttonCheckChoiceClick);
     return button;
 }
 
-function getUserChoices() {
+function buttonCheckChoiceClick() {
+    const quiz = document.getElementById("quiz");
+    const requestBody = {
+        quizId: quiz.dataset.id,
+        quizChoiceIds: getUserChoiceIds()
+    };
+    console.log(requestBody);
+    FetchHttpPost("/api/quiz/validate", requestBody)
+        .then(apiResponse => {
+             const isValid = apiResponse["isValid"];
+             if (isValid !== true) {
+                 InvalidAnswerCallback();
+                 return;
+             }
+             rightAnswerCallback();
+        })
+        .catch(err => {
+            console.log(err);
+            InvalidAnswerCallback();
+        });
+}
+
+function rightAnswerCallback() {
+    const questionTextElement = document.getElementById("questionText");
+    let text = questionTextElement.innerHTML;
+    text = removeHtmlEntitiesFromString(text);
+    text = `${htmlEntities.rightChoices} ${text}`;
+    questionTextElement.innerHTML = text;
+    
+    const buttonNextStep = BuildNextStepButton();
+    const itemParent = document.getElementById("itemContainer");
+    itemParent.appendChild(buttonNextStep);
+}
+
+function InvalidAnswerCallback() {
+    const questionTextElement = document.getElementById("questionText");
+    let text = questionTextElement.innerHTML;
+    text = removeHtmlEntitiesFromString(text);
+    text = `${htmlEntities.wrongChoices} ${text}`;
+    questionTextElement.innerHTML = text;
+    alert("Raspunsul este gresit");
+}
+
+function removeHtmlEntitiesFromString(text)
+{
+    return text.replace(htmlEntities.rightChoices, "").replace(htmlEntities.wrongChoices, "");
+}
+
+function getUserChoiceIds() {
     let quizChoiceUserIds = [];
     let inputNodeList = document.querySelectorAll("input");
     for (let index = 0; index < inputNodeList.length; index++) {

@@ -12,6 +12,7 @@ public static class CourseCoreDiEx
         services.AddSingleton<ICourseItemFetcher, CourseItemFetcher>();
         services.AddSingleton<IItemFetcherStrategyCollection, ItemFetcherStrategyCollection>();
         services.AddSingleton<IQuizChoiceValidator, QuizChoiceValidator>();
+        services.AddSingleton<ICourseProgressService, CourseProgressService>();
         return services;
     }
 }
