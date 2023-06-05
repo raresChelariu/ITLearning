@@ -50,6 +50,10 @@ public class ItemController : ControllerBase
     {
         var user = HttpContext.GetUser();
         var result = await _courseProgressService.AdvanceUserToNextItem(user.Id, request.CourseId, request.ItemId);
+        if (result.EndOfCourse)
+        {
+            return Ok(result);
+        }
         
         return result.CourseItem.Type switch
         {

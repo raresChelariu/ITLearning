@@ -26,13 +26,21 @@ function buttonNextStepOnClick() {
 }
 
 function HandleNextItemApiResponse(response) {
-    const itemParent = document.getElementById("itemContainer");
     console.log(response);
+    const itemParent = document.getElementById("itemContainer");
+    let isEndOfCourse = response["endOfCourse"];
+    if (isEndOfCourse === true) {
+        console.log("Got to end of course");
+        itemParent.innerHTML = "";
+        const messageEndOfCourse = document.createElement("h1");
+        messageEndOfCourse.innerText = "Ai terminat cu succes cursul!";
+        itemParent.appendChild(messageEndOfCourse);
+        return;
+    }    
     let courseItemData = response["courseItem"];
     itemParent.dataset.itemId = courseItemData["itemId"];
-    let isEndOfCourse = response["endOfCourse"];
-    let itemCollection = BuildDomItemCollectionFromApiResponse(courseItemData);
     itemParent.innerHTML = "";
+    let itemCollection = BuildDomItemCollectionFromApiResponse(courseItemData);
     for (let i = 0; i < itemCollection.length; i++) {
         itemParent.appendChild(itemCollection[i]);
     }

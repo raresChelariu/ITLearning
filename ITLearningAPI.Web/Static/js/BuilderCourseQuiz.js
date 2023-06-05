@@ -2,9 +2,16 @@ import {FetchHttpPost} from "/js/fetcher.js";
 import {BuildNextStepButton} from "/js/NextStep.js";
 
 const htmlEntities = {
-    rightChoices: "&#9989;",
-    wrongChoices: "&#10060;"
+    rightChoices: {
+        htmlEncoding: "&#9989;",
+        charCode: 9989
+    },
+    wrongChoices: {
+        htmlEncoding: "&#10060;",
+        charCode: 10060
+    }
 }
+
 export function BuildCourseQuiz(data) {
     const title = buildTitle(data);
     const quiz = buildQuiz(data);
@@ -86,7 +93,7 @@ function buttonCheckChoiceClick() {
                  InvalidAnswerCallback();
                  return;
              }
-             rightAnswerCallback();
+             RightAnswerCallback();
         })
         .catch(err => {
             console.log(err);
@@ -94,30 +101,33 @@ function buttonCheckChoiceClick() {
         });
 }
 
-function rightAnswerCallback() {
+function RightAnswerCallback() {
     const questionTextElement = document.getElementById("questionText");
-    let text = questionTextElement.innerHTML;
+    let text = questionTextElement.innerText;
     text = removeHtmlEntitiesFromString(text);
-    text = `${htmlEntities.rightChoices} ${text}`;
+    text = `${htmlEntities.rightChoices.htmlEncoding} ${text}`;
     questionTextElement.innerHTML = text;
     
     const buttonNextStep = BuildNextStepButton();
+    const isButtonNextStepAlreadyPresent = document.getElementById(buttonNextStep.id) !== null;
+    if (isButtonNextStepAlreadyPresent) {
+        return;
+    }
     const itemParent = document.getElementById("itemContainer");
     itemParent.appendChild(buttonNextStep);
 }
 
 function InvalidAnswerCallback() {
     const questionTextElement = document.getElementById("questionText");
-    let text = questionTextElement.innerHTML;
+    let text = questionTextElement.innerText;
     text = removeHtmlEntitiesFromString(text);
-    text = `${htmlEntities.wrongChoices} ${text}`;
+    text = `${htmlEntities.wrongChoices.htmlEncoding} ${text}`;
     questionTextElement.innerHTML = text;
     alert("Raspunsul este gresit");
 }
 
-function removeHtmlEntitiesFromString(text)
-{
-    return text.replace(htmlEntities.rightChoices, "").replace(htmlEntities.wrongChoices, "");
+function removeHtmlEntitiesFromString(text) {
+    return text.replaceAll(String.fromCharCode(10060), "").replaceAll(String.fromCharCode(9989), "");
 }
 
 function getUserChoiceIds() {
