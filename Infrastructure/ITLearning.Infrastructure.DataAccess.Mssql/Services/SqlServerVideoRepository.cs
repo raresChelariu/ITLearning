@@ -1,8 +1,8 @@
 ﻿using System.Data;
+using Dapper;
 using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Common.Contracts;
 using ITLearning.Infrastructure.DataAccess.Contracts;
-using ITLearning.TypeGuards;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 
@@ -15,72 +15,120 @@ internal class SqlServerVideoRepository : IVideoRepository
 
     public SqlServerVideoRepository(ILogger<SqlServerVideoRepository> logger, IDatabaseConnector databaseConnector)
     {
-        _logger = TypeGuard.ThrowIfNull(logger);
-        _databaseConnector = TypeGuard.ThrowIfNull(databaseConnector);
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _databaseConnector = databaseConnector ?? throw new ArgumentNullException(nameof(databaseConnector));
     }
 
-    public async Task<long> InsertVideoAsync(Video video)
+    public async Task<long> InsertVideo(Video video)
     {
+        const string query = "VideoInsert";
         try
         {
             await using var connection = _databaseConnector.GetSqlConnection();
+            var command = new SqlCommand(query, connection);
+            command.CommandType = CommandType.StoredProcedure;
             await connection.OpenAsync();
-            var command = new SqlCommand("VideosInsert", connection);
-            command.Parameters.AddWithValue("@Name", video.Name);
-            command.Parameters.AddWithValue("@Content", video.Content);
-            var rowIdParameter = new SqlParameter("RowId", SqlDbType.BigInt)
+            command.Parameters.Add(new SqlParameter
             {
+                ParameterName = "CourseID",
+                DbType = DbType.Int64,
+                Value = video.CourseId
+            });
+            command.Parameters.Add(new SqlParameter
+            {
+                ParameterName = "ItemTitle",
+                DbType = DbType.String,
+                Value = video.Title
+            });
+            command.Parameters.Add(new SqlParameter
+            {
+                ParameterName = "ContentType",
+                DbType = DbType.String,
+                Value = video.ContentType
+            });
+            command.Parameters.Add(new SqlParameter
+            {
+                ParameterName = "Content",
+                DbType = DbType.Binary,
+                Value = video.Content
+            });
+            command.Parameters.Add(new SqlParameter
+            {
+                ParameterName = "ItemID",
+                DbType = DbType.Int64,
                 Direction = ParameterDirection.Output
-            };
-            command.Parameters.Add(rowIdParameter);
-
-            var videoId = -1L;
+            });
             await command.ExecuteNonQueryAsync();
-            if (command.Parameters["@RowId"].Value != DBNull.Value)
+            var itemId = (long) command.Parameters["ItemID"].Value;
+            if (itemId == default)
             {
-                videoId = (long)command.Parameters["RowId"].Value;
+                _logger.LogError("No ItemId fetched for operation {@Operation} which received {@Video}",
+                    nameof(InsertVideo), video);
             }
-
-            video.Id = videoId;
-
-            return videoId;
+            return itemId;
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(InsertVideoAsync), ex);
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(InsertVideo), ex);
             return -1;
         }
     }
 
-    public async Task<IEnumerable<VideoEntry>> GetAllVideosAsync()
+    public async Task<VideoItemDetails> GetVideoItemDetailsById(long videoId)
     {
+        const string query = "SELECT V.ItemID, V.ContentType, IT.ItemTitle Title FROM dbo.Videos V JOIN ItemTitles IT ON V.ItemID = IT.ItemID WHERE V.ItemID = @ItemID";
         try
         {
-            await using var connection = _databaseConnector.GetSqlConnection();
-            await connection.OpenAsync();
-            var command = new SqlCommand("SELECT RowId, Filename FROM Videos");
-            var reader = await command.ExecuteReaderAsync();
-            var videoEntries = new List<VideoEntry>();
-            while (await reader.ReadAsync())
+            var connection = _databaseConnector.GetSqlConnection();
+            var parameters = new DynamicParameters(new
             {
-                videoEntries.Add(CreateVideoEntryFromReader(reader));
-            }
-            return videoEntries;
+                ItemID = videoId
+            });
+            var result = await connection.QueryFirstOrDefaultAsync<VideoItemDetails>(query, parameters);
+            
+            return result;
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetAllVideosAsync), ex);
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(InsertVideo), ex);
             return null;
         }
-    }
-
-    private static VideoEntry CreateVideoEntryFromReader(SqlDataReader reader)
+    } 
+    
+    public async Task<Video> GetVideoContentById(long videoId)
     {
-        var videoEntry = new VideoEntry
+        const string query = "SELECT DATALENGTH(FileContent) ContentSize, FileContent Content, ContentType FROM dbo.Videos WHERE ItemID = @ItemID";
+        try
         {
-            Id = reader.GetFromColumn<long>("RowId"),
-            Name = reader.GetFromColumn<string>("Filename")
-        };
-        return videoEntry;
+            await using var connection = _databaseConnector.GetSqlConnection();
+            var command = new SqlCommand(query, connection);
+            command.Parameters.Add(new SqlParameter
+            {
+                ParameterName = "ItemID",
+                SqlDbType = SqlDbType.BigInt,
+                Value = videoId
+            });
+            await connection.OpenAsync();
+            var reader = await command.ExecuteReaderAsync();
+            if (!reader.Read())
+            {
+                return null;
+            }
+
+            var content = (byte[]) reader["Content"];
+            // var contentSize = (long) reader["ContentSize"];
+            // var content = new byte[contentSize];
+            // _ = reader.GetBytes(1, 0L, content, 0, (int) contentSize);
+            return new Video
+            {
+                Content = content, 
+                ContentType = (string) reader["ContentType"] 
+            };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetVideoContentById), ex);
+            return null;
+        }
     }
 }

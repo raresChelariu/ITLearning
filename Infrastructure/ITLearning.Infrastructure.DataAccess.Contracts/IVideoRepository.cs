@@ -4,6 +4,7 @@ namespace ITLearning.Infrastructure.DataAccess.Contracts;
 
 public interface IVideoRepository
 {
-    Task<long> InsertVideoAsync(Video video);
-    Task<IEnumerable<VideoEntry>> GetAllVideosAsync();
+    Task<long> InsertVideo(Video video);
+    Task<Video> GetVideoContentById(long videoId);
+    Task<VideoItemDetails> GetVideoItemDetailsById(long videoId);
 }

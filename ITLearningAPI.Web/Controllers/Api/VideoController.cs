@@ -1,5 +1,5 @@
-﻿using ITLearning.Infrastructure.DataAccess.Contracts;
-using ITLearningAPI.Web.Mappers;
+﻿using ITLearning.Domain.Models;
+using ITLearning.Infrastructure.DataAccess.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITLearningAPI.Web.Controllers.Api;
@@ -14,39 +14,37 @@ public class VideoController : ControllerBase
     {
         _videoRepository = videoRepository ?? throw new ArgumentNullException(nameof(videoRepository));
     }
-
-    [HttpPatch]
-    public async Task<IActionResult> UploadVideos(List<IFormFile> files)
+    
+    [HttpPost("upload")]
+    public async Task<IActionResult> Upload([FromForm] IFormFile file, [FromForm] string title, [FromForm] long courseId)
     {
-        var size = files.Sum(f => f.Length);
-        foreach (var formFile in files)
+        var content = await FileToByteArray(file);
+        var video = new Video
         {
-            if (formFile.Length <= 0)
-            {
-                continue;
-            }
-
-            var filePath = Path.GetTempFileName();
-
-            await using var stream = System.IO.File.Create(filePath);
-            await formFile.CopyToAsync(stream);
-        }
-
-        return Ok(new { count = files.Count, size });
+            CourseId = courseId,
+            Title = title,
+            ContentType = file.ContentType,
+            Content = content
+        };
+        var itemId = await _videoRepository.InsertVideo(video);
+        return Ok(new 
+        {
+            ItemId = itemId
+        });
     }
-
-    [HttpPost]
-    public async Task<IActionResult> Upload(IFormFile file)
-    {
-        var video = await VideoMapper.ToVideoAsync(file);
-        await _videoRepository.InsertVideoAsync(video);
-        return NoContent();
-    }
-
+    
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IResult> GetById([FromQuery] long videoId)
     {
-        var allVideoEntries = await _videoRepository.GetAllVideosAsync();
-        return new OkObjectResult(allVideoEntries);
+        var video = await _videoRepository.GetVideoContentById(videoId);
+        var memoryStream = new MemoryStream(video.Content);
+        return Results.File(memoryStream, video.ContentType);
+    }
+
+    private static async Task<byte[]> FileToByteArray(IFormFile file)
+    {
+        using var memoryStream = new MemoryStream();
+        await file.CopyToAsync(memoryStream);
+        return memoryStream.ToArray();
     }
 }

@@ -10,17 +10,21 @@ internal class ItemFetcherStrategyCollection : IItemFetcherStrategyCollection
     private readonly ILogger<ItemFetcherStrategyCollection> _logger;
     private readonly ICourseWikiRepository _courseWikiRepository;
     private readonly IQuizRepository _quizRepository;
+    private readonly IVideoRepository _videoRepository;
+    
     private readonly Dictionary<ItemType, Func<long, Task<ICourseItem>>> _itemTypeToStrategy;
 
     public ItemFetcherStrategyCollection(
         ILogger<ItemFetcherStrategyCollection> logger,
         ICourseWikiRepository courseWikiRepository,
-        IQuizRepository quizRepository)
+        IQuizRepository quizRepository, IVideoRepository videoRepository)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _itemTypeToStrategy = GetMappings();
+        
         _courseWikiRepository = courseWikiRepository ?? throw new ArgumentNullException(nameof(courseWikiRepository));
         _quizRepository = quizRepository ?? throw new ArgumentNullException(nameof(quizRepository));
+        _videoRepository = videoRepository;
     }
 
     public Func<long, Task<ICourseItem>> GetStrategyByItemType(ItemType itemType)
@@ -46,6 +50,10 @@ internal class ItemFetcherStrategyCollection : IItemFetcherStrategyCollection
             {
                 ItemType.Wiki,
                 async itemId => await _courseWikiRepository.GetWikiByItemId(itemId)
+            },
+            {
+                ItemType.Video,
+                async itemId => await _videoRepository.GetVideoItemDetailsById(itemId)
             }
         };
     }

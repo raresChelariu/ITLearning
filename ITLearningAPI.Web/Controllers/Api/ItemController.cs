@@ -59,6 +59,7 @@ public class ItemController : ControllerBase
         {
             ItemType.Quiz => Ok(new { result.EndOfCourse, courseItem = result.CourseItem as Quiz }),
             ItemType.Wiki => Ok(new { result.EndOfCourse, courseItem = result.CourseItem as CourseWiki }),
+            ItemType.Video => Ok(new { result.EndOfCourse, courseItem = result.CourseItem as VideoItemDetails }),
             _ => NoContent()
         };
     }

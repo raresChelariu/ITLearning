@@ -1,8 +1,8 @@
-﻿namespace ITLearning.Domain.Models;
+namespace ITLearning.Domain.Models;
 
-public class Video : ICourseItem
+public class VideoItemDetails : ICourseItem
 {
-    public ItemType Type => ItemType.Quiz;
+    public ItemType Type => ItemType.Video;
     
     public long ItemId { get; set; }
     public string Title { get; set; }
