@@ -1,5 +1,5 @@
 import { FetchHttpGet } from '/js/Fetcher.js'
-import { BuildDomItemCollectionFromApiResponse } from '/js/itemBuilder.js'
+import { BuildDomItemCollectionFromApiResponse } from '/js/CourseView/ItemBuilder.js'
 
 const courseId = GetCourseId();
 

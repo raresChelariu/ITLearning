@@ -1,6 +1,6 @@
-import {BuildCourseWiki} from "/js/BuilderCourseWiki.js";
-import {BuildCourseQuiz} from "/js/BuilderCourseQuiz.js";
-import {BuildCourseVideo} from "/js/BuilderCourseVideo.js";
+import {BuildCourseWiki} from "/js/CourseView/BuilderCourseWiki.js";
+import {BuildCourseQuiz} from "/js/CourseView/BuilderCourseQuiz.js";
+import {BuildCourseVideo} from "/js/CourseView/BuilderCourseVideo.js";
 
 export function BuildDomItemCollectionFromApiResponse(data) {
     console.log("Got to item builder");

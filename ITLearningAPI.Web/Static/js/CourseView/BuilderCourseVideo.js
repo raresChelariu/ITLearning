@@ -1,4 +1,4 @@
-import {BuildNextStepButton} from '/js/NextStep.js'
+import {BuildNextStepButton} from '/js/CourseView/NextStep.js'
 
 export function BuildCourseVideo(data) {
     const video = buildVideo(data);

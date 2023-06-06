@@ -1,5 +1,5 @@
 import {FetchHttpPost} from "/js/Fetcher.js";
-import {BuildNextStepButton} from "/js/NextStep.js";
+import {BuildNextStepButton} from "/js/CourseView/NextStep.js";
 
 const htmlEntities = {
     rightChoices: {

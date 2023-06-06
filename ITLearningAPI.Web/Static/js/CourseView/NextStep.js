@@ -1,5 +1,5 @@
 import {FetchHttpPost} from "/js/Fetcher.js";
-import {BuildDomItemCollectionFromApiResponse} from "/js/ItemBuilder.js";
+import {BuildDomItemCollectionFromApiResponse} from "/js/CourseView/ItemBuilder.js";
 
 export function BuildNextStepButton() {
     const element = document.createElement("button");
