@@ -38,7 +38,7 @@ public class CourseController : ControllerBase
     }
 
     [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]
-    [HttpGet]
+    [HttpGet("author")]
     public async Task<IActionResult> GetCoursesForAuthor()
     {
         var user = HttpContext.GetUser();

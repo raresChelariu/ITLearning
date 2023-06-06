@@ -1,4 +1,4 @@
-import { FetchHttpGet } from '/js/fetcher.js'
+import { FetchHttpGet } from '/js/Fetcher.js'
 import { BuildDomItemCollectionFromApiResponse } from '/js/itemBuilder.js'
 
 const courseId = GetCourseId();

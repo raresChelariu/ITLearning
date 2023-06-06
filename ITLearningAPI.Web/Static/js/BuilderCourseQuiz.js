@@ -1,4 +1,4 @@
-import {FetchHttpPost} from "/js/fetcher.js";
+import {FetchHttpPost} from "/js/Fetcher.js";
 import {BuildNextStepButton} from "/js/NextStep.js";
 
 const htmlEntities = {

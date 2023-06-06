@@ -1,4 +1,4 @@
-import {FetchHttpPost} from "/js/fetcher.js";
+import {FetchHttpPost} from "/js/Fetcher.js";
 import {BuildDomItemCollectionFromApiResponse} from "/js/ItemBuilder.js";
 
 export function BuildNextStepButton() {

@@ -25,16 +25,23 @@ public class TeacherController : ControllerBase
 
     [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]
     [HttpGet("courses/mine")]
-    public async Task GetTeacherCourses()
+    public async Task GetTeacherCoursesPage()
     {
         await _staticAssetResponseService.RespondWithStaticAsset(Response, "CoursesMine.html");
     }
 
     [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]
     [HttpGet("courses/all")]
-    public async Task GetAllCourses()
+    public async Task GetAllCoursesPage()
     {
         await _staticAssetResponseService.RespondWithStaticAsset(Response, "CoursesAll.html");
+    }
+    
+    [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]
+    [HttpGet("/teacher/course/create")]
+    public async Task GetCourseCreatePage()
+    {
+        await _staticAssetResponseService.RespondWithStaticAsset(Response, "CourseCreate.html");
     }
 }
 

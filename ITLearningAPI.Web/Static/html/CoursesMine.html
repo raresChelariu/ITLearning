@@ -1,55 +1,52 @@
 ﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
-	<title>ITLearning</title>
-	<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-	<link rel="icon" type="image/png" href="images/favicon.png">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="css/ToateCursurile.css">
-	<meta charset="utf-8">
-
+    <title>ITLearning</title>
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/ToateCursurile.css">
+    <meta charset="utf-8">
 </head>
+
 <body>
-	<div class="topnav">
-		<div class="acasa">
-			<a href="#home">Acasa</a>
-		</div>
-		<div class="toate-cursurile">
-			<a class="active" href="/CoursesAll">Toate cursurile</a>
-		</div>
-		<div class="cursuri">
-			<a href="#cursuri" href="/CoursesMine">Cursurile mele</a>
-		</div>
-		<div class="creare">
-			<a href="/CourseCreate" href="/CourseCreate">Creare curs</a>
-		</div>
-		<div class="topnav-right">
-			<div class="logout">
-				<a href="/Logout">Log out</a>
-			</div>
-		</div>
+<div class="topnav">
+    <div class="acasa">
+        <a href="/">Acasa</a>
+    </div>
+    <div class="toate-cursurile">
+        <a href="/teacher/courses/all">Toate cursurile</a>
+    </div>
+    <div class="cursuri">
+        <a href="/teacher/courses/mine">Cursurile mele</a>
+    </div>
+    <div class="creare">
+        <a href="/teacher/course/create">Creare curs</a>
+    </div>
+    <div class="topnav-right">
+        <div class="logout">
+            <a href="/logout">Log out</a>
+        </div>
+    </div>
 
-	</div>
+</div>
 
-	<div class="white-box">
-		<br>
-		<br>
-		<h1>Toate Cursurile</h1>
-		<br>
-		<div class="btn-group">
-			<div class="btn-group">
-				<button onclick="BD()" class="signin-button">Baze de date</button>
-				<button>Cursul 2</button>
-				<button>Cursul 3</button>
-				<button>Nu stiu ce sa mai scriu aici</button>
-			</div>
-			<br>
-			<br>
-		</div>
-	</div>
+<div class="white-box">
+    <br>
+    <br>
+    <h1>Toate Cursurile</h1>
+    <br>
+    <div class="btn-group">
+        <div class="btn-group" id="listCourses">
+        </div>
+        <br>
+        <br>
+    </div>
+</div>
 </body>
 
-<script src="~/js/coursesAll.js"></script>
+<script type="module" src="/js/teacher/coursesMine.js"></script>
 </html>

@@ -1,18 +1,8 @@
+import { FetchHttpGet } from "/js/Fetcher.js";
+
 const listCourses = document.getElementById("listCourses");
 
-fetch("https://localhost:7033/api/course/all", {
-    method: "GET",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
-    referrerPolicy: "no-referrer"
-}).then(apiResponse => {
-    if (!apiResponse.ok) {
-        console.log(apiResponse);
-        return;
-    }
-    return apiResponse.json();
-}).then(responseResult => {
+FetchHttpGet("/api/course/all").then(responseResult => {
     console.log(responseResult);
     for (let i = 0; i < responseResult.length; i++) {
         const course = document.createElement("button");

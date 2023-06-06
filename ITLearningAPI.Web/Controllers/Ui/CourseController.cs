@@ -6,7 +6,8 @@ namespace ITLearningAPI.Web.Controllers.Ui;
 
 [ApiController]
 [Route("[controller]")]
-public class CourseController : ControllerBase
+public class 
+    CourseController : ControllerBase
 {
     private readonly IStaticAssetResponseService _staticAssetResponseService;
     private readonly ICourseRepository _courseRepository;

@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="ro">
+
 <head>
     <title>ITLearning</title>
     <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
@@ -9,135 +10,134 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/Creare.css">
     <meta charset="utf-8">
-
 </head>
+
 <body>
-    <div class="topnav">
-        <div class="acasa">
-            <a href="/">Acasa</a>
-        </div>
-        <div class="topnav-right">
-            <div class="logout">
-                <a href="/logout">Log out</a>
-            </div>
-        </div>
-
+<div class="topnav">
+    <div class="acasa">
+        <a href="/">Acasa</a>
     </div>
-    <br>
-    <a id="nav-expand" href="#">
-        <span class="icon icon-menu"></span>&nbsp;
-        Curpins
+    <div class="topnav-right">
+        <div class="logout">
+            <a href="/logout">Log out</a>
+        </div>
+    </div>
+
+</div>
+<br>
+<a id="nav-expand" href="#">
+    <span class="icon icon-menu"></span>&nbsp;
+    Curpins
+</a>
+<nav>
+    <a id="nav-collapse" href="#">
+        <span class="icon icon-cross"></span>
     </a>
-    <nav>
-        <a id="nav-collapse" href="#">
-            <span class="icon icon-cross"></span>
-        </a>
-        <br>
-        <a href="#">Acasa</a>
-        <a href="#">Curs Text</a>
-        <a href="#">Curs Video</a>
-        <a href="#">Quizz</a>
-    </nav>
-    <main>
-        <br>
-        <div class="white-box">
-            <div class="content">
-                <div style="text-align: center;">
-                    <br><Br>
-                    <label for="type"></label><select id="type" class="dropdown">
-                        <option>Curs Text</option>
-                        <option>Curs Video</option>
-                        <option>Quizz</option>
-                        <option>Quizz Text</option>
-                    </select>
-                    <br><br><br>
-                    <div id="Curs Text">
-                        <script>
-                            const tx = document.getElementsByTagName("textarea");
-                            for (let i = 0; i < tx.length; i++) {
-                                tx[i].setAttribute("style", `height:${tx[i].scrollHeight}px;overflow-y:hidden;`);
-                                tx[i].addEventListener("input", OnInput, false);
-                            }
-
-                            function OnInput() {
-                                this.style.height = 0;
-                                this.style.height = (this.scrollHeight) + "px";
-                            }
-                        </script>
-                        <div class="intrebare" style="font-weight: bolder; font-size: 25px;">
-                            <label>
-                                <input type="text" placeholder="Titlu">
-                            </label> <br><br>
-                        </div>
-                        <label for="textbox">
-                            <textarea name="tweet" id="textbox" rows="13" cols="70" placeholder=""
-                                      maxlength="250"></textarea><br>
-                        </label>
-                    </div>
-
-                    <div id="Curs Video" style="display: none;">
-                        <label>
-                            <input type="text" placeholder="Adaugati adresa videoclipului">
-                        </label>
-                    </div>
-
-                    <div id="Quizz" style="display: none;">
-                        <div class="intrebare" style="font-weight: bold; font-size: 25px;">
-                            <label>
-                                <input type="text" placeholder="Intrebare">
-                            </label> <Br><br>
-                        </div>
-                        <label for="A1"></label><input type="radio" name="question1" id="A1" onclick="myFunction()"> <label>
-                            <input type="text"
-                                   placeholder="Raspuns">
-                        </label><br><br>
-                        <label for="A2"></label><input type="radio" name="question1" id="A2" onclick="myFunction()"> <label>
-                            <input type="text"
-                                   placeholder="Raspuns">
-                        </label><br><br>
-                        <label for="corect"></label><input type="radio" name="question1" id="corect" onclick="myFunction()"><label>
-                            <input type="text"
-                                   placeholder="Raspuns">
-                        </label><br><br>
-                        <label for="A3"></label><input type="radio" name="question1" id="A3" onclick="myFunction()"> <label>
-                            <input type="text"
-                                   placeholder="Raspuns">
-                        </label><br><br>
-
-                    </div>
-                    <div id="Quizz Text" style="display: none;">
-                        <label>
-                            <input type="text" placeholder="Intrebare">
-                        </label>
-                        <br><br>
-                        <label>
-                            <textarea name="name" rows="10" cols="80"></textarea>
-                        </label>
-                    </div>
-
+    <br>
+    <a href="#">Acasa</a>
+    <a href="#">Curs Text</a>
+    <a href="#">Curs Video</a>
+    <a href="#">Quizz</a>
+</nav>
+<main>
+    <br>
+    <div class="white-box">
+        <div class="content">
+            <div style="text-align: center;">
+                <br><Br>
+                <label for="type"></label><select id="type" class="dropdown">
+                <option>Curs Text</option>
+                <option>Curs Video</option>
+                <option>Quizz</option>
+                <option>Quizz Text</option>
+            </select>
+                <br><br><br>
+                <div id="Curs Text">
                     <script>
-                        const day = document.getElementById("type");
-                        let current_day = day.value;
-
-                        function change_day() {
-                            document.getElementById(current_day).style.display = "none";
-                            document.getElementById(day.value).style.display = "block";
-                            current_day = day.value;
+                        const tx = document.getElementsByTagName("textarea");
+                        for (let i = 0; i < tx.length; i++) {
+                            tx[i].setAttribute("style", `height:${tx[i].scrollHeight}px;overflow-y:hidden;`);
+                            tx[i].addEventListener("input", OnInput, false);
                         }
 
-                        day.addEventListener("change", change_day);
-
+                        function OnInput() {
+                            this.style.height = 0;
+                            this.style.height = (this.scrollHeight) + "px";
+                        }
                     </script>
-                    <br><Br><br>
-
-                    <button class="NextStep" id="buton" onclick="NextStep()">Adauga pas</button>
-
-                    <br><br><br>
+                    <div class="intrebare" style="font-weight: bolder; font-size: 25px;">
+                        <label>
+                            <input type="text" placeholder="Titlu">
+                        </label> <br><br>
+                    </div>
+                    <label for="textbox">
+                            <textarea name="tweet" id="textbox" rows="13" cols="70" placeholder=""
+                                      maxlength="250"></textarea><br>
+                    </label>
                 </div>
+
+                <div id="Curs Video" style="display: none;">
+                    <label>
+                        <input type="text" placeholder="Adaugati adresa videoclipului">
+                    </label>
+                </div>
+
+                <div id="Quizz" style="display: none;">
+                    <div class="intrebare" style="font-weight: bold; font-size: 25px;">
+                        <label>
+                            <input type="text" placeholder="Intrebare">
+                        </label> <Br><br>
+                    </div>
+                    <label for="A1"></label><input type="radio" name="question1" id="A1"> <label>
+                    <input type="text"
+                           placeholder="Raspuns">
+                </label><br><br>
+                    <label for="A2"></label><input type="radio" name="question1" id="A2"> <label>
+                    <input type="text"
+                           placeholder="Raspuns">
+                </label><br><br>
+                    <label for="corect"></label><input type="radio" name="question1" id="corect"><label>
+                    <input type="text"
+                           placeholder="Raspuns">
+                </label><br><br>
+                    <label for="A3"></label><input type="radio" name="question1" id="A3"> <label>
+                    <input type="text"
+                           placeholder="Raspuns">
+                </label><br><br>
+
+                </div>
+                <div id="Quizz Text" style="display: none;">
+                    <label>
+                        <input type="text" placeholder="Intrebare">
+                    </label>
+                    <br><br>
+                    <label>
+                        <textarea name="name" rows="10" cols="80"></textarea>
+                    </label>
+                </div>
+
+                <script>
+                    const day = document.getElementById("type");
+                    let current_day = day.value;
+
+                    function change_day() {
+                        document.getElementById(current_day).style.display = "none";
+                        document.getElementById(day.value).style.display = "block";
+                        current_day = day.value;
+                    }
+
+                    day.addEventListener("change", change_day);
+
+                </script>
+                <br><Br><br>
+
+                <button class="NextStep" id="buton">Adauga pas</button>
+
+                <br><br><br>
             </div>
         </div>
-    </main>
-
-
+    </div>
+</main>
 </body>
+
 </html>
