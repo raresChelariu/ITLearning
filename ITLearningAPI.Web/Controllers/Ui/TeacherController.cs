@@ -38,7 +38,7 @@ public class TeacherController : ControllerBase
     }
     
     [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]
-    [HttpGet("/teacher/course/create")]
+    [HttpGet("course/create")]
     public async Task GetCourseCreatePage()
     {
         await _staticAssetResponseService.RespondWithStaticAsset(Response, "CourseCreate.html");
