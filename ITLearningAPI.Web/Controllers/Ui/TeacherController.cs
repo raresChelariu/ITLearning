@@ -27,14 +27,14 @@ public class TeacherController : ControllerBase
     [HttpGet("courses/mine")]
     public async Task GetTeacherCoursesPage()
     {
-        await _staticAssetResponseService.RespondWithStaticAsset(Response, "CoursesMine.html");
+        await _staticAssetResponseService.RespondWithStaticAsset(Response, "TeacherCoursesMine.html");
     }
 
     [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]
     [HttpGet("courses/all")]
     public async Task GetAllCoursesPage()
     {
-        await _staticAssetResponseService.RespondWithStaticAsset(Response, "CoursesAll.html");
+        await _staticAssetResponseService.RespondWithStaticAsset(Response, "TeacherCoursesAll.html");
     }
     
     [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]
