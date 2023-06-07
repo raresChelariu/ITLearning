@@ -45,7 +45,7 @@ body {
 }
 
 .white-box {
-    padding-left: 16px;
+    padding: 10px;
     background-color: white;
     color: black;
 }

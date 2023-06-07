@@ -1,4 +1,4 @@
-import {FetchHttpPost} from "/js/Fetcher.js";
+import {FetchHttpPostJson} from "/js/Fetcher.js";
 import {BuildNextStepButton} from "/js/CourseView/NextStep.js";
 
 const htmlEntities = {
@@ -86,7 +86,7 @@ function buttonCheckChoiceClick() {
         quizChoiceIds: getUserChoiceIds()
     };
     console.log(requestBody);
-    FetchHttpPost("/api/quiz/validate", requestBody)
+    FetchHttpPostJson("/api/quiz/validate", requestBody)
         .then(apiResponse => {
              const isValid = apiResponse["isValid"];
              if (isValid !== true) {

@@ -29,12 +29,12 @@ public class CourseController : ControllerBase
             Name = request.CourseName,
             AuthorId = user.Id
         };
-
-        if (await _courseRepository.Insert(course) == -1)
+        var courseId = await _courseRepository.Insert(course);
+        if (courseId == -1)
         {
             return Conflict();
         }
-        return CreatedAtAction(nameof(CreateCourse), request);
+        return Created($"/api/course?courseId={courseId}", new { courseId });
     }
 
     [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]

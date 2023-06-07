@@ -1,4 +1,4 @@
-import {FetchHttpPost} from "/js/Fetcher.js";
+import {FetchHttpPostJson} from "/js/Fetcher.js";
 import {BuildDomItemCollectionFromApiResponse} from "/js/CourseView/ItemBuilder.js";
 
 export function BuildNextStepButton() {
@@ -18,7 +18,7 @@ function buttonNextStepOnClick() {
         courseId: courseId,
         itemId: currentItemId
     };
-    FetchHttpPost('/api/item/next', nextItemRequest)
+    FetchHttpPostJson('/api/item/next', nextItemRequest)
         .then(HandleNextItemApiResponse)
         .catch(err => {
             console.log(err);
@@ -36,7 +36,7 @@ function HandleNextItemApiResponse(response) {
         messageEndOfCourse.innerText = "Ai terminat cu succes cursul!";
         itemParent.appendChild(messageEndOfCourse);
         return;
-    }    
+    }
     let courseItemData = response["courseItem"];
     itemParent.dataset.itemId = courseItemData["itemId"];
     itemParent.innerHTML = "";

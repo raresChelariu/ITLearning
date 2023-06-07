@@ -37,28 +37,31 @@
 </nav>
 <main>
     <br>
+    <div class="white-box" id="panelCourseCreate">
+        <label for="inputCourseTitle">Titlu curs</label>
+        <input type="text" id="inputCourseTitle"/>
+        <button id="buttonCreateCourse">Creeaza Curs</button>
+    </div>
     <div class="white-box">
 
         <div class="content">
-            <div style="text-align: center;">
-                <br><Br>
-                <label for="type">
-                    <select id="type" class="dropdown">
-                        <option>Curs Text</option>
-                        <option>Curs Video</option>
-                        <option>Quizz</option>
-                        <option>Quizz Text</option>
-                    </select>
-                </label>
-                <br><br><br>
+            <br><Br>
+            <label for="type">
+                <select id="type" class="dropdown">
+                    <option>Pas Text</option>
+                    <option>Pas Video</option>
+                    <option>Pas Quiz cu alegeri</option>
+                    <option>Pas Quiz cu raspuns text</option>
+                </select>
+            </label>
+            <br><br><br>
 
-                <button class="NextStep" id="buttonAddStep">Adauga pas</button>
+            <button class="NextStep" id="buttonAddStep">Adauga pas</button>
 
-                <br><br><br>
-            </div>
+            <br><br><br>
         </div>
     </div>
 </main>
 </body>
-
+<script type="module" src="/js/courseCreate.js"></script>
 </html>

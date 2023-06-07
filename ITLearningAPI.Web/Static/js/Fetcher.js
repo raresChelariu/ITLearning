@@ -19,7 +19,7 @@ export function FetchHttpGet(path) {
     });
 }
 
-export function FetchHttpPost(path, requestBody) {
+export function FetchHttpPostJson(path, requestBody) {
     const fetchPromise = fetch(path,
         {
             method: "POST",
@@ -38,5 +38,17 @@ export function FetchHttpPost(path, requestBody) {
             return null;
         }
         return apiResponse.json();
+    });
+}
+
+export function FetchHttpPostFormData(path, formData) {
+    return fetch(path, {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+        body: formData
     });
 }
