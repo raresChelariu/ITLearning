@@ -64,7 +64,7 @@ input {
 }
 
 
-button.NextStep {
+.NextStep {
     width: 140px;
     padding: 12px 10px;
     border: none;
@@ -163,4 +163,23 @@ nav a:hover {
 
 .icon-menu {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABHNCSVQICAgIfAhkiAAAAB5JREFUKJFj/P///38GEgATKYoHKWAc9TQRgGRPAwD0IAv+FT8LPwAAAABJRU5ErkJggg==');
+}
+
+.endOfRow {
+    padding: 10px;
+    display: block;
+}
+
+.quizChoiceDeleteIcon {
+    display: inline;
+    color: red;
+}
+
+.quizChoiceCorrectIcon {
+    display: inline;
+    color: green;
+}
+
+.quizCorrectChoiceInputHighlight {
+    border: 5px solid green;
 }

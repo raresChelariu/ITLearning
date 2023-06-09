@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/Creare.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <meta charset="utf-8">
 </head>
 
@@ -46,22 +49,21 @@
 
         <div class="content">
             <br><Br>
-            <label for="type">
-                <select id="type" class="dropdown">
-                    <option>Pas Text</option>
-                    <option>Pas Video</option>
-                    <option>Pas Quiz cu alegeri</option>
-                    <option>Pas Quiz cu raspuns text</option>
+            <label for="selectItemType">
+                <select id="selectItemType" class="dropdown">
+                    <option value=""></option>
+                    <option value="wiki">Pas Text</option>
+                    <option value="video">Pas Video</option>
+                    <option value="quizWithChoices">Pas Quiz cu alegeri</option>
                 </select>
             </label>
             <br><br><br>
-
-            <button class="NextStep" id="buttonAddStep">Adauga pas</button>
+            <div id="stepBuilder"></div>
 
             <br><br><br>
         </div>
     </div>
 </main>
 </body>
-<script type="module" src="/js/courseCreate.js"></script>
+<script type="module" src="/js/CourseCreate/courseCreate.js"></script>
 </html>

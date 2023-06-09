@@ -1,9 +1,10 @@
-import {FetchHttpPostFormData} from "../Fetcher";
+import {FetchHttpPostFormData} from "/js/Fetcher.js";
 
 const idInputVideoStepTitle = "inputTitleStepVideo";
 
-export function ShowVideoStepBuilder() {
+export function GetVideoStepBuilder() {
     const form = document.createElement("form");
+    
     form.id = "formStepVideo";
     form.setAttribute("enctype", "multipart/form-data");
     form.setAttribute("method", "POST");
@@ -11,21 +12,42 @@ export function ShowVideoStepBuilder() {
         VideoCreateRequest(form.submitter);
         return false;
     };
-    
-    const labelTitle = document.createElement("label");
-    const inputTitle = document.createElement("input");
-    inputTitle.id = idInputVideoStepTitle;
+        
+    form.appendChild(createLabelTitle());
+    form.appendChild(createInputTitle());
+    form.appendChild(createInputVideo());
+    form.appendChild(createFormSubmit());
 
+    return form;
+}
+
+function createLabelTitle() {
+    const labelTitle = document.createElement("label");
     labelTitle.setAttribute("for", idInputVideoStepTitle);
     labelTitle.innerText = "Titlu Video";
+    return labelTitle;
+}
 
+function createInputTitle() {
+    const inputTitle = document.createElement("input");
+    inputTitle.id = idInputVideoStepTitle;
+    inputTitle.classList.add("endOfRow");
+    return inputTitle;
+}
+
+function createInputVideo() {
     const inputVideo = document.createElement("input");
     inputVideo.setAttribute("type", "file");
+    inputVideo.classList.add("endOfRow");
+    return inputVideo;
+}
 
-    form.appendChild(labelTitle);
-    form.appendChild(inputTitle);
-    form.appendChild(inputVideo);
-    return form;
+function createFormSubmit() {
+    const submit = document.createElement("input");
+    submit.type = "submit";
+    submit.value = "Adauga pas";
+    submit.classList.add("NextStep");
+    return submit;
 }
 
 async function VideoCreateRequest(oFormElement) {
@@ -39,9 +61,10 @@ async function VideoCreateRequest(oFormElement) {
     
     FetchHttpPostFormData("/api/video/upload", formData)
         .then(() => {
-            alert("Pasul video a fost creat cu succes!");
+            alert("Pasul Video a fost creat cu succes!");
         })
         .catch(err => {
+            alert("Pasul Video nu a putut fi creat!");
             console.log(err);
         });
 }

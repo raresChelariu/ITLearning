@@ -18,5 +18,6 @@ function buildText(data) {
     const textDiv = document.createElement("div");
     const text = data["courseWikiText"]
     textDiv.innerHTML = marked.parse(text);
+    hljs.highlightAll();
     return textDiv;
 }
