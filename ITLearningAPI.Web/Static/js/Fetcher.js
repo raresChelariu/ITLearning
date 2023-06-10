@@ -48,7 +48,6 @@ export function FetchHttpPostFormData(path, formData) {
         cache: "no-cache",
         credentials: "same-origin",
         redirect: "follow",
-        referrerPolicy: "no-referrer",
         body: formData
     });
 }

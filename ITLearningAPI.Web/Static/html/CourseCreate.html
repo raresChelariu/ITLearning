@@ -32,7 +32,7 @@
     <span class="icon icon-menu"></span>&nbsp;
     Curpins
 </a>
-<nav id="stepsList">
+<nav id="stepsSummary">
     <a id="nav-collapse" href="#">
         <span class="icon icon-cross"></span>
     </a>
@@ -45,18 +45,17 @@
         <input type="text" id="inputCourseTitle"/>
         <button id="buttonCreateCourse">Creeaza Curs</button>
     </div>
-    <div class="white-box">
+    <div class="white-box" id="stepBuilderBox">
 
         <div class="content">
             <br><Br>
-            <label for="selectItemType">
-                <select id="selectItemType" class="dropdown">
-                    <option value=""></option>
-                    <option value="wiki">Pas Text</option>
-                    <option value="video">Pas Video</option>
-                    <option value="quizWithChoices">Pas Quiz cu alegeri</option>
-                </select>
-            </label>
+            <label for="selectItemType">Selecteaza tipul de pas</label>
+            <select id="selectItemType" class="dropdown">
+                <option value=""></option>
+                <option value="wiki">Pas Text</option>
+                <option value="video">Pas Video</option>
+                <option value="quizWithChoices">Pas Quiz cu alegeri</option>
+            </select>
             <br><br><br>
             <div id="stepBuilder"></div>
 

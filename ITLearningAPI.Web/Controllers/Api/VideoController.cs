@@ -16,7 +16,7 @@ public class VideoController : ControllerBase
     }
     
     [HttpPost("upload")]
-    public async Task<IActionResult> Upload([FromForm] IFormFile file, [FromForm] string title, [FromForm] long courseId)
+    public async Task<IActionResult> Upload([FromForm] string title, [FromForm] IFormFile file, [FromForm] long courseId)
     {
         var content = await FileToByteArray(file);
         var video = new Video

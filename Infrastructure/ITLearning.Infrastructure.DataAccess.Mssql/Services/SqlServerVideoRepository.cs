@@ -90,7 +90,7 @@ internal class SqlServerVideoRepository : IVideoRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(InsertVideo), ex);
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetVideoItemDetailsById), ex);
             return null;
         }
     } 

@@ -59,12 +59,12 @@ function buttonCreateCourseOnClick() {
             const panelCreateCourse = document.getElementById("panelCourseCreate");
             panelCreateCourse.dataset.id = response["courseId"] + "";
             inputTitle.disabled = true;
-            alert("Cursul a fost creat cu succees! Poti adauga pasi!");
             buttonCreateCourse.hidden = true;
-            showStepBuilderAfterCourseIsCreated()
-            
+            showStepBuilderAfterCourseIsCreated();
+            alert("Cursul a fost creat cu succees! Poti adauga pasi!");            
         })
         .catch(err => {
+            alert("Cursul nu a putut fi creat");
             console.log(err);
         });
 }
