@@ -44,4 +44,5 @@ function HandleNextItemApiResponse(response) {
     for (let i = 0; i < itemCollection.length; i++) {
         itemParent.appendChild(itemCollection[i]);
     }
+    hljs.highlightAll();
 }

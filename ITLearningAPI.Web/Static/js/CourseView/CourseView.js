@@ -29,10 +29,10 @@ GetCourseTitles(courseId)
         console.log('First item here');
         console.log(response);
         const items = BuildDomItemCollectionFromApiResponse(response);
-        for (let i = 0; i < items.length; i++)
-        {
+        for (let i = 0; i < items.length; i++) {
             itemParent.appendChild(items[i]);
         }
+        hljs.highlightAll();
     });
 
 function GetCourseId() {
