@@ -1,4 +1,5 @@
 import {FetchHttpPostJson} from "/js/Fetcher.js";
+import {AddStepToSummary} from "/js/CourseCreate/CourseCreateSummary.js";
 
 const stepIds = {
     InputWikiTitle : "inputWikiTitle",
@@ -84,12 +85,15 @@ function WikiCreateRequest() {
     const body = {
         courseWikiText: wikiTextElement.value,
         courseId: GetCourseId(),
-        title: inputWikiTitle.innerText
+        title: inputWikiTitle.value
     };
     
     FetchHttpPostJson("/api/coursewiki", body)
         .then(() => {
             alert("Pasul Wiki a fost creat cu succes!");
+            AddStepToSummary({
+               stepTitle: body.title 
+            });
         })
         .catch(err => {
             alert("Pasul Wiki nu a putut fi creat!");

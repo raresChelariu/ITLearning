@@ -6,8 +6,15 @@ import {GetQuizStepBuilder} from "/js/CourseCreate/CreateStepQuiz.js";
 const buttonCreateCourse = document.getElementById("buttonCreateCourse");
 const selectItemType = document.getElementById("selectItemType");
 
-buttonCreateCourse.addEventListener('click', buttonCreateCourseOnClick);
+buttonCreateCourse.addEventListener("click", buttonCreateCourseOnClick);
 selectItemType.addEventListener("change", ShowItemBuilder);
+hideStepBuilderBeforeCourseIsCreated();
+
+function hideStepBuilderBeforeCourseIsCreated() {
+    const stepBuilderBox = document.getElementById("stepBuilderBox");
+    stepBuilderBox.hidden = true;    
+}
+
 
 function ShowItemBuilder(event) {
     const builderType = event.target.value;
@@ -42,18 +49,27 @@ function AppendStep(parent, step) {
 
 function buttonCreateCourseOnClick() {
     const inputTitle = document.getElementById("inputCourseTitle");
-    const courseTitle = inputTitle.innerText;
+    const courseTitle = inputTitle.value;
     const requestCourseCreate = {
         courseName: courseTitle
     };
+    
     FetchHttpPostJson("/api/course", requestCourseCreate)
         .then((response) => {
             const panelCreateCourse = document.getElementById("panelCourseCreate");
             panelCreateCourse.dataset.id = response["courseId"] + "";
             inputTitle.disabled = true;
+            alert("Cursul a fost creat cu succees! Poti adauga pasi!");
+            buttonCreateCourse.hidden = true;
+            showStepBuilderAfterCourseIsCreated()
+            
         })
         .catch(err => {
             console.log(err);
         });
 }
 
+function showStepBuilderAfterCourseIsCreated() {
+    const stepBuilderBox = document.getElementById("stepBuilderBox");
+    stepBuilderBox.hidden = false;
+}

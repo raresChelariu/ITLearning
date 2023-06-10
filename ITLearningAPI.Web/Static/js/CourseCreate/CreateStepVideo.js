@@ -1,4 +1,5 @@
 import {FetchHttpPostFormData} from "/js/Fetcher.js";
+import {AddStepToSummary} from "/js/CourseCreate/CourseCreateSummary.js";
 
 const idInputVideoStepTitle = "inputTitleStepVideo";
 
@@ -62,6 +63,9 @@ async function VideoCreateRequest(oFormElement) {
     FetchHttpPostFormData("/api/video/upload", formData)
         .then(() => {
             alert("Pasul Video a fost creat cu succes!");
+            AddStepToSummary({
+                stepTitle: title.value
+            });
         })
         .catch(err => {
             alert("Pasul Video nu a putut fi creat!");

@@ -1,4 +1,5 @@
 import {FetchHttpPostJson} from "/js/Fetcher.js"
+import {AddStepToSummary} from "/js/CourseCreate/CourseCreateSummary.js";
 
 const stepIds = {
     InputQuizTitle: "inputQuizTitle",
@@ -53,6 +54,9 @@ function createButtonAddStep() {
         FetchHttpPostJson("/api/quiz", request)
             .then(() => {
                 alert("Pasul Quiz a fost creat cu succes!");
+                AddStepToSummary({
+                   stepTitle: request.quizTitle 
+                });
             })
             .catch(err => {
                 alert("Pasul Quiz nu a putut fi creat!");
