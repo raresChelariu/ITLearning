@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ITLearning.Infrastructure.DataAccess.Mssql.Services;
 
-public class SqlServerCourseItemRepository : ICourseItemRepository
+internal class SqlServerCourseItemRepository : ICourseItemRepository
 {
     private readonly ILogger<SqlServerCourseItemRepository> _logger;
     private readonly IDatabaseConnector _databaseConnector;

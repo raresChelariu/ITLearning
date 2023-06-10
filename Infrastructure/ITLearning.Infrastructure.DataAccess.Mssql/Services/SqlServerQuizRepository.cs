@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ITLearning.Infrastructure.DataAccess.Mssql.Services;
 
-public class SqlServerQuizRepository : IQuizRepository
+internal class SqlServerQuizRepository : IQuizRepository
 {
     private readonly ILogger<SqlServerUserRepository> _logger;
     private readonly IDatabaseConnector _databaseConnector;

@@ -1,6 +1,6 @@
 namespace ITLearning.Infrastructure.DataAccess.Mssql.DatabaseModels;
 
-public class QuizChoiceDbDto
+internal class QuizChoiceDbDto
 {
     public string ChoiceText { get; set; }
     public long QuizChoiceId { get; set; }

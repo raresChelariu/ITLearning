@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ITLearning.Infrastructure.DataAccess.Mssql.Services;
 
-public class SqlServerUserRepository : IUserRepository
+internal class SqlServerUserRepository : IUserRepository
 {
     private readonly IDatabaseConnector _databaseConnector;
     private readonly ILogger<SqlServerUserRepository> _logger;

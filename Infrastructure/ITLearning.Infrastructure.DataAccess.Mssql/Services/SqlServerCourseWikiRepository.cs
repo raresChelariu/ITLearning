@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ITLearning.Infrastructure.DataAccess.Mssql.Services;
 
-public class SqlServerCourseWikiRepository : ICourseWikiRepository
+internal class SqlServerCourseWikiRepository : ICourseWikiRepository
 {
     private readonly ILogger<SqlServerCourseWikiRepository> _logger;
     private readonly IDatabaseConnector _databaseConnector;
