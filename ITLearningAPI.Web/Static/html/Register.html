@@ -15,41 +15,28 @@
 
 <body>
 <div class="signupFrm">
-    <form action="" class="form">
-        <h1 class="title">Sign up</h1>
+    <h1 class="title">Inregistrare</h1>
+    <label for="inputEmail"></label>
+    <input id="inputEmail" type="text" class="input" placeholder="Email">
+    
+    <label for="inputUsername"></label>
+    <input id="inputUsername" type="text" class="input" placeholder="Nume Utilizator">
+    
+    <label for="inputPassword"></label>
+    <input id="inputPassword" type="password" class="input" placeholder="Parola">
+    
+    <label for="inputPasswordConfirm"></label>
+    <input id="inputPasswordConfirm" type="password" class="input" placeholder="Confirmare Parola">
 
-        <div class="inputContainer">
-            <input id="inputEmail" type="text" class="input" placeholder="Email">
-        </div>
-
-        <div class="inputContainer">
-            <input id="inputLastName" type="text" class="input" placeholder="Nume">
-        </div>
-
-        <div class="inputContainer">
-            <input id="inputFirstName" type="text" class="input" placeholder="Prenume">
-        </div>
-
-        <div class="inputContainer">
-            <input id="inputPassword" type="password" class="input" placeholder="Parola">
-        </div>
-
-        <div class="inputContainer">
-            <input id="inputPasswordConfirm" type="password" class="input" placeholder="Confirmare Parola">
-        </div>
-    </form>
-
-    <div class="checkbox">
-        <input type="radio" id="radioStudent">
-        <label for="radioStudent">Elev/Student</label>
-
-        <input id="radioTeacher" type="radio">
-        <label for="radioTeacher">Profesor</label>
-        <br>
-    </div>
+    <label for="selectUserRole">Tipul Utilizatorului</label>
+    <select id="selectUserRole">
+        <option value="0"></option>
+        <option value="1">Profesor</option>
+        <option value="2">Elev/Student</option>
+    </select>
     <button id="buttonRegister" class="signup-button">Inregistreaza-te!</button>
 </div>
 </body>
 
-<script src="/js/register.js"></script>
+<script type="module" src="/js/Auth/register.js"></script>
 </html>
