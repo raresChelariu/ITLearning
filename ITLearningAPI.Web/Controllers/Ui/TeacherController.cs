@@ -45,7 +45,7 @@ public class TeacherController : ControllerBase
     }
     
     [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]
-    [HttpGet("/sqlplayground")]
+    [HttpGet("sqlplayground")]
     public async Task GetSqlPlaygroundPage()
     {
         await _staticAssetResponseService.RespondWithStaticAsset(Response, "TeacherSqlPlayground.html");
