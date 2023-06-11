@@ -6,15 +6,15 @@ namespace ITLearningAPI.Web.Controllers.Ui;
 
 [ApiController]
 [Route("[controller]")]
-public class 
-    CourseController : ControllerBase
+public class CourseController : ControllerBase
 {
     private readonly IStaticAssetResponseService _staticAssetResponseService;
     private readonly ICourseRepository _courseRepository;
-    public CourseController(IStaticAssetResponseService staticAssetResponseService, ICourseRepository courseRepository)
+    
+    public CourseController(IStaticAssetResponseService staticAssetResponseService
+        , ICourseRepository courseRepository)
     {
-        _staticAssetResponseService = staticAssetResponseService 
-                                      ?? throw new ArgumentNullException(nameof(staticAssetResponseService));
+        _staticAssetResponseService = staticAssetResponseService ?? throw new ArgumentNullException(nameof(staticAssetResponseService));
         _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
     }
 
@@ -37,5 +37,5 @@ public class
         }
         await _staticAssetResponseService.RespondWithStaticAsset(Response, "CourseView.html");
     }
-    
+
 }

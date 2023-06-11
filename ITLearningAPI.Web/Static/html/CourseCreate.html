@@ -43,6 +43,14 @@
     <div class="white-box" id="panelCourseCreate">
         <label for="inputCourseTitle">Titlu curs</label>
         <input type="text" id="inputCourseTitle"/>
+        <form>
+            <input id="checkboxNeedToAttachScript" type="checkbox"/>
+            <label for="checkboxNeedToAttachScript">Doresc sa generez baza de date pentru cursanti pe baza unui script</label>
+            <div id="panelUploadScript">
+                <label for="inputScriptUpload">Adauga un script sql pentru cursul tau</label>
+                <input id="inputScriptUpload" type="file"/>
+            </div>
+        </form>
         <button id="buttonCreateCourse">Creeaza Curs</button>
     </div>
     <div class="white-box" id="stepBuilderBox">

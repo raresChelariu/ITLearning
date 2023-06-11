@@ -3,6 +3,28 @@ import {GetVideoStepBuilder} from "/js/CourseCreate/CreateStepVideo.js"
 import {GetWikiStepBuilder} from "/js/CourseCreate/CreateStepWiki.js";
 import {GetQuizStepBuilder} from "/js/CourseCreate/CreateStepQuiz.js";
 
+const pageIds = {
+    PanelUploadScript: "panelUploadScript",
+    CheckboxNeedToAttachScript: "checkboxNeedToAttachScript",
+    InputScriptUpload: "inputScriptUpload"
+};
+const panelUploadScript = document.getElementById(pageIds.PanelUploadScript);
+panelUploadScript.style.display = "none";
+
+const checkboxNeedToAttachScript = document.getElementById(pageIds.CheckboxNeedToAttachScript);
+checkboxNeedToAttachScript.addEventListener("change", () => {
+    const checkboxNeedToAttachScript = document.getElementById(pageIds.CheckboxNeedToAttachScript);
+    const isChecked = checkboxNeedToAttachScript.checked;
+    const panelUploadScript = document.getElementById(pageIds.PanelUploadScript);
+    if (isChecked) {
+        panelUploadScript.style.display = "block";
+    }
+    else {
+        panelUploadScript.style.display = "none";
+    }
+});
+
+
 const buttonCreateCourse = document.getElementById("buttonCreateCourse");
 const selectItemType = document.getElementById("selectItemType");
 

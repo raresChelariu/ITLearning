@@ -15,6 +15,7 @@ public static class MsSqlDiEx
         services.AddSingleton<ICourseWikiRepository, SqlServerCourseWikiRepository>();
         services.AddSingleton<ICourseItemRepository, SqlServerCourseItemRepository>();
         services.AddSingleton<ISqlPlaygroundRepository, SqlServerSqlPlaygroundRepository>();
+        services.AddSingleton<ICourseScriptRepository, SqlServerCourseScriptRepository>();
         return services;
     } 
 }
