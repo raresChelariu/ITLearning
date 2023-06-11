@@ -11,10 +11,10 @@ public static class MsSqlDiEx
         services.AddSingleton<IVideoRepository, SqlServerVideoRepository>();
         services.AddSingleton<IUserRepository, SqlServerUserRepository>();
         services.AddSingleton<ICourseRepository, SqlServerCourseRepository>();
-        services.AddSingleton<ICourseScriptRepository, SqlServerCourseScriptRepository>();
         services.AddSingleton<IQuizRepository, SqlServerQuizRepository>();
         services.AddSingleton<ICourseWikiRepository, SqlServerCourseWikiRepository>();
         services.AddSingleton<ICourseItemRepository, SqlServerCourseItemRepository>();
+        services.AddSingleton<ISqlPlaygroundRepository, SqlServerSqlPlaygroundRepository>();
         return services;
     } 
 }

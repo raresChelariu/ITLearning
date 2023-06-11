@@ -3,4 +3,5 @@
 internal interface IDatabaseConfiguration
 {
     public string ConnectionString { get; }
+    public string ConnectionStringMasterDatabase { get; }
 }

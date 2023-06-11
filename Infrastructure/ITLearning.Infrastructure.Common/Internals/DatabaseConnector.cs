@@ -14,4 +14,11 @@ internal class DatabaseConnector : IDatabaseConnector
     }
 
     public SqlConnection GetSqlConnection() => new(_databaseConfiguration.ConnectionString);
+
+    public SqlConnection GetSqlConnectionMasterDatabase() => new(_databaseConfiguration.ConnectionStringMasterDatabase);
+    
+    public SqlConnection GetSqlConnectionCustomDatabase(string customDatabase)
+    {
+        return new SqlConnection(_databaseConfiguration.ConnectionStringMasterDatabase.Replace("master", customDatabase));
+    }
 }
