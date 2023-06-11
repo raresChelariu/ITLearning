@@ -1,3 +1,4 @@
+using System.Data;
 using Dapper;
 using ITLearning.Infrastructure.DataAccess.Common.Contracts;
 using ITLearning.Infrastructure.DataAccess.Contracts;
@@ -116,6 +117,46 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
         catch (Exception ex)
         {
             _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(DropDatabaseIfExists), ex);
+        }
+    }
+
+    public async Task<string> GetCourseDatabaseName(long userId, long courseId)
+    {
+        const string query = "SELECT DatabaseName FROM PlaygroundUsers where CourseID = @CourseID AND UserID = @UserID";
+        try
+        {
+            var connection = _databaseConnector.GetSqlConnection();
+            var parameters = new DynamicParameters(new 
+            {
+                UserID = userId,
+                CourseID = courseId
+            });
+            var result = await connection.ExecuteScalarAsync<string>(query, parameters);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(DropDatabaseIfExists), ex);
+            return null;
+        }
+    }
+    
+    public async Task<DataTable> GetQueryResults(string dbName, string query)
+    {
+        try
+        {
+            var connection = _databaseConnector.GetSqlConnectionCustomDatabase(dbName);
+            await connection.OpenAsync();
+            var command = new SqlCommand(query, connection);
+            var reader = await command.ExecuteReaderAsync();
+            var dataTable = new DataTable();
+            dataTable.Load(reader);
+            return dataTable;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(DropDatabaseIfExists), ex);
+            return null;
         }
     }
 }

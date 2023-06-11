@@ -63,6 +63,20 @@ public class CourseController : ControllerBase
         return Ok(courses);
     }
 
-    
+    [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]
+    [HttpGet("author/withscripts")]
+    public async Task<IActionResult> GetCoursesForAuthorHavingSqlScripts()
+    {
+        var user = HttpContext.GetUser();
+
+        var courses = await _courseRepository.GetByAuthorId(user.Id);
+
+        if (courses == null)
+        {
+            return BadRequest();
+        }
+        
+        return Ok(courses);
+    }
 }
 

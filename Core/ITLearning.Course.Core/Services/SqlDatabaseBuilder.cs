@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ITLearning.Course.Core.Services;
 
-public class SqlDatabaseBuilder : ISqlDatabaseBuilder
+internal class SqlDatabaseBuilder : ISqlDatabaseBuilder
 {
     private readonly ILogger<SqlDatabaseBuilder> _logger;
     private readonly ISqlPlaygroundRepository _sqlPlaygroundRepository;

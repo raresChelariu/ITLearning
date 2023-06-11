@@ -3,7 +3,7 @@ using ITLearning.Infrastructure.DataAccess.Contracts;
 
 namespace ITLearning.Course.Core.Services;
 
-public class CourseProgressService : ICourseProgressService
+internal class CourseProgressService : ICourseProgressService
 {
     private readonly ICourseRepository _courseRepository;
     private readonly ICourseItemFetcher _itemFetcher;

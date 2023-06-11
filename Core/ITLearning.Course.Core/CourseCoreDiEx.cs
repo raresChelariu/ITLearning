@@ -14,6 +14,7 @@ public static class CourseCoreDiEx
         services.AddSingleton<IQuizChoiceValidator, QuizChoiceValidator>();
         services.AddSingleton<ICourseProgressService, CourseProgressService>();
         services.AddSingleton<ISqlDatabaseBuilder, SqlDatabaseBuilder>();
+        services.AddSingleton<ICourseDatabaseRunner, CourseDatabaseRunner>();
         return services;
     }
 }

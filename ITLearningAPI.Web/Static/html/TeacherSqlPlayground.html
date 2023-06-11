@@ -8,7 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/ToateCursurile.css">
+    <link rel="stylesheet" href="/css/SqlPlayground.css">
+    <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/gridjs-jquery/dist/gridjs.production.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" />
     <meta charset="utf-8">
 </head>
 
@@ -45,10 +48,14 @@
     <div class="btn-group">
         <label for="coursesList">Alege cursul pentru simularea de comenzi SQL</label>
         <select id="coursesList"></select>
+        <label for="queryInput">Introdu aici comanda SQL</label>
+        <textarea id="queryInput"></textarea>
+        <button class="NextStep">Executa comanda</button>
         <div class="btn-group" id="listCourses">
         </div>
         <br>
         <br>
+        <div id="queryResultView"></div>
     </div>
 </div>
 </body>
