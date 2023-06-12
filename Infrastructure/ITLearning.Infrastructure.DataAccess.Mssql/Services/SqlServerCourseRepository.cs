@@ -211,6 +211,26 @@ internal class SqlServerCourseRepository : ICourseRepository
             _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(UpdateUserCourseProgress), ex);
         }
     }
+
+    public async Task<IEnumerable<Course>> GetSqlCoursesByUserId(long userId)
+    {
+        const string query = "CoursesGetByUserIdWithDatabaseDetails";
+        try
+        {
+            var connection = _databaseConnector.GetSqlConnection();
+            var parameters = new DynamicParameters(new
+            {
+                UserID = userId
+            });
+            var result = await connection.QueryAsync<Course>(query, parameters, null, null, CommandType.StoredProcedure);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetSqlCoursesByUserId), ex);
+            return null;
+        }
+    }
     
     private static Course CreateCourseFromReader(SqlDataReader reader)
     {

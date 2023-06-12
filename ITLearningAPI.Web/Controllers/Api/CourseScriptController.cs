@@ -1,4 +1,5 @@
 using System.Text;
+using ITLearning.Course.Core.Contracts;
 using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using Microsoft.AspNetCore.Authorization;
@@ -11,16 +12,19 @@ namespace ITLearningAPI.Web.Controllers.Api;
 public class CourseScriptController : ControllerBase
 {
     private readonly ICourseScriptRepository _scriptRepository;
-    
-    public CourseScriptController(ICourseScriptRepository scriptRepository)
+    private readonly ISqlDatabaseBuilder _sqlDatabaseBuilder;
+
+    public CourseScriptController(ICourseScriptRepository scriptRepository, ISqlDatabaseBuilder sqlDatabaseBuilder)
     {
         _scriptRepository = scriptRepository ?? throw new ArgumentNullException(nameof(scriptRepository));
+        _sqlDatabaseBuilder = sqlDatabaseBuilder ?? throw new ArgumentNullException(nameof(sqlDatabaseBuilder));
     }
 
     [Authorize(Policy = "AdminOrTeacher")]
     [HttpPost]
     public async Task<IActionResult> CreateScript([FromForm] IFormFile fileScript, [FromForm] long courseId)
     {
+        var user = HttpContext.GetUser();
         var scriptText = await ReadAsStringAsync(fileScript);
         var courseScript = new CourseScript
         {
@@ -28,6 +32,19 @@ public class CourseScriptController : ControllerBase
             ScriptText = scriptText
         };
         var scriptId = await _scriptRepository.CreateScript(courseScript);
+        var errorList = await _sqlDatabaseBuilder.CreateDatabaseWithScripts(new DatabaseBuildCommand
+        {
+            UserId = user.Id, 
+            CourseId = courseId,
+            SeedingScripts = new List<CourseScript>
+            {
+                courseScript
+            }
+        });
+        if (errorList is not null && errorList.Count > 0)
+        {
+            return BadRequest(errorList);
+        }
         return Created("/api/coursescript", new
         {
             scriptId

@@ -69,9 +69,9 @@ public class CourseController : ControllerBase
     {
         var user = HttpContext.GetUser();
 
-        var courses = await _courseRepository.GetByAuthorId(user.Id);
+        var courses = await _courseRepository.GetSqlCoursesByUserId(user.Id);
 
-        if (courses == null)
+        if (courses is null)
         {
             return BadRequest();
         }

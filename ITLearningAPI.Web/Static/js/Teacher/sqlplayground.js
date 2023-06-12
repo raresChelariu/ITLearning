@@ -2,18 +2,25 @@ import {FetchHttpGet} from "/js/Fetcher.js";
 import {Grid} from "https://unpkg.com/gridjs?module";
 
 const pageIds = {
-    selectCourseList: "coursesList",
-    QueryResultView: "queryResultView"
-}
-GetCoursesWithSqlScripts();
+    SelectCourseList: "coursesList",
+    QueryResultView: "queryResultView",
+    ButtonRecreateDatabase: "buttonRecreateDb"
+};
 
+const select = document.getElementById(pageIds.SelectCourseList);
+select.addEventListener("change", () => {
+    const select = document.getElementById(pageIds.SelectCourseList);
+    const value = select.value;
+})
+
+GetCoursesWithSqlScripts();
 
 function GetCoursesWithSqlScripts() {
     FetchHttpGet("/api/course/author/withscripts")
         .then(response => {
             console.log(response);
             JsonToHtmlTable(response, pageIds.QueryResultView);
-            const select = document.getElementById(pageIds.selectCourseList);
+            const select = document.getElementById(pageIds.SelectCourseList);
             for (let i = 0; i < response.length; i++) {
                 const data = {
                     courseId: response[i]["id"],
@@ -37,6 +44,6 @@ function JsonToHtmlTable(jsonDataArray, targetContainerId) {
 function createCourseOption(data) {
     const option = document.createElement("option");
     option.innerText = data.courseName;
-    option.value = data.courseId + "";
+    option.value = `${data.courseId}@${data.courseName}`;
     return option;
 }

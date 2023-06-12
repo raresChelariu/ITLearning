@@ -122,7 +122,7 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
 
     public async Task<string> GetCourseDatabaseName(long userId, long courseId)
     {
-        const string query = "SELECT DatabaseName FROM PlaygroundUsers where CourseID = @CourseID AND UserID = @UserID";
+        const string query = "SELECT DatabaseName FROM PlaygroundUsers WHERE CourseID = @CourseID AND UserID = @UserID";
         try
         {
             var connection = _databaseConnector.GetSqlConnection();
