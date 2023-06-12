@@ -1,7 +1,7 @@
-using System.Text.Json;
 using ITLearning.Course.Core.Contracts;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace ITLearning.Course.Core.Services;
 
@@ -31,7 +31,7 @@ internal class CourseDatabaseRunner : ICourseDatabaseRunner
             _logger.LogWarning("DataTable is null for {@UserId}, {@CourseId}, {@UserSqlQuery}", userId, courseId, query);
             return null;
         } 
-        var result = JsonSerializer.Serialize(dataTable);
+        var result = JsonConvert.SerializeObject(dataTable);
         
         return result;
     }

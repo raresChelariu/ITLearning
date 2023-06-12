@@ -28,7 +28,7 @@ public class QuizController : ControllerBase
         _quizChoiceValidator = quizChoiceValidator ?? throw new ArgumentNullException(nameof(quizChoiceValidator));
     }
 
-    [Authorize(Policy = AuthorizationPolicies.Teacher)]
+    [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]
     [HttpPost]
     public async Task<IActionResult> CreateQuiz([FromBody] QuizCreateRequest request)
     {
