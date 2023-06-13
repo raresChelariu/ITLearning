@@ -36,4 +36,11 @@ public class StudentController : ControllerBase
     {
         await _staticAssetResponseService.RespondWithStaticAsset(Response, "StudentCoursesMine.html");
     }
+    
+    [Authorize(Policy = AuthorizationPolicies.AdminOrStudent)]
+    [HttpGet("sqlplayground")]
+    public async Task GetSqlPlaygroundPage()
+    {
+        await _staticAssetResponseService.RespondWithStaticAsset(Response, "StudentSqlPlayground.html");
+    }
 }
