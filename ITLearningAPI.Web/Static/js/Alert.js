@@ -2,14 +2,7 @@ export function CreateAlertError(text) {
     const closeButton = document.createElement("span");
     closeButton.classList.add("closebtn");
     closeButton.innerHTML = "&times;";
-    closeButton.addEventListener("click", (event) => {
-        const div = event.target.parentElement;
-        div.style.opacity = "0";
-        const fadeAwayTimeout = 600;
-        setTimeout(function () {
-            div.style.display = "none";
-        }, fadeAwayTimeout);
-    });
+    closeButton.addEventListener("click", CloseButtonOnClick);
     
     const errorText = document.createTextNode(text);
 
@@ -24,4 +17,13 @@ export function CreateAlertSuccess(text) {
     const alert = CreateAlertError(text);
     alert.classList.add("success");
     return alert;
+}
+
+function CloseButtonOnClick (event) {
+    const div = event.target.parentElement;
+    div.style.opacity = "0";
+    const fadeAwayTimeout = 600;
+    setTimeout(function () {
+        div.style.display = "none";
+    }, fadeAwayTimeout);
 }
