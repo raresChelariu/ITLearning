@@ -2,6 +2,7 @@ import {FetchHttpPostFormData, FetchHttpPostJson} from "/js/Fetcher.js";
 import {GetVideoStepBuilder} from "/js/CourseCreate/CreateStepVideo.js"
 import {GetWikiStepBuilder} from "/js/CourseCreate/CreateStepWiki.js";
 import {GetQuizStepBuilder} from "/js/CourseCreate/CreateStepQuiz.js";
+import {GetSqlQuizStepBuilder} from "/js/CourseCreate/CreateStepSqlQuiz.js";
 
 const pageIds = {
     PanelUploadScript: "panelUploadScript",
@@ -54,8 +55,12 @@ function ShowItemBuilder(event) {
             step = GetWikiStepBuilder();
             AppendStep(parentElement, step);
             return;
-        case "quizWithChoices":
+        case "quizMultipleChoices":
             step = GetQuizStepBuilder();
+            AppendStep(parentElement, step);
+            return;
+        case "quizSql":
+            step = GetSqlQuizStepBuilder();
             AppendStep(parentElement, step);
             return;
     }
