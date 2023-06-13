@@ -1,6 +1,8 @@
+using System.Data;
+
 namespace ITLearning.Course.Core.Contracts;
 
 public interface ICourseDatabaseRunner
 {
-    Task<string> GetQueryResult(long userId, long courseId, string query);
+    Task<DataTable> GetQueryResult(SqlRunCommand command);
 }

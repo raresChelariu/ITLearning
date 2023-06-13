@@ -137,5 +137,6 @@
 
   <ItemGroup>
     <Folder Include="Configuration\" />
+    <Folder Include="Logs\" />
   </ItemGroup>
 </Project>

@@ -11,20 +11,23 @@ internal class ItemFetcherStrategyCollection : IItemFetcherStrategyCollection
     private readonly ICourseWikiRepository _courseWikiRepository;
     private readonly IQuizRepository _quizRepository;
     private readonly IVideoRepository _videoRepository;
-    
+    private readonly ISqlQuizRepository _sqlQuizRepository;
     private readonly Dictionary<ItemType, Func<long, Task<ICourseItem>>> _itemTypeToStrategy;
 
     public ItemFetcherStrategyCollection(
         ILogger<ItemFetcherStrategyCollection> logger,
         ICourseWikiRepository courseWikiRepository,
-        IQuizRepository quizRepository, IVideoRepository videoRepository)
+        IQuizRepository quizRepository, 
+        IVideoRepository videoRepository,
+        ISqlQuizRepository sqlQuizRepository)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _itemTypeToStrategy = GetMappings();
         
         _courseWikiRepository = courseWikiRepository ?? throw new ArgumentNullException(nameof(courseWikiRepository));
         _quizRepository = quizRepository ?? throw new ArgumentNullException(nameof(quizRepository));
-        _videoRepository = videoRepository;
+        _videoRepository = videoRepository ?? throw new ArgumentNullException(nameof(videoRepository));
+        _sqlQuizRepository = sqlQuizRepository ?? throw new ArgumentNullException(nameof(sqlQuizRepository));
     }
 
     public Func<long, Task<ICourseItem>> GetStrategyByItemType(ItemType itemType)
@@ -54,6 +57,10 @@ internal class ItemFetcherStrategyCollection : IItemFetcherStrategyCollection
             {
                 ItemType.Video,
                 async itemId => await _videoRepository.GetVideoItemDetailsById(itemId)
+            },
+            {
+                ItemType.SqlQuiz,
+                async itemId => await _sqlQuizRepository.GetSqlQuizById(itemId)
             }
         };
     }

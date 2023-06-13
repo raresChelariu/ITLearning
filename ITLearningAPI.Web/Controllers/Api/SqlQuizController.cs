@@ -1,3 +1,4 @@
+using ITLearning.Course.Core.Contracts;
 using ITLearning.Domain;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using ITLearningAPI.Web.Authorization;
@@ -12,10 +13,12 @@ namespace ITLearningAPI.Web.Controllers.Api;
 public class SqlQuizController : ControllerBase
 {
     private readonly ISqlQuizRepository _sqlQuizRepository;
+    private readonly ISqlQuizAnswerValidator _sqlQuizAnswerValidator;
     
-    public SqlQuizController(ISqlQuizRepository sqlQuizRepository)
+    public SqlQuizController(ISqlQuizRepository sqlQuizRepository, ISqlQuizAnswerValidator sqlQuizAnswerValidator)
     {
         _sqlQuizRepository = sqlQuizRepository ?? throw new ArgumentNullException(nameof(sqlQuizRepository));
+        _sqlQuizAnswerValidator = sqlQuizAnswerValidator ?? throw new ArgumentNullException(nameof(sqlQuizAnswerValidator));
     }
 
     [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]
@@ -32,5 +35,20 @@ public class SqlQuizController : ControllerBase
         var result = await _sqlQuizRepository.CreateSqlQuiz(sqlQuiz);
         return Created("/api/sqlquiz", result);
     }
-    
+
+    [Authorize(Policy = AuthorizationPolicies.User)]
+    [HttpPost("validate")]
+    public async Task<IActionResult> Validate(SqlQuizValidationRequest request)
+    {
+        var user = HttpContext.GetUser();
+        
+        var result = await _sqlQuizAnswerValidator.Validate(new SqlQuizValidationCommand
+        {
+           UserId = user.Id,
+           SqlQuizId = request.SqlQuizId,
+           QueryText = request.Query
+        });
+        
+        return Ok(result);
+    }
 }

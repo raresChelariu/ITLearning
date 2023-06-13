@@ -45,4 +45,25 @@ internal class SqlServerSqlQuizRepository : ISqlQuizRepository
             return -1;
         }
     }
+
+    public async Task<SqlQuiz> GetSqlQuizById(long itemId)
+    {
+        const string query = "SqlQuizGetByItemId";
+        try
+        {
+            var connection = _databaseConnector.GetSqlConnection();
+            var parameters = new DynamicParameters(new
+            {
+                ItemID = itemId
+            });
+            var result = await connection.QueryFirstOrDefaultAsync<SqlQuiz>(query, parameters,
+                null, null, CommandType.StoredProcedure);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetSqlQuizById), ex);
+            return null;
+        }
+    }
 }

@@ -1,4 +1,5 @@
 using ITLearning.Course.Core.Contracts;
+using ITLearning.Domain;
 using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using ITLearningAPI.Web.Authorization;
@@ -50,6 +51,10 @@ public class ItemController : ControllerBase
     {
         var user = HttpContext.GetUser();
         var result = await _courseProgressService.AdvanceUserToNextItem(user.Id, request.CourseId, request.ItemId);
+        if (result == null)
+        {
+            return NoContent();
+        }
         if (result.EndOfCourse)
         {
             return Ok(result);
@@ -60,6 +65,7 @@ public class ItemController : ControllerBase
             ItemType.Quiz => Ok(new { result.EndOfCourse, courseItem = result.CourseItem as Quiz }),
             ItemType.Wiki => Ok(new { result.EndOfCourse, courseItem = result.CourseItem as CourseWiki }),
             ItemType.Video => Ok(new { result.EndOfCourse, courseItem = result.CourseItem as VideoItemDetails }),
+            ItemType.SqlQuiz => Ok(new { result.EndOfCourse, courseItem = result.CourseItem as SqlQuiz }),
             _ => NoContent()
         };
     }

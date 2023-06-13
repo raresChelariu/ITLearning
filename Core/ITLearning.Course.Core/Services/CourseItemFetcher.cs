@@ -28,6 +28,10 @@ internal class CourseItemFetcher : ICourseItemFetcher
 
         var fetcher = _itemFetcherCollection.GetStrategyByItemType(itemDetails.ItemType);
         var item = await fetcher(itemId);
+        if (item is null)
+        {
+            return null;
+        }
         item.Title = itemDetails.ItemTitle;
         return item;
     }

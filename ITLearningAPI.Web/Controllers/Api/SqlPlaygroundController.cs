@@ -3,6 +3,7 @@ using ITLearningAPI.Web.Authorization;
 using ITLearningAPI.Web.Contracts.SqlPlayground;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ITLearningAPI.Web.Controllers.Api;
 
@@ -22,12 +23,16 @@ public class SqlPlaygroundController : ControllerBase
     public async Task<IActionResult> RunQuery(RunQueryRequest request)
     {
         var user = HttpContext.GetUser();
-
-        var result = await _databaseRunner.GetQueryResult(user.Id, request.CourseId, request.QueryText);
-
+        var result = await _databaseRunner.GetQueryResult(new SqlRunCommand
+        {
+            UserId = user.Id,
+            CourseId = request.CourseId,
+            Query = request.QueryText
+        });
+        var serializedResult = JsonConvert.SerializeObject(result);
         return Ok(new
         {
-            result
+            result = serializedResult
         });
     }
 }
