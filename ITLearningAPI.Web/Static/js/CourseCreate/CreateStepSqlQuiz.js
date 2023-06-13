@@ -77,9 +77,10 @@ function createButtonAddStep() {
 }
 
 function buttonAddStepOnClick() {
+    const quizTitle = document.getElementById(stepIds.InputQuizTitle).value;
     const request = {
         courseId: GetCourseId(),
-        title: document.getElementById(stepIds.InputQuizTitle).value,
+        title: quizTitle,
         questionText: document.getElementById(stepIds.InputQuizQuestion).value,
         expectedQuery: document.getElementById(stepIds.InputQueryAnswer).value
     };
@@ -87,7 +88,7 @@ function buttonAddStepOnClick() {
         .then(response => {
             alert("Quizul SQL a fost adaugat cu succes!");
             AddStepToSummary({
-                stepTitle: request.quizTitle
+                stepTitle: quizTitle
             });
         })
         .catch(err => {
