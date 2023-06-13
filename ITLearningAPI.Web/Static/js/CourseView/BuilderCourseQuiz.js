@@ -1,7 +1,13 @@
 import {FetchHttpPostJson} from "/js/Fetcher.js";
 import {BuildNextStepButton} from "/js/CourseView/NextStep.js";
 import {AddWrongAnswerMarker, AddCorrectAnswerMarker} from "/js/CourseView/CorrectnessMarker.js";
+import {CreateAlertSuccess, CreateAlertError} from "/js/Alert.js";
 
+const stepIds = {
+    Quiz: "quiz",
+    QuestionText: "questionText",
+    ItemParent: "itemContainer"
+};
 
 export function BuildCourseQuiz(data) {
     const title = buildTitle(data);
@@ -21,13 +27,13 @@ function buildQuiz(data) {
     const quiz = document.createElement("div");
     quiz.classList.add("Quizz");
     quiz.dataset.id = data["itemId"];
-    quiz.id = "quiz";
+    quiz.id = stepIds.Quiz;
     
     const question = document.createElement("div");
     question.classList.add("intrebare");
 
     const questionText = document.createElement("h2");
-    questionText.id = "questionText";
+    questionText.id = stepIds.QuestionText;
     questionText.innerHTML = data["questionText"];
     question.appendChild(questionText);
 
@@ -71,7 +77,7 @@ function buildCheckChoice() {
 }
 
 function buttonCheckChoiceClick() {
-    const quiz = document.getElementById("quiz");
+    const quiz = document.getElementById(stepIds.Quiz);
     const requestBody = {
         quizId: quiz.dataset.id,
         quizChoiceIds: getUserChoiceIds()
@@ -81,14 +87,14 @@ function buttonCheckChoiceClick() {
         .then(apiResponse => {
              const isValid = apiResponse["isValid"];
              if (isValid !== true) {
-                 InvalidAnswerCallback();
+                 InvalidAnswerCallback("Ai raspuns gresit! Mai incearca o data!");
                  return;
              }
              RightAnswerCallback();
         })
         .catch(err => {
             console.log(err);
-            InvalidAnswerCallback();
+            InvalidAnswerCallback("Raspunsul nu a putut fi procesat");
         });
 }
 
@@ -102,15 +108,22 @@ function RightAnswerCallback() {
     if (isButtonNextStepAlreadyPresent) {
         return;
     }
-    const itemParent = document.getElementById("itemContainer");
+    const itemParent = document.getElementById(stepIds.ItemParent);
     itemParent.appendChild(buttonNextStep);
+
+    const alert = CreateAlertSuccess("Ai raspuns corect !");
+    const quiz = document.getElementById(stepIds.Quiz);
+    quiz.appendChild(alert);
 }
 
-function InvalidAnswerCallback() {
+function InvalidAnswerCallback(message) {
     const questionTextElement = document.getElementById("questionText");
     let text = questionTextElement.innerText;
     questionTextElement.innerHTML = AddWrongAnswerMarker(text);
-    alert("Raspunsul este gresit");
+
+    const alert = CreateAlertError(message);
+    const quiz = document.getElementById(stepIds.Quiz);
+    quiz.appendChild(alert);
 }
 
 function getUserChoiceIds() {

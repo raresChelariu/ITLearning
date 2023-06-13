@@ -1,5 +1,6 @@
 import {FetchHttpPostJson} from "/js/Fetcher.js";
 import {AddWrongAnswerMarker, AddCorrectAnswerMarker} from "/js/CourseView/CorrectnessMarker.js";
+import {CreateAlertSuccess, CreateAlertError} from "/js/Alert.js";
 
 export function BuildCourseSqlQuiz(data) {
     const title = buildQuizTitle(data);
@@ -65,21 +66,29 @@ function buttonCheckChoiceClick() {
         .then(response => {
             const isValid = response["isValid"];
             if (isValid === true) {
-                HandleCorrectResponse();
+                HandleCorrectResponse(response);
                 return;
             }
-            HandleWrongResponse();
+            HandleWrongResponse(response);
         })
         .catch(err => {
+            HandleWrongResponse();
             console.log(err);
         });
 }
 
-function HandleCorrectResponse() {
+function HandleCorrectResponse(data) {
     const questionText = document.getElementById(pageIds.QuestionText);
     questionText.innerHTML = AddCorrectAnswerMarker(questionText.innerText);
+    const alert = CreateAlertSuccess("Ai raspuns corect !");
+    const quiz = document.getElementById(pageIds.Quiz);
+    quiz.appendChild(alert);    
 }
-function HandleWrongResponse() {
+
+function HandleWrongResponse(data) {
     const questionText = document.getElementById(pageIds.QuestionText);
     questionText.innerHTML = AddWrongAnswerMarker(questionText.innerText);
+    const alert = CreateAlertError(data["errorMessage"]);
+    const quiz = document.getElementById(pageIds.Quiz);
+    quiz.appendChild(alert);
 }

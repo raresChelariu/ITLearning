@@ -24,7 +24,6 @@ public class SqlQuizAnswerValidator : ISqlQuizAnswerValidator
 
     public async Task<SqlQuizValidationResult> Validate(SqlQuizValidationCommand command)
     {
-        // long sqlQuizId, long userId, string userQuery
         var quiz = await _sqlQuizRepository.GetSqlQuizById(command.SqlQuizId);
         if (quiz is null)
         {
