@@ -2,11 +2,13 @@ export function BuildCourseCard(data) {
     const courseId = data["id"];
     
     const courseTitle = document.createElement("h2");
+    courseTitle.classList.add("card-course-title");
     courseTitle.innerText = data["name"];
 
     const description = document.createElement("p");
-    description.innerText = "Some Course Description Here";
-
+    description.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fringilla feugiat ultricies. Vestibulum porttitor, mi sit amet dictum luctus, leo.";
+    description.classList.add("card-course-description");
+    
     const container = document.createElement("div")
     container.classList.add("card-content");
     container.appendChild(courseTitle);
