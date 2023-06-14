@@ -27,6 +27,7 @@ public class CourseController : ControllerBase
         var course = new Course
         {
             Name = request.CourseName,
+            Description = request.CourseDescription,
             AuthorId = user.Id
         };
         var courseId = await _courseRepository.Insert(course);

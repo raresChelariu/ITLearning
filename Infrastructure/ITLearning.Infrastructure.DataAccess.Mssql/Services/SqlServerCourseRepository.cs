@@ -42,6 +42,13 @@ internal class SqlServerCourseRepository : ICourseRepository
             });
             command.Parameters.Add(new SqlParameter
             {
+                ParameterName = "@Description",
+                Value = course.Description,
+                Size = 128,
+                SqlDbType = SqlDbType.VarChar
+            });
+            command.Parameters.Add(new SqlParameter
+            {
                 Direction = ParameterDirection.Output,
                 ParameterName = "@Id",
                 SqlDbType = SqlDbType.BigInt
