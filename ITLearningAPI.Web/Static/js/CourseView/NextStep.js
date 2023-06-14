@@ -25,7 +25,7 @@ function buttonNextStepOnClick() {
         courseId: courseId,
         itemId: currentItemId
     };
-    FetchHttpPostJson('/api/item/next', nextItemRequest)
+    FetchHttpPostJson("/api/item/next", nextItemRequest)
         .then(response => {
             HandleNextItemApiResponse(response);
             SetCourseTitles(htmlIds.TitleList)

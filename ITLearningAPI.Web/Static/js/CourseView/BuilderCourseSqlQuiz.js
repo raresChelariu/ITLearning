@@ -20,7 +20,7 @@ function buildCheckChoice() {
     const button = document.createElement("button");
     button.innerText = "Verifica raspunsul";
     button.classList.add("QuizCheckChoice");
-    button.addEventListener('click', buttonCheckChoiceClick);
+    button.addEventListener("click", buttonCheckChoiceClick);
     return button;
 }
 

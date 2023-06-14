@@ -25,7 +25,7 @@ function createButtonAddStep() {
     const button = document.createElement("button");
     button.classList.add("NextStep");
     button.innerText = "Adauga pas";
-    button.addEventListener('click', () => {
+    button.addEventListener("click", () => {
         const choicesDto = [];
         const choiceContainer = document.getElementById(stepIds.ChoicesContainer);
         
@@ -124,7 +124,7 @@ function createQuizChoicePanel(choiceNo) {
     deleteChoice.innerText = "🗑";
     deleteChoice.classList.add("quizChoiceDeleteIcon");
     deleteChoice.dataset.id = choiceNo;
-    deleteChoice.addEventListener('click', (event) => {
+    deleteChoice.addEventListener("click", (event) => {
         const target = event.target;
         const choiceNo = target.dataset.id;
         document.getElementById(`divChoice${choiceNo}`).remove();

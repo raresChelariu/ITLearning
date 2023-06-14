@@ -72,7 +72,7 @@ function createButtonAddStep() {
     const button = document.createElement("button");
     button.classList.add("NextStep");
     button.innerText = "Adauga pas";
-    button.addEventListener('click', buttonAddStepOnClick);
+    button.addEventListener("click", buttonAddStepOnClick);
     return button;
 }
 

@@ -1,7 +1,6 @@
-import { BuildNextStepButton } from '/js/CourseView/NextStep.js'
+import { BuildNextStepButton } from "/js/CourseView/NextStep.js"
 
-export function BuildCourseWiki(data)
-{
+export function BuildCourseWiki(data) {
     const title = buildTitle(data);
     const text = buildText(data);
     return [title, text, BuildNextStepButton()]
@@ -16,7 +15,7 @@ function buildTitle(data) {
 
 function buildText(data) {
     const textDiv = document.createElement("div");
-    const text = data["courseWikiText"]
+    const text = data["courseWikiText"];
     textDiv.innerHTML = marked.parse(text);
     return textDiv;
 }
