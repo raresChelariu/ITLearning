@@ -5,8 +5,6 @@ const listCourses = document.getElementById("listCourses");
 
 FetchHttpGet("/api/course/all")
     .then(responseResult => {
-        listCourses.classList.add("cards");
-        console.log(responseResult);
         for (let i = 0; i < responseResult.length; i++) {
             const course = createCourseElement(responseResult[i]);
             listCourses.appendChild(course);
