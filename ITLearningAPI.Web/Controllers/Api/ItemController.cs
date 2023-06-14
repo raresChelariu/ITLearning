@@ -1,6 +1,5 @@
 using ITLearning.Course.Core.Contracts;
 using ITLearning.Domain;
-using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using ITLearningAPI.Web.Authorization;
 using ITLearningAPI.Web.Contracts;

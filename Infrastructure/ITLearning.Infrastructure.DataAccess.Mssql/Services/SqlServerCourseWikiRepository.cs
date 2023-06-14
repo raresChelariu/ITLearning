@@ -1,6 +1,6 @@
 using System.Data;
 using Dapper;
-using ITLearning.Domain.Models;
+using ITLearning.Domain;
 using ITLearning.Infrastructure.DataAccess.Common.Contracts;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using Microsoft.Extensions.Logging;

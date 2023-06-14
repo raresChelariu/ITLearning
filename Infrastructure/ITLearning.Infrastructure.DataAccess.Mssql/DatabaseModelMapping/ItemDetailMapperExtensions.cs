@@ -1,4 +1,4 @@
-using ITLearning.Domain.Models;
+using ITLearning.Domain;
 using ITLearning.Infrastructure.DataAccess.Mssql.DatabaseModels;
 
 namespace ITLearning.Infrastructure.DataAccess.Mssql.DatabaseModelMapping;

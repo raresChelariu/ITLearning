@@ -1,4 +1,4 @@
-using ITLearning.Domain.Models;
+using ITLearning.Domain;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using ITLearningAPI.Web.Contracts;
 using ITLearningAPI.Web.Contracts.CourseWiki;

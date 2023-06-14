@@ -1,6 +1,6 @@
 ﻿using ITLearning.Course.Core.Contracts;
 using ITLearning.Course.Core.Interfaces;
-using ITLearning.Domain.Models;
+using ITLearning.Domain;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 
 namespace ITLearning.Course.Core.Services;

@@ -1,4 +1,4 @@
-﻿namespace ITLearning.Domain.Models;
+﻿namespace ITLearning.Domain;
 
 public class Quiz : ICourseItem
 {

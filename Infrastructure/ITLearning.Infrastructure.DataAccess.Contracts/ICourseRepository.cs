@@ -1,5 +1,4 @@
 ﻿using ITLearning.Domain;
-using ITLearning.Domain.Models;
 
 namespace ITLearning.Infrastructure.DataAccess.Contracts;
 

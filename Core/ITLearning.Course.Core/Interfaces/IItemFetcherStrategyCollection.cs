@@ -1,4 +1,4 @@
-using ITLearning.Domain.Models;
+using ITLearning.Domain;
 
 namespace ITLearning.Course.Core.Interfaces;
 

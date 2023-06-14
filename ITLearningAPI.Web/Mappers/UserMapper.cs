@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using ITLearning.Domain.Models;
+using ITLearning.Domain;
 using ITLearningAPI.Web.Contracts.User;
 using ITLearning.Services;
 

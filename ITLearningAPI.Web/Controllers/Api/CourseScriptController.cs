@@ -1,6 +1,6 @@
 using System.Text;
 using ITLearning.Course.Core.Contracts;
-using ITLearning.Domain.Models;
+using ITLearning.Domain;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

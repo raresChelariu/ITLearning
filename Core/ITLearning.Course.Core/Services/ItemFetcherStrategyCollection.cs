@@ -1,5 +1,5 @@
 using ITLearning.Course.Core.Interfaces;
-using ITLearning.Domain.Models;
+using ITLearning.Domain;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using Microsoft.Extensions.Logging;
 

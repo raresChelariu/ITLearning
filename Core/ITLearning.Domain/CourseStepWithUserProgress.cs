@@ -1,5 +1,3 @@
-using ITLearning.Domain.Models;
-
 namespace ITLearning.Domain;
 
 public class CourseStepWithUserProgress

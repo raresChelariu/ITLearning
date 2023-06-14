@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using ITLearning.Domain.Models;
+using ITLearning.Domain;
 
 namespace ITLearningAPI.Web;
 

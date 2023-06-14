@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using ITLearning.Domain.Models;
+using ITLearning.Domain;
 using ITLearning.Infrastructure.DataAccess.Contracts;
 using ITLearning.Services;
 using ITLearning.Utils.Contracts;
