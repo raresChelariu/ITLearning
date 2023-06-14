@@ -1,4 +1,4 @@
-import {FetchHttpPostJson} from "../Fetcher";
+import {FetchHttpPostJson} from "/js/Fetcher.js";
 
 const pageIds = {
     ButtonRegister: "buttonRegister",

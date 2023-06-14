@@ -16,17 +16,19 @@ public class ItemController : ControllerBase
     private readonly ICourseItemFetcher _itemFetcher;
     private readonly ICourseItemRepository _itemRepository;
     private readonly ICourseProgressService _courseProgressService;
-
+    private readonly ICourseStepProgressService _courseStepProgressService;
+    
     public ItemController(
         ICourseItemFetcher itemFetcher,
         ICourseItemRepository itemRepository,
-        ICourseProgressService courseProgressService
-    )
+        ICourseProgressService courseProgressService,
+        ICourseStepProgressService courseStepProgressService)
     {
         _itemFetcher = itemFetcher ?? throw new ArgumentNullException(nameof(itemFetcher));
         _itemRepository = itemRepository ?? throw new ArgumentNullException(nameof(itemRepository));
         _courseProgressService =
             courseProgressService ?? throw new ArgumentNullException(nameof(courseProgressService));
+        _courseStepProgressService = courseStepProgressService ?? throw new ArgumentNullException(nameof(courseStepProgressService));
     }
 
     [Authorize(Policy = AuthorizationPolicies.User)]
@@ -41,8 +43,16 @@ public class ItemController : ControllerBase
     [HttpGet("course/{courseId:long}")]
     public async Task<IActionResult> GetItemDetailsByCourseId([FromRoute] long courseId)
     {
-        var itemDetails = await _itemRepository.GetItemDetailsByCourseId(courseId);
-        return Ok(itemDetails?.Select(x => new { x.ItemId, x.ItemTitle, Type = x.ItemType.ToString() }));
+        var user = HttpContext.GetUser();
+        var result = await _courseStepProgressService.GetStepTitlesWithProgress(user.Id, courseId);
+        
+        return Ok(result?.Select(x => new
+        {
+            x.ItemId,
+            x.ItemTitle,
+            Type = x.Type.ToString(),
+            Progress = (byte) x.Progress
+        }));
     }
 
     [Authorize(Policy = AuthorizationPolicies.User)]

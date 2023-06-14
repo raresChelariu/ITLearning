@@ -1,32 +1,27 @@
-import { FetchHttpGet } from '/js/Fetcher.js'
-import { BuildDomItemCollectionFromApiResponse } from '/js/CourseView/ItemBuilder.js'
+import { FetchHttpGet } from "/js/Fetcher.js"
+import { BuildDomItemCollectionFromApiResponse } from "/js/CourseView/ItemBuilder.js"
+import { SetCourseTitles } from "/js/CourseView/CourseItemTitlesService.js";
+
+const pageIds = {
+  TitleList: "courseTitleList",
+  ItemParent: "itemContainer"
+};
 
 const courseId = GetCourseId();
 
-const titleList = document.getElementById("courseTitleList");
+const titleList = document.getElementById(pageIds.TitleList);
 
-const itemParent = document.getElementById("itemContainer");
+const itemParent = document.getElementById(pageIds.ItemParent);
 itemParent.dataset.courseId = courseId + "";
 
-GetCourseTitles(courseId)
-    .then(response => {
-        const courseItemIds = [];
-        console.log(response);
-        for (let i = 0; i < response.length; i++) {
-            let item = response[i];
-            let element = GetTitleElement(item);
-            courseItemIds.push(item["itemId"]);
-            titleList.appendChild(element);
-        }
-        return courseItemIds;
-    })
+    SetCourseTitles(pageIds.TitleList)
     .then(itemIds => {
         const firstItemId = itemIds[0];
         itemParent.dataset.itemId = firstItemId;
         return FetchHttpGet(`/api/item?itemId=${firstItemId}`);
     })
     .then(response => {
-        console.log('First item here');
+        console.log("First item here");
         console.log(response);
         const items = BuildDomItemCollectionFromApiResponse(response);
         for (let i = 0; i < items.length; i++) {
@@ -37,19 +32,11 @@ GetCourseTitles(courseId)
 
 function GetCourseId() {
     const url = window.location.href;
-    const tokens = url.split('/');
+    const tokens = url.split("/");
     return parseInt(tokens[tokens.length - 1]);
 }
 
-function GetCourseTitles(courseId) {
-    return FetchHttpGet(`/api/item/course/${courseId}`);
-}
 
-function GetTitleElement(data) {
-    let title = `${data["type"]} - ${data["itemTitle"]}`;
-    let element = document.createElement('a');
-    element.dataset["itemid"] = data["itemId"];
-    element.innerText = title;
-    return element;
-}
+
+
 

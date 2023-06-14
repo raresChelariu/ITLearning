@@ -7,6 +7,10 @@ const htmlEntities = {
     wrongChoices: {
         htmlEncoding: "&#10060;",
         charCode: 10060
+    },
+    loading: {
+        htmlEncoding: "&#128260;",
+        charCode: 128260
     }
 }
 
@@ -20,8 +24,13 @@ export function AddCorrectAnswerMarker(text) {
     return `${htmlEntities.rightChoices.htmlEncoding} ${text}`;
 }
 
+export function AddLoadingMarker(text) {
+    text = removeHtmlEntitiesFromString(text);
+    return `${htmlEntities.loading.htmlEncoding} ${text}`;
+}
 function removeHtmlEntitiesFromString(text) {
     return text
-        .replaceAll(String.fromCharCode(10060), "")
-        .replaceAll(String.fromCharCode(9989), "");
+        .replaceAll(String.fromCharCode(htmlEntities.wrongChoices.charCode), "")
+        .replaceAll(String.fromCharCode(htmlEntities.rightChoices.charCode), "")
+        .replaceAll(String.fromCharCode(htmlEntities.loading.charCode), "");
 }

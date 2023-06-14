@@ -212,6 +212,33 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
     }
 
+    public async Task<long> GetUsersLastItemId(long userId, long courseId)
+    {
+        const string query = "SELECT ItemID FROM UserCourseProgress WHERE UserID = @UserID AND CourseID = @CourseID";
+        try
+        {
+            var connection = _databaseConnector.GetSqlConnection();
+            var parameters = new DynamicParameters(new
+            {
+                UserID = userId,
+                CourseID = courseId
+            });
+            
+            var result = await connection.ExecuteScalarAsync<long>(query, parameters);
+            if (result == default)
+            {
+                return -1;
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(UpdateUserCourseProgress), ex);
+            return -1;
+        }
+    }
+    
     public async Task<IEnumerable<Course>> GetSqlCoursesByUserId(long userId)
     {
         const string query = "CoursesGetByUserIdWithDatabaseDetails";

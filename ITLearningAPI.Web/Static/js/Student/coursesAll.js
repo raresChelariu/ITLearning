@@ -1,4 +1,4 @@
-import {FetchHttpGet} from "/js/Fetcher.js";
+import {FetchHttpGet, FetchHttpPostJson} from "/js/Fetcher.js";
 import {CreateAlertError} from "/js/Alert.js";
 
 const listCourses = document.getElementById("listCourses");
@@ -10,12 +10,21 @@ FetchHttpGet("/api/course/all")
             listCourses.appendChild(course);
         }
     }).catch(err => {
-        CreateAlertError("Cursurile nu au putut fi aduse de la server!");
-        console.log(err);
-    });
+    CreateAlertError("Cursurile nu au putut fi aduse de la server!");
+    console.log(err);
+});
 
 function createCourseElement(data) {
     const courseId = data["id"];
+
+    const resetProgress = document.createElement("span");
+    resetProgress.innerHTML = "&#8634; Reset Progress";
+    resetProgress.addEventListener("click", () => {
+        FetchHttpPostJson("/api/course/progress/reset", {})
+            .then(() => {
+                alert("Progresul cursului a fost resetat cu succes!");
+            });
+    });
 
     const courseTitle = document.createElement("h2");
     courseTitle.innerText = data["name"];
@@ -27,6 +36,7 @@ function createCourseElement(data) {
     container.classList.add("card-content");
     container.appendChild(courseTitle);
     container.appendChild(description);
+    container.appendChild(resetProgress);
 
     const course = document.createElement("article");
     course.classList.add("card");

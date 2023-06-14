@@ -16,6 +16,7 @@ public static class CourseCoreDiEx
         services.AddSingleton<ISqlDatabaseBuilder, SqlDatabaseBuilder>();
         services.AddSingleton<ICourseDatabaseRunner, CourseDatabaseRunner>();
         services.AddSingleton<ISqlQuizAnswerValidator, SqlQuizAnswerValidator>();
+        services.AddSingleton<ICourseStepProgressService, CourseStepProgressService>();
         return services;
     }
 }
