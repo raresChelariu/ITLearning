@@ -238,7 +238,26 @@ internal class SqlServerCourseRepository : ICourseRepository
             return -1;
         }
     }
-    
+
+    public async Task ResetUserProgress(long userId, long courseId)
+    {
+        const string query = "DELETE FROM UserCourseProgress where UserID = @UserID AND CourseID = @CourseID";
+        try
+        {
+            var connection = _databaseConnector.GetSqlConnection();
+            var parameters = new DynamicParameters(new
+            {
+                UserID = userId,
+                CourseID = courseId
+            });
+            await connection.ExecuteAsync(query, parameters);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(ResetUserProgress), ex);
+        }
+    }
+
     public async Task<IEnumerable<Course>> GetSqlCoursesByUserId(long userId)
     {
         const string query = "CoursesGetByUserIdWithDatabaseDetails";

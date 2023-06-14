@@ -78,5 +78,16 @@ public class CourseController : ControllerBase
         
         return Ok(courses);
     }
+    
+    [Authorize(Policy = AuthorizationPolicies.User)]
+    [HttpPost("progress/reset")]
+    public async Task<IActionResult> ResetCourseProgress(ResetCourseProgressRequest request)
+    {
+        var user = HttpContext.GetUser();
+
+        await _courseRepository.ResetUserProgress(user.Id, request.CourseId);
+
+        return Ok();
+    }
 }
 
