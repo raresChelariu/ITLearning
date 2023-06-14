@@ -6,7 +6,7 @@ export function BuildCourseCard(data) {
     courseTitle.innerText = data["name"];
 
     const description = document.createElement("p");
-    description.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fringilla feugiat ultricies. Vestibulum porttitor, mi sit amet dictum luctus, leo.";
+    description.innerText = data["description"];
     description.classList.add("card-course-description");
     
     const container = document.createElement("div")

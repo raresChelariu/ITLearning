@@ -8,8 +8,15 @@ const pageIds = {
     PanelUploadScript: "panelUploadScript",
     CheckboxNeedToAttachScript: "checkboxNeedToAttachScript",
     InputScriptUpload: "inputScriptUpload",
-    PanelCourseCreate: "panelCourseCreate"
+    PanelCourseCreate: "panelCourseCreate",
+    InputCourseTitle: "inputCourseTitle",
+    InputCourseDescription: "inputCourseDescription",
+    StepBuilderBox: "stepBuilderBox",
+    StepBuilder: "stepBuilder",
+    SelectItemType: "selectItemType",
+    ButtonCreateCourse: "buttonCreateCourse",
 };
+
 const panelUploadScript = document.getElementById(pageIds.PanelUploadScript);
 panelUploadScript.style.display = "none";
 
@@ -24,8 +31,8 @@ checkboxNeedToAttachScript.addEventListener("change", () => {
 });
 
 
-const buttonCreateCourse = document.getElementById("buttonCreateCourse");
-const selectItemType = document.getElementById("selectItemType");
+const buttonCreateCourse = document.getElementById(pageIds.ButtonCreateCourse);
+const selectItemType = document.getElementById(pageIds.SelectItemType);
 
 buttonCreateCourse.addEventListener("click", buttonCreateCourseOnClick);
 selectItemType.addEventListener("change", ShowItemBuilder);
@@ -37,13 +44,13 @@ function TeacherWantsToAddScript() {
 }
 
 function hideStepBuilderBeforeCourseIsCreated() {
-    const stepBuilderBox = document.getElementById("stepBuilderBox");
+    const stepBuilderBox = document.getElementById(pageIds.StepBuilderBox);
     stepBuilderBox.hidden = true;
 }
 
 function ShowItemBuilder(event) {
     const builderType = event.target.value;
-    const parentElement = document.getElementById("stepBuilder");
+    const parentElement = document.getElementById(pageIds.StepBuilder);
     parentElement.innerHTML = "";
     let step = null;
     switch (builderType) {
@@ -77,10 +84,13 @@ function AppendStep(parent, step) {
 }
 
 function buttonCreateCourseOnClick() {
-    const inputTitle = document.getElementById("inputCourseTitle");
+    const inputTitle = document.getElementById(pageIds.InputCourseTitle);
+    const inputDescription = document.getElementById(pageIds.InputCourseDescription);
+    
     const courseTitle = inputTitle.value;
     const requestCourseCreate = {
-        courseName: courseTitle
+        courseName: courseTitle,
+        courseDescription: inputDescription.value 
     };
 
     FetchHttpPostJson("/api/course", requestCourseCreate)
@@ -110,7 +120,7 @@ function buttonCreateCourseOnClick() {
 }
 
 function showStepBuilderAfterCourseIsCreated() {
-    const stepBuilderBox = document.getElementById("stepBuilderBox");
+    const stepBuilderBox = document.getElementById(pageIds.StepBuilderBox);
     stepBuilderBox.hidden = false;
 }
 
