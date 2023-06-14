@@ -23,8 +23,9 @@ export function SetCourseTitles(titleListId) {
 function GetTitleElement(data) {
     let title = `${data["type"]} - ${data["itemTitle"]}`;
     let element = document.createElement("a");
-    element.dataset["itemid"] = data["itemId"];
-    let userProgress = data["progress"]; 
+    element.dataset["itemid"] = data["itemId"] + "";
+    let userProgress = data["progress"];
+    element.dataset.progress = userProgress + "";
     switch (userProgress) {
         case 0: 
             element.innerText = title;

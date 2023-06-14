@@ -47,7 +47,9 @@ function HandleNextItemApiResponse(response) {
         itemParent.innerHTML = "";
         const messageEndOfCourse = document.createElement("h1");
         messageEndOfCourse.innerText = "Ai terminat cu succes cursul!";
+        messageEndOfCourse.style.textAlign = "center";
         itemParent.appendChild(messageEndOfCourse);
+        party.confetti(itemParent);
         return;
     }
     let courseItemData = response["courseItem"];

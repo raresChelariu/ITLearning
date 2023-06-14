@@ -14,15 +14,13 @@ const titleList = document.getElementById(pageIds.TitleList);
 const itemParent = document.getElementById(pageIds.ItemParent);
 itemParent.dataset.courseId = courseId + "";
 
-    SetCourseTitles(pageIds.TitleList)
-    .then(itemIds => {
-        const firstItemId = itemIds[0];
-        itemParent.dataset.itemId = firstItemId;
-        return FetchHttpGet(`/api/item?itemId=${firstItemId}`);
+SetCourseTitles(pageIds.TitleList)
+    .then(() => {
+        const currentUserItem = GetItemIdCurrent();
+        itemParent.dataset.itemId = currentUserItem + "";
+        return FetchHttpGet(`/api/item?itemId=${currentUserItem}`);
     })
     .then(response => {
-        console.log("First item here");
-        console.log(response);
         const items = BuildDomItemCollectionFromApiResponse(response);
         for (let i = 0; i < items.length; i++) {
             itemParent.appendChild(items[i]);
@@ -36,7 +34,17 @@ function GetCourseId() {
     return parseInt(tokens[tokens.length - 1]);
 }
 
-
+function GetItemIdCurrent() {
+    const titleList = document.getElementById(pageIds.TitleList);
+    
+    for (const child of titleList.children) {
+        if (child.dataset.progress === "1") {
+            return parseInt(child.dataset.itemid);
+        }
+    }
+    
+    return parseInt(titleList.children[titleList.children.length - 1].dataset.itemid);
+}
 
 
 
