@@ -11,25 +11,17 @@ export function GetWikiStepBuilder() {
     const labelWikiTitle = createLabelWikiTitle();
     const inputWikiTitle = createInputWikiTitle();
     const wikiText = createInputWikiText();
-    const buttonUpdatePreview = createButtonUpdatePreview();
     const contentPreview = createWikiContentPreview();
     const buttonAddStep = createButtonAddStep();
     
-    return [labelWikiTitle, inputWikiTitle, wikiText, buttonUpdatePreview, contentPreview, buttonAddStep];
+    return [labelWikiTitle, inputWikiTitle, wikiText, contentPreview, buttonAddStep];
 }
 
-function createButtonUpdatePreview() {
-    const button = document.createElement("button");
-    button.innerText = "Afiseaza previzualizarea continutului";
-    button.addEventListener("click", () => {
-        const wikiContent = document.getElementById(stepIds.InputWikiContent).value;
-        const preview = document.getElementById(stepIds.WikiContentPreview);
-        console.log(wikiContent);
-        preview.innerHTML = marked.parse(wikiContent);
-        hljs.highlightAll();
-    });
-    button.classList.add("NextStep");
-    return button;
+function UpdateContentPreview() {
+    const wikiContent = document.getElementById(stepIds.InputWikiContent).value;
+    const preview = document.getElementById(stepIds.WikiContentPreview);
+    preview.innerHTML = marked.parse(wikiContent);
+    hljs.highlightAll();
 }
 
 function createWikiContentPreview() {
@@ -62,6 +54,8 @@ function createInputWikiText() {
     input.placeholder = "Introdu aici textul wiki-ului in format Markdown";
     input.maxLength = 512;
     input.classList.add("endOfRow");
+    input.classList.add("wikitextarea");
+    input.addEventListener("input", UpdateContentPreview);
     return input;
 }
 
