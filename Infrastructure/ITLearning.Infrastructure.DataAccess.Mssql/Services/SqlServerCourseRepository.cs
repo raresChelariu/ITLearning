@@ -265,6 +265,30 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
     }
 
+    public async Task<IEnumerable<Course>> GetByStudentId(long studentId)
+    {
+        const string query = "CoursesGetByStudentId";
+        try
+        {
+            var connection = _databaseConnector.GetSqlConnection();
+            var parameters = new DynamicParameters(new
+            {
+                UserID = studentId
+            });
+            var result = await connection.QueryAsync<Course>(query, parameters, null, null, CommandType.StoredProcedure);
+            if (result is null)
+            {
+                _logger.LogWarning("No courses found for student with {@UserId}", studentId);
+            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetByStudentId), ex);
+            return null;
+        }
+    }
+
     public async Task<IEnumerable<Course>> GetSqlCoursesByUserId(long userId)
     {
         const string query = "CoursesGetByUserIdWithDatabaseDetails";

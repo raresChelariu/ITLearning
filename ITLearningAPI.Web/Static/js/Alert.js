@@ -19,6 +19,12 @@ export function CreateAlertSuccess(text) {
     return alert;
 }
 
+export function CreateAlertWarning(text) {
+    const alert = CreateAlertError(text);
+    alert.classList.add("warning");
+    return alert;
+}
+
 function CloseButtonOnClick (event) {
     const div = event.target.parentElement;
     div.style.opacity = "0";

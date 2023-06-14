@@ -17,4 +17,5 @@ public interface ICourseRepository
     Task<IEnumerable<Course>> GetSqlCoursesByUserId(long userId);
     Task<long> GetUsersLastItemId(long userId, long courseId);
     Task ResetUserProgress(long userId, long courseId);
+    Task<IEnumerable<Course>> GetByStudentId(long userId);
 }

@@ -90,5 +90,19 @@ public class CourseController : ControllerBase
 
         return Ok();
     }
+    
+    [Authorize(Policy = AuthorizationPolicies.AdminOrStudent)]
+    [HttpGet("student")]
+    public async Task<IActionResult> GetCoursesForStudent()
+    {
+        var user = HttpContext.GetUser();
+
+        var courses = await _courseRepository.GetByStudentId(user.Id);
+
+        if (courses == null)
+            return BadRequest();
+
+        return Ok(courses);
+    }
 }
 
