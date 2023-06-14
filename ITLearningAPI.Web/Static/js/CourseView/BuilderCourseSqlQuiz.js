@@ -1,12 +1,13 @@
 import {FetchHttpPostJson} from "/js/Fetcher.js";
 import {AddWrongAnswerMarker, AddCorrectAnswerMarker} from "/js/CourseView/CorrectnessMarker.js";
 import {CreateAlertSuccess, CreateAlertError} from "/js/Alert.js";
+import {BuildNextStepButton} from "/js/CourseView/NextStep.js"
 
 export function BuildCourseSqlQuiz(data) {
     const title = buildQuizTitle(data);
     const quiz = buildQuiz(data);
     const checkChoice = buildCheckChoice(data);
-    return [title, quiz, checkChoice];
+    return [title, quiz, checkChoice, BuildNextStepButton()];
 }
 
 const pageIds = {
