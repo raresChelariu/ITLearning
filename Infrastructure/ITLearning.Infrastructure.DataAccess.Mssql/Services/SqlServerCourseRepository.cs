@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Dapper;
+using ITLearning.Domain;
 using ITLearning.Domain.Models;
 using ITLearning.Infrastructure.DataAccess.Common.Contracts;
 using ITLearning.Infrastructure.DataAccess.Contracts;
@@ -58,14 +59,14 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetAll), ex);
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(Insert), ex);
             return -1;
         }
     }
 
     public async Task<IEnumerable<Course>> GetByAuthorId(long authorId)
     {
-        const string query = "SELECT [ID], [Name], [AuthorId], [CreatedDateTime] FROM [dbo].[Courses] WHERE [AuthorID] = @AuthorID";
+        const string query = "SELECT [ID], [Name], [AuthorId], [CreatedDateTime], [Description] FROM [dbo].[Courses] WHERE [AuthorID] = @AuthorID";
         try
         {
             await using var connection = _databaseConnector.GetSqlConnection();
@@ -83,14 +84,14 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetAll), ex);
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetByAuthorId), ex);
             return null;
         }
     }
 
     public async Task<IEnumerable<Course>> GetAll()
     {
-        const string query = "SELECT [ID], [Name], [AuthorID], [CreatedDateTime] FROM [dbo].[Courses]";
+        const string query = "SELECT [ID], [Name], [AuthorID], [CreatedDateTime], [Description] FROM [dbo].[Courses]";
         try
         {
             await using var connection = _databaseConnector.GetSqlConnection();
@@ -114,7 +115,7 @@ internal class SqlServerCourseRepository : ICourseRepository
 
     public async Task<Course> GetByAuthorIdAndCourseId(long authorId, long courseId)
     {
-        const string query = "SELECT [ID], [Name], [AuthorId], [CreatedDateTime] FROM [dbo].[Courses] WHERE [AuthorID] = @AuthorID AND [ID]=@CourseId";
+        const string query = "SELECT [ID], [Name], [AuthorId], [CreatedDateTime], [Description] FROM [dbo].[Courses] WHERE [AuthorID] = @AuthorID AND [ID]=@CourseId";
         try
         {
             await using var connection = _databaseConnector.GetSqlConnection();
@@ -133,14 +134,14 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetAll), ex);
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetByAuthorIdAndCourseId), ex);
             return null;
         }
     }
 
     public async Task<Course> GetById(long courseId)
     {
-        const string query = "SELECT [ID], [Name], [AuthorId], [CreatedDateTime] FROM [dbo].[Courses] WHERE [ID] = @CourseId";
+        const string query = "SELECT [ID], [Name], [AuthorId], [CreatedDateTime], [Description] FROM [dbo].[Courses] WHERE [ID] = @CourseId";
         try
         {
             await using var connection = _databaseConnector.GetSqlConnection();
@@ -158,7 +159,7 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetAll), ex);
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetById), ex);
             return null;
         }
     }
@@ -234,7 +235,7 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(UpdateUserCourseProgress), ex);
+            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetUsersLastItemId), ex);
             return -1;
         }
     }
@@ -285,7 +286,8 @@ internal class SqlServerCourseRepository : ICourseRepository
             Id = reader.GetFromColumn<long>("ID"),
             AuthorId = reader.GetFromColumn<long>("AuthorID"),
             Name = reader.GetFromColumn<string>("Name"),
-            CreatedDateTime = reader.GetFromColumn<DateTime>("CreatedDateTime")
+            CreatedDateTime = reader.GetFromColumn<DateTime>("CreatedDateTime"),
+            Description = reader.GetFromColumn<string>("Description")
         };
     }
 }

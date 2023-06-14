@@ -1,4 +1,4 @@
-﻿namespace ITLearning.Domain.Models;
+﻿namespace ITLearning.Domain;
 
 public class Course
 {
@@ -6,4 +6,5 @@ public class Course
     public string Name { get; set; }
     public long AuthorId { get; set; }
     public DateTime CreatedDateTime { get; set; }
+    public string Description { get; set; }
 }
