@@ -12,10 +12,12 @@ namespace ITLearningAPI.Web.Controllers.Api;
 public class SqlPlaygroundController : ControllerBase
 {
     private readonly ICourseDatabaseRunner _databaseRunner;
+    private readonly ISqlDatabaseBuilder _sqlDatabaseBuilder;
     
-    public SqlPlaygroundController(ICourseDatabaseRunner databaseRunner)
+    public SqlPlaygroundController(ICourseDatabaseRunner databaseRunner, ISqlDatabaseBuilder sqlDatabaseBuilder)
     {
         _databaseRunner = databaseRunner ?? throw new ArgumentNullException(nameof(databaseRunner));
+        _sqlDatabaseBuilder = sqlDatabaseBuilder ?? throw new ArgumentNullException(nameof(sqlDatabaseBuilder));
     }
 
     [Authorize(Policy = AuthorizationPolicies.User)]
@@ -34,5 +36,16 @@ public class SqlPlaygroundController : ControllerBase
         {
             result = serializedResult
         });
+    }
+
+    [Authorize(Policy = AuthorizationPolicies.User)]
+    [HttpPost("recreate")]
+    public async Task<IActionResult> RecreateDatabase(RunQueryRequest request)
+    {
+        var user = HttpContext.GetUser();
+        
+        await _sqlDatabaseBuilder.RecreateDatabase(user.Id, request.CourseId);
+        
+        return Ok();
     }
 }
