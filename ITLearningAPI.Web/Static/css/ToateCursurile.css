@@ -3,7 +3,10 @@
 }
 
 body {
-    background: #cbe2ec;
+    background: linear-gradient(115deg, #56d8e4 10%, #9f01ea 90%);
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
 
 .topnav {
