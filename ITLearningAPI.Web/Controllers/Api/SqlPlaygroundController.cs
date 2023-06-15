@@ -40,7 +40,7 @@ public class SqlPlaygroundController : ControllerBase
 
     [Authorize(Policy = AuthorizationPolicies.User)]
     [HttpPost("recreate")]
-    public async Task<IActionResult> RecreateDatabase(RunQueryRequest request)
+    public async Task<IActionResult> RecreateDatabase(RecreateDatabaseRequest request)
     {
         var user = HttpContext.GetUser();
         

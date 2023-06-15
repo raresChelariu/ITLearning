@@ -1,5 +1,6 @@
-import {FetchHttpGet, FetchHttpPostJson} from "/js/Fetcher.js";
-import {Grid} from "https://unpkg.com/gridjs?module";
+import {FetchHttpGet} from "/js/Fetcher.js";
+import {QueryResultToHtmlTable, RecreateDatabase} from "/js/SqlPlayground/Playground.js"
+import {CreateAlertError, CreateAlertWarning} from "/js/Alert.js";
 
 const pageIds = {
     SelectCourseList: "coursesList",
@@ -24,19 +25,28 @@ buttonRunSqlQuery.addEventListener("click", () => {
     const course = GetCourseFromSelectedOption();
     const inputQueryText = document.getElementById(pageIds.InputQuery);
     const queryText = inputQueryText.value;
-    const request = {
-        courseId: course.courseId,
-        queryText: queryText
-    };
-    FetchHttpPostJson("/api/sqlplayground/run", request)
-        .then(response => {
-            console.log(response);
-            JsonToHtmlTable(JSON.parse(response["result"]), pageIds.QueryResultView);
-        })
+
+    QueryResultToHtmlTable(course.courseId, queryText, pageIds.QueryResultView)
         .catch(err => {
-            alert("Interogarea nu a putut fi executat cu succes!")
+            let alert = null;
+            if (err === "Empty array") {
+                alert = CreateAlertWarning("Interogarea nu a returnat niciun rand!");    
+            }
+            else {
+                alert = CreateAlertError("Interogarea nu a putut fi executata cu succes!");
+            }
+            const parent = document.getElementById(pageIds.QueryResultView);
+            parent.innerHTML = "";
+            parent.appendChild(alert);
             console.log(err);
         });
+});
+
+const buttonRecreateDb = document.getElementById(pageIds.ButtonRecreateDatabase);
+buttonRecreateDb.addEventListener("click", () => {
+    const course = GetCourseFromSelectedOption();
+    
+    RecreateDatabase(course.courseId);
 });
 
 GetCoursesWithSqlScripts();
@@ -58,12 +68,6 @@ function GetCoursesWithSqlScripts() {
         .catch(err => {
             console.log(err);
         })
-}
-
-function JsonToHtmlTable(jsonDataArray, targetContainerId) {
-    new Grid({
-        data: jsonDataArray
-    }).render(document.getElementById(targetContainerId));
 }
 
 function createCourseOption(data) {
