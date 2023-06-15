@@ -1,12 +1,11 @@
 .NextStep {
     flex: 1 1 auto;
     text-align: center;
-    text-transform: uppercase;
     transition: 0.5s;
     background-size: 200% auto;
     color: white;
     box-shadow: 0 0 20px #eee;
-    width: 140px;
+    width: auto;
     padding: 12px 10px;
     border: none;
     font-size: 1.5em;
@@ -16,6 +15,27 @@
 }
 
 .NextStep:hover {
+    background-position: center;
+    transform: translateY(-2px);
+}
+
+.CheckAnswer {
+    flex: 1 1 auto;
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    width: auto;
+    padding: 12px 10px;
+    border: none;
+    font-size: 1.5em;
+    border-radius: 30px;
+    background-image: linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);
+    margin-bottom: 5px;
+}
+
+.CheckAnswer:hover {
     background-position: center;
     transform: translateY(-2px);
 }

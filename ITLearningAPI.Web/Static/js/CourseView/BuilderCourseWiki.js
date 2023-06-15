@@ -16,6 +16,7 @@ function buildTitle(data) {
 function buildText(data) {
     const textDiv = document.createElement("div");
     const text = data["courseWikiText"];
+    textDiv.classList.add("wikiContentText");
     textDiv.innerHTML = marked.parse(text);
     return textDiv;
 }

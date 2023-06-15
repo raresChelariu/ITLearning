@@ -103,7 +103,7 @@
     <None Update="Static\css\SignUp.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Static\css\Text.css">
+    <None Update="Static\css\CourseView.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Static\css\ToateCursurile.css">

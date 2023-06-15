@@ -25,16 +25,17 @@ function buildTitle(data) {
 
 function buildQuiz(data) {
     const quiz = document.createElement("div");
-    quiz.classList.add("Quizz");
+    quiz.style.textAlign = "center";
     quiz.dataset.id = data["itemId"];
     quiz.id = stepIds.Quiz;
     
     const question = document.createElement("div");
-    question.classList.add("intrebare");
-
+    
     const questionText = document.createElement("h2");
     questionText.id = stepIds.QuestionText;
     questionText.innerHTML = data["questionText"];
+    questionText.classList.add("question-text");
+    
     question.appendChild(questionText);
 
     quiz.appendChild(question);
@@ -61,6 +62,7 @@ function buildQuizChoice(dataChoice) {
     const label = document.createElement("label");
     label.setAttribute("for", htmlElementId);
     label.innerText = dataChoice["choiceText"];
+    label.classList.add("choice-text");
 
     parent.appendChild(choiceInput);
     parent.appendChild(label);
@@ -71,7 +73,7 @@ function buildQuizChoice(dataChoice) {
 function buildCheckChoice() {
     const button = document.createElement("button");
     button.innerText = "Verifica raspunsul";
-    button.classList.add("QuizCheckChoice");
+    button.classList.add("CheckAnswer");
     button.addEventListener("click", buttonCheckChoiceClick);
     return button;
 }

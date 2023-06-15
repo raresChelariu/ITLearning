@@ -3,7 +3,8 @@ import {BuildNextStepButton} from "/js/CourseView/NextStep.js"
 export function BuildCourseVideo(data) {
     const video = buildVideo(data);
     const title = buildTitle(data);
-    return [title, video, BuildNextStepButton()];
+    const p1 = document.createElement("p");
+    return [title, video, p1, BuildNextStepButton()];
 }
 
 function buildVideo(data) {
@@ -11,6 +12,7 @@ function buildVideo(data) {
     video.autoplay = true;
     video.controls = true;
     video.src = `/api/video?videoId=${data["itemId"]}`;
+    video.classList.add("video-style");
     return video;
 }
 

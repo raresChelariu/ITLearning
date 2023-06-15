@@ -19,7 +19,7 @@ const pageIds = {
 function buildCheckChoice() {
     const button = document.createElement("button");
     button.innerText = "Verifica raspunsul";
-    button.classList.add("QuizCheckChoice");
+    button.classList.add("CheckAnswer");
     button.addEventListener("click", buttonCheckChoiceClick);
     return button;
 }

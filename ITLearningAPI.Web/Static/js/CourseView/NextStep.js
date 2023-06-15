@@ -46,6 +46,7 @@ function HandleNextItemApiResponse(response) {
         console.log("Got to end of course");
         itemParent.innerHTML = "";
         const messageEndOfCourse = document.createElement("h1");
+        messageEndOfCourse.classList.add("message-end-of-course");
         messageEndOfCourse.innerText = "Ai terminat cu succes cursul!";
         messageEndOfCourse.style.textAlign = "center";
         itemParent.appendChild(messageEndOfCourse);

@@ -16,7 +16,8 @@ body {
 
 .title {
     font-weight: bolder;
-    font-size: 40px;
+    font-size: 3em;
+    color: white;
     text-align: center;
 }
 
@@ -29,33 +30,6 @@ body {
     color: black;
     text-align: justify;
     font-size: 18px;
-}
-
-button.QuizCheckChoice {
-    width: 10%;
-    padding: 12px 10px;
-    border: none;
-    font-size: 18px;
-    border-radius: 30px;
-    background-color: #2A9C08;
-    color: white;
-    margin-bottom: 5px;
-}
-
-button.NextStep {
-    width: 10%;
-    padding: 12px 10px;
-    border: none;
-    font-size: 18px;
-    border-radius: 30px;
-    background-color: blue;
-    color: white;
-    margin-bottom: 5px;
-}
-
-.NextStep:hover {
-    background-color: #9867C5;
-    transform: translateY(-2px);
 }
 
 .container {
@@ -161,4 +135,31 @@ nav a:hover {
 
 .quiz {
     flex-direction: column;
+}
+
+.question-text {
+    font-size: 2em;
+    color: white;
+    text-align: center;
+}
+
+.choice-text {
+    text-align: center;
+    color: white;
+    font-size: 1.5em;
+}
+
+.video-style {
+    width: 75vw;
+    text-align: center;
+}
+
+.message-end-of-course {
+    font-size: 3em;
+    color: white;
+}
+
+.wikiContentText {
+    font-size: 1.5em;
+    color: white;
 }
