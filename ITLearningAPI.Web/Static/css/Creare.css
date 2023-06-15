@@ -3,7 +3,20 @@
 }
 
 body {
-    background: #cbe2ec;
+    background: linear-gradient(115deg, #56d8e4 10%, #9f01ea 90%);
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 41px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    background: -webkit-linear-gradient(right, #56d8e4, #9f01ea, #56d8e4, #9f01ea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .topnav {
@@ -191,3 +204,15 @@ nav a:hover {
     box-sizing: border-box;
     font-size: 1em;
 }
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
