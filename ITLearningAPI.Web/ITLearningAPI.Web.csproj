@@ -103,9 +103,6 @@
     <None Update="Static\css\SignUp.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Static\css\site.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Static\css\Text.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
