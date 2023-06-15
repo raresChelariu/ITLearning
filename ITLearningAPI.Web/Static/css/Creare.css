@@ -76,19 +76,6 @@ input {
     background: none;
 }
 
-
-.NextStep {
-    width: 140px;
-    padding: 12px 10px;
-    border: none;
-    font-size: 18px;
-    border-radius: 30px;
-    background-color: blue;
-    color: white;
-    margin-bottom: 5px;
-
-}
-
 main {
     padding: 40px 25px;
     transition: .5s ease-in-out;

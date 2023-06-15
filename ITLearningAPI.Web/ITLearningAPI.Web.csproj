@@ -109,9 +109,6 @@
     <None Update="Static\css\ToateCursurile.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Static\css\Video.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Static\images\favicon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
