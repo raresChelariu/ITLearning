@@ -47,14 +47,42 @@ body {
 
 .white-box {
     padding-left: 16px;
-    background-color: white;
     color: black;
 }
 
 select {
     display: block;
+    font-size: 1.5em;
 }
 
 textarea {
     display: block;
+    font-size: 1.5em;
+}
+
+.NextStep {
+    flex: 1 1 auto;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    width: 140px;
+    padding: 12px 10px;
+    border: none;
+    font-size: 1.5em;
+    border-radius: 30px;
+    background-image: linear-gradient(to right, #fbc2eb 0%, #a6c1ee 51%, #fbc2eb 100%);
+    margin-bottom: 5px;
+}
+
+.NextStep:hover {
+    background-position: center;
+    transform: translateY(-2px);
+}
+
+label {
+    font-size: 2em;
+    font-weight: bold;
 }
