@@ -4,10 +4,11 @@ import {CreateAlertSuccess, CreateAlertError} from "/js/Alert.js";
 import {BuildNextStepButton} from "/js/CourseView/NextStep.js"
 
 export function BuildCourseSqlQuiz(data) {
+    const emptyParagraph = () => document.createElement("p");
     const title = buildQuizTitle(data);
     const quiz = buildQuiz(data);
     const checkChoice = buildCheckChoice(data);
-    return [title, quiz, checkChoice, BuildNextStepButton()];
+    return [title, quiz, checkChoice, emptyParagraph(), BuildNextStepButton()];
 }
 
 const pageIds = {

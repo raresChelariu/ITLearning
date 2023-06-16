@@ -111,6 +111,8 @@ function RightAnswerCallback() {
         return;
     }
     const itemParent = document.getElementById(stepIds.ItemParent);
+    const emptyParagraph = () => document.createElement("p");
+    itemParent.appendChild(emptyParagraph());
     itemParent.appendChild(buttonNextStep);
 
     const alert = CreateAlertSuccess("Ai raspuns corect !");
