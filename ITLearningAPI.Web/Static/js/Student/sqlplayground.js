@@ -4,4 +4,4 @@ import {
 
 SetButtonOnClickHandlers();
 
-GetCoursesWithSqlScripts("/api/course/student");
+GetCoursesWithSqlScripts("/api/course/author/withscripts");

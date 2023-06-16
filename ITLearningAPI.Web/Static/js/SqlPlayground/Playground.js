@@ -1,5 +1,6 @@
 import {FetchHttpPostJson, FetchHttpGet} from "/js/Fetcher.js";
 import {Grid} from "https://unpkg.com/gridjs?module";
+import {CreateAlertError, CreateAlertWarning} from "/js/Alert.js";
 
 let grid = null;
 
@@ -78,7 +79,7 @@ function createDataForGridJs(data, keys) {
     return result;
 }
 
-function GetCoursesWithSqlScripts(url) {
+export function GetCoursesWithSqlScripts(url) {
     FetchHttpGet(url)
         .then(response => {
             console.log(response);
@@ -104,7 +105,7 @@ function createCourseOption(data) {
     return option;
 }
 
-function SetButtonsOnClickHandlers() {
+export function SetButtonOnClickHandlers() {
     const buttonRunSqlQuery = document.getElementById(pageIds.ButtonRunSqlQuery);
     buttonRunSqlQuery.addEventListener("click", () => {
         const course = GetCourseFromSelectedOption();

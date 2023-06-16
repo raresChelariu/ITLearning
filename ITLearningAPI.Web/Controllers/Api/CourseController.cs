@@ -64,7 +64,7 @@ public class CourseController : ControllerBase
         return Ok(courses);
     }
 
-    [Authorize(Policy = AuthorizationPolicies.AdminOrTeacher)]
+    [Authorize(Policy = AuthorizationPolicies.User)]
     [HttpGet("author/withscripts")]
     public async Task<IActionResult> GetCoursesForAuthorHavingSqlScripts()
     {
@@ -88,7 +88,11 @@ public class CourseController : ControllerBase
 
         await _courseRepository.ResetUserProgress(user.Id, request.CourseId);
 
-        return Ok();
+        return Ok(new
+        {
+            user.Id,
+            request.CourseId
+        });
     }
     
     [Authorize(Policy = AuthorizationPolicies.AdminOrStudent)]
