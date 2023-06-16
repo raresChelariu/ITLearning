@@ -82,13 +82,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Static\css\Creare.css">
+    <None Update="Static\css\CourseCreate.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Static\css\Elev.css">
+    <None Update="Static\css\Student.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Static\css\login.css">
+    <None Update="Static\css\Login.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Static\css\Teacher.css">
