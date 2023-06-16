@@ -10,12 +10,10 @@ body {
 }
 
 .login-div {
-    margin: 100px auto;
+    margin: 0 auto;
     width: 300px;
-    background-color: white;
     padding: 60px;
-    border-radius: 40px;
-    border: 1px solid rgba(0, 0, 0, 0.5);
+    color: white;
 }
 
 .logo {
@@ -32,21 +30,22 @@ body {
 
 .subtitle, .title {
     text-align: center;
-    color: #505050;
+    color: white;
 }
 
 .title {
     font-weight: bolder;
-    font-size: 35px;
+    font-size: 3em;
 }
 
 .subtitle {
-    font-size: 17px;
+    font-size: 1.5em;
 }
 
 .form {
     width: 100%;
-    margin-top: 30px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .form input {
@@ -63,6 +62,7 @@ body {
     border: 2px solid rgba(0, 0, 0, 0.2);
     padding: 10px;
     margin: 10px 0;
+    color: white;
 }
 
 .form svg {
@@ -77,24 +77,8 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 5px 0px;
+    padding: 5px 0;
     margin-bottom: 30px;
-}
-
-button.signin-button {
-    width: 100%;
-    padding: 12px 10px;
-    border: none;
-    font-size: 18px;
-    border-radius: 30px;
-    background-color: blue;
-    color: white;
-    margin-bottom: 5px;
-}
-
-.signin-button:hover {
-    background-color: #9867C5;
-    transform: translateY(-2px);
 }
 
 .sign-up {
@@ -103,5 +87,24 @@ button.signin-button {
 
 a {
     text-decoration: none;
-    color: #505050;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+input {
+    color: white;
+}
+
+::placeholder {
+    color: white;
+    opacity: 1; 
+}
+
+:-ms-input-placeholder { 
+    color: white;
+}
+
+::-ms-input-placeholder {
+    color: white;
 }

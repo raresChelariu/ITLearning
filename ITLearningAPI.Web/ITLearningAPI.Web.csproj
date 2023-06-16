@@ -44,9 +44,6 @@
     <Content Include="Static\html\CourseCreate.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Static\html\Index.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Static\html\Logout.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -91,7 +88,7 @@
     <None Update="Static\css\Elev.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Static\css\homepage.css">
+    <None Update="Static\css\login.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Static\css\Profesor.css">

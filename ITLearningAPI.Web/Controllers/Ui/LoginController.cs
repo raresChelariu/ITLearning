@@ -19,6 +19,6 @@ public class LoginController : ControllerBase
     [HttpGet]
     public async Task ServeLoginPage()
     {
-        await _staticAssetResponseService.RespondWithStaticAsset(Response, "Index.html");
+        await _staticAssetResponseService.RespondWithStaticAsset(Response, "Login.html");
     }
 }
