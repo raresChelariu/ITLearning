@@ -23,10 +23,6 @@ body {
     font-size: 17px;
 }
 
-.topnav-right {
-    float: right;
-}
-
 .topnav a:hover {
     background-color: #ddd;
     color: black;
@@ -37,22 +33,28 @@ body {
     color: white;
 }
 
-.subtitle, .title {
+.topnav-right {
+    float: right;
+}
+
+.title {
     text-align: center;
-    color: #505050;
+    color: white;
 }
 
 .title {
     font-weight: bolder;
-    font-size: 60px;
+    font-size: 50px;
 }
 
 .white-box {
     padding-left: 16px;
-    color: black;
+    color: white;
 }
 
-.subtitle {
-    font-size: 30px;
-    font-weight: bold;
+h1 {
+    font-size: 3em;
+    font-weight: bolder;
+    color: white;
 }
+

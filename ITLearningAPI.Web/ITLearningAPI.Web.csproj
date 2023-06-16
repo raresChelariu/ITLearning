@@ -91,7 +91,7 @@
     <None Update="Static\css\login.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Static\css\Profesor.css">
+    <None Update="Static\css\Teacher.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Static\css\SignUp.css">
@@ -100,7 +100,7 @@
     <None Update="Static\css\CourseView.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Static\css\ToateCursurile.css">
+    <None Update="Static\css\CourseSelectPage.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Static\images\favicon.png">
