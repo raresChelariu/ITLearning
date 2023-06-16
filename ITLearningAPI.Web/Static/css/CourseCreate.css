@@ -11,12 +11,10 @@ body {
 
 .page-title {
     text-align: center;
-    font-size: 41px;
-    font-weight: 600;
+    font-size: 3em;
+    font-weight: bolder;
     font-family: 'Poppins', sans-serif;
-    background: -webkit-linear-gradient(right, #56d8e4, #9f01ea, #56d8e4, #9f01ea);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: white;
 }
 
 .topnav {
@@ -59,8 +57,7 @@ body {
 
 .white-box {
     padding: 10px;
-    background-color: white;
-    color: black;
+    color: white;
 }
 
 
@@ -186,10 +183,11 @@ nav a:hover {
 
 .wikitextarea {
     width: 80%;
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box;    
     box-sizing: border-box;
     font-size: 1em;
+    background: transparent;
 }
 
 input[type="file"] {
@@ -203,3 +201,23 @@ input[type="file"] {
     cursor: pointer;
 }
 
+label {
+    font-size: 2em;
+}
+
+input, textarea{
+    color: white;
+}
+
+::placeholder {
+    color: white;
+    opacity: 1;
+}
+
+:-ms-input-placeholder {
+    color: white;
+}
+
+::-ms-input-placeholder {
+    color: white;
+}

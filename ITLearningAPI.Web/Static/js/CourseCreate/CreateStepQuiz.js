@@ -8,6 +8,8 @@ const stepIds = {
 };
 
 export function GetQuizStepBuilder() {
+    const emptyParagraph = () => document.createElement("p");
+    
     const labelTitle = createQuizLabelTitle();
     const inputTitle = createQuizInputTitle();
     const labelQuizQuestion = createQuizLabelQuestionText();
@@ -17,8 +19,8 @@ export function GetQuizStepBuilder() {
     const buttonAddChoice = createButtonAddChoice();
     const buttonAddStep = createButtonAddStep();
     
-    return [labelTitle, inputTitle, labelQuizQuestion, 
-        inputQuizQuestion, choicesContainer, buttonAddChoice, buttonAddStep];    
+    return [labelTitle, inputTitle, emptyParagraph(), labelQuizQuestion, 
+        inputQuizQuestion, emptyParagraph(), choicesContainer, emptyParagraph(), buttonAddChoice, emptyParagraph(), buttonAddStep];    
 }
 
 function createButtonAddStep() {

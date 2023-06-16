@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/CourseCreate.css">
     <link rel="stylesheet" href="/css/NextStep.css">
-    <link rel="stylesheet" href="/css/Slider.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/default.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
@@ -45,19 +44,26 @@
     <br>
     <div class="white-box" id="panelCourseCreate">
         <h1 class="page-title">Creare Curs</h1>
+        <p></p>
         <label for="inputCourseTitle">Titlu curs</label>
         <input type="text" id="inputCourseTitle"/>
+        <p></p>
         <label for="inputCourseDescription">Descriere curs</label>
         <input type="text" id="inputCourseDescription"/>
+        <p></p>
         <form>
             <input id="checkboxNeedToAttachScript" type="checkbox"/>
             <label for="checkboxNeedToAttachScript">Doresc sa generez baza de date pentru cursanti pe baza unui script</label>
             <div id="panelUploadScript">
-                <label for="inputScriptUpload">Adauga un script sql pentru cursul tau</label>
+                <label for="inputScriptUpload">
+                    <svg fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"/></svg>
+                    Adauga un script sql pentru cursul tau
+                </label>
                 <input id="inputScriptUpload" type="file"/>
             </div>
         </form>
-        <button id="buttonCreateCourse">Creeaza Curs</button>
+        <p></p>
+        <button id="buttonCreateCourse" class="NextStep">Creeaza Curs</button>
     </div>
     <div class="white-box" id="stepBuilderBox">
 
