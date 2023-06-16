@@ -108,3 +108,7 @@ input {
 ::-ms-input-placeholder {
     color: white;
 }
+
+label {
+    font-size: 1em;
+}
