@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/SqlPlayground.css">
     <link rel="stylesheet" href="/css/Alert.css">
+    <link rel="stylesheet" href="/css/NextStep.css">
+    <link rel="stylesheet" href="/css/topnav.css">
     <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/gridjs-jquery/dist/gridjs.production.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" />
@@ -41,14 +43,19 @@
 <div class="white-box">
     <br>
     <br>
-    <h1>Toate Cursurile</h1>
+    <h1>SQL Playground</h1>
     <br>
     <div class="btn-group">
         <label for="coursesList">Alege cursul pentru simularea de comenzi SQL</label>
+        <p></p>
         <select id="coursesList"></select>
-        <button id="buttonRecreateDb">Recreeaza baza de date</button>
+        <p></p>
+        <button class="NextStep" id="buttonRecreateDb">Recreeaza baza de date</button>
+        <p></p>
         <label for="queryInput">Introdu aici comanda SQL</label>
-        <textarea id="queryInput"></textarea>
+        <p></p>
+        <textarea cols="80" id="queryInput" placeholder="Scrie aici interogarea SQL"></textarea>
+        <p></p>
         <button class="NextStep" id="buttonRunSqlQuery">Executa comanda</button>
         <div class="btn-group" id="listCourses">
         </div>
@@ -59,5 +66,5 @@
 </div>
 </body>
 
-<script type="module" src="/js/teacher/sqlplayground.js"></script>
+<script type="module" src="/js/student/sqlplayground.js"></script>
 </html>

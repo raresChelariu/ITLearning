@@ -5,34 +5,7 @@
 body {
     background: linear-gradient(115deg, #56d8e4 10%, #9f01ea 90%);
     min-height: 100vh;
-}
-
-.topnav {
-    overflow: hidden;
-    background-color: #333;
-}
-
-.topnav a {
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-}
-
-.topnav a:hover {
-    background-color: #ddd;
-    color: black;
-}
-
-.topnav a.active {
-    background-color: #463ddb;
     color: white;
-}
-
-.topnav-right {
-    float: right;
 }
 
 .title {
@@ -58,6 +31,8 @@ select {
 textarea {
     display: block;
     font-size: 1.5em;
+    background: transparent;
+    color: white;
 }
 
 .NextStep {
@@ -85,4 +60,23 @@ textarea {
 label {
     font-size: 2em;
     font-weight: bold;
+    color: white;
+}
+
+::placeholder {
+    color: white;
+    opacity: 1;
+}
+
+:-ms-input-placeholder {
+    color: white;
+}
+
+::-ms-input-placeholder {
+    color: white;
+}
+
+h1 {
+    color: white;
+    text-align: center;
 }
