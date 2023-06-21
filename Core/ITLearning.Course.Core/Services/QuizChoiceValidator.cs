@@ -25,6 +25,6 @@ internal class QuizChoiceValidator : IQuizChoiceValidator
             .ToList();
         
         return correctChoiceIds.Count == quizChoiceIds.Count && 
-               correctChoiceIds.All(quizChoiceIds.Contains);
+               correctChoiceIds.TrueForAll(quizChoiceIds.Contains);
     }
 }
