@@ -10,7 +10,7 @@ builder.AddSerilogLogging();
 
 builder.Services.AddHttpClient("Internal", httpClient =>
 {
-    var internalUrl = builder.Configuration["InternalUrl"] ?? throw new ArgumentNullException(nameof(builder.Configuration));
+    var internalUrl = builder.Configuration["InternalUrl"] ?? throw new ArgumentException(nameof(builder.Configuration));
     httpClient.BaseAddress = new Uri(internalUrl);
 });
 

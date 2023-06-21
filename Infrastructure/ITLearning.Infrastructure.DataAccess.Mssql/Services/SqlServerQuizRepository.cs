@@ -11,10 +11,10 @@ namespace ITLearning.Infrastructure.DataAccess.Mssql.Services;
 
 internal class SqlServerQuizRepository : IQuizRepository
 {
-    private readonly ILogger<SqlServerUserRepository> _logger;
+    private readonly ILogger<SqlServerQuizRepository> _logger;
     private readonly IDatabaseConnector _databaseConnector;
 
-    public SqlServerQuizRepository(ILogger<SqlServerUserRepository> logger, IDatabaseConnector databaseConnector)
+    public SqlServerQuizRepository(ILogger<SqlServerQuizRepository> logger, IDatabaseConnector databaseConnector)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _databaseConnector = databaseConnector ?? throw new ArgumentNullException(nameof(databaseConnector));
