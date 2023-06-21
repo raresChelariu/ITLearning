@@ -39,10 +39,8 @@ internal class SqlDatabaseBuilder : ISqlDatabaseBuilder
             {
                 scriptRunningErrors.Add(scriptRunningError);
             }
-
-            await _sqlPlaygroundRepository.MarkCourseDatabaseToUser(command.UserId, command.CourseId, dbName);
         }
-
+        await _sqlPlaygroundRepository.MarkCourseDatabaseToUser(command.UserId, command.CourseId, dbName);
         _logger.LogInformation("Finished creating {@Database} with scripts", dbName);
         return scriptRunningErrors;
     }
