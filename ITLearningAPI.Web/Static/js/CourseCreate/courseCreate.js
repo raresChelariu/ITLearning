@@ -75,8 +75,8 @@ function ShowItemBuilder(event) {
 
 function AppendStep(parent, step) {
     if (Array.isArray(step)) {
-        for (let i = 0; i < step.length; i++) {
-            parent.appendChild(step[i]);
+        for (const element of step) {
+            parent.appendChild(element);
         }
         return;
     }

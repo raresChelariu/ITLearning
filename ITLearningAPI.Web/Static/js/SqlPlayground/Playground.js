@@ -38,14 +38,10 @@ export function RecreateDatabase(courseId) {
 }
 
 function JsonToHtmlTable(jsonDataArray, targetContainerId) {
-    console.log("the json data array");
-    console.log(jsonDataArray);
     document.getElementById(targetContainerId).innerHTML = "";
     
     const keys = Object.keys(jsonDataArray[0]);
-    console.log(keys);
     const data = createDataForGridJs(jsonDataArray, keys);
-    console.log(data);
     
     if (grid === null) {
         grid = new Grid({
@@ -68,10 +64,10 @@ function JsonToHtmlTable(jsonDataArray, targetContainerId) {
 function createDataForGridJs(data, keys) {
     const result = [];
     
-    for (let i = 0; i < data.length; i++) {
+    for (const element of data) {
         const row = [];
-        for (let j = 0; j < keys.length; j++) {
-            row.push(data[i][keys[j]]);
+        for (const key of keys) {
+            row.push(element[key]);
         }
         result.push(row);
     }
@@ -82,12 +78,11 @@ function createDataForGridJs(data, keys) {
 export function GetCoursesWithSqlScripts(url) {
     FetchHttpGet(url)
         .then(response => {
-            console.log(response);
             const select = document.getElementById(pageIds.SelectCourseList);
-            for (let i = 0; i < response.length; i++) {
+            for (const element of response) {
                 const data = {
-                    courseId: response[i]["id"],
-                    courseName: response[i]["name"]
+                    courseId: element["id"],
+                    courseName: element["name"]
                 };
                 let option = createCourseOption(data);
                 select.appendChild(option);
@@ -114,7 +109,7 @@ export function SetButtonOnClickHandlers() {
 
         QueryResultToHtmlTable(course.courseId, queryText, pageIds.QueryResultView)
             .catch(err => {
-                let alert = null;
+                let alert;
                 if (err === "Empty array") {
                     alert = CreateAlertWarning("Interogarea nu a returnat niciun rand!");
                 }

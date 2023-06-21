@@ -10,8 +10,7 @@ export function SetCourseTitles(titleListId) {
             titleList.innerHTML = "";
             const courseItemIds = [];
             console.log(response);
-            for (let i = 0; i < response.length; i++) {
-                let item = response[i];
+            for (let item of response) {
                 let element = GetTitleElement(item);
                 courseItemIds.push(item["itemId"]);
                 titleList.appendChild(element);

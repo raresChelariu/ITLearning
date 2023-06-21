@@ -14,7 +14,7 @@ buttonResetProgress.addEventListener("click", () => {
         courseId: GetCourseId()  
     };
     FetchHttpPostJson("/api/course/progress/reset", request)
-        .then((response) => {
+        .then(() => {
             location.reload();
         })
         .catch(err => {
@@ -24,8 +24,6 @@ buttonResetProgress.addEventListener("click", () => {
 });
 
 const courseId = GetCourseId();
-
-const titleList = document.getElementById(pageIds.TitleList);
 
 const itemParent = document.getElementById(pageIds.ItemParent);
 itemParent.dataset.courseId = courseId + "";
@@ -38,8 +36,8 @@ SetCourseTitles(pageIds.TitleList)
     })
     .then(response => {
         const items = BuildDomItemCollectionFromApiResponse(response);
-        for (let i = 0; i < items.length; i++) {
-            itemParent.appendChild(items[i]);
+        for (const element of items) {
+            itemParent.appendChild(element);
         }
         hljs.highlightAll();
     });

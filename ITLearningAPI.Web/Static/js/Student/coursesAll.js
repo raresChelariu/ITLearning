@@ -10,8 +10,8 @@ FetchHttpGet("/api/course/all")
             listCourses.appendChild(CreateAlertWarning("Nu exista cursuri de parcurs!"));
             return;
         }
-        for (let i = 0; i < responseResult.length; i++) {
-            const course = BuildCourseCard(responseResult[i]);
+        for (const element of responseResult) {
+            const course = BuildCourseCard(element);
             listCourses.appendChild(course);
         }
     })

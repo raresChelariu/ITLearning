@@ -7,7 +7,7 @@ export function BuildCourseSqlQuiz(data) {
     const emptyParagraph = () => document.createElement("p");
     const title = buildQuizTitle(data);
     const quiz = buildQuiz(data);
-    const checkChoice = buildCheckChoice(data);
+    const checkChoice = buildCheckChoice();
     return [title, quiz, checkChoice, emptyParagraph(), BuildNextStepButton()];
 }
 
@@ -68,7 +68,7 @@ function buttonCheckChoiceClick() {
         .then(response => {
             const isValid = response["isValid"];
             if (isValid === true) {
-                HandleCorrectResponse(response);
+                HandleCorrectResponse();
                 return;
             }
             HandleWrongResponse(response);
@@ -79,7 +79,7 @@ function buttonCheckChoiceClick() {
         });
 }
 
-function HandleCorrectResponse(data) {
+function HandleCorrectResponse() {
     const questionText = document.getElementById(pageIds.QuestionText);
     questionText.innerHTML = AddCorrectAnswerMarker(questionText.innerText);
     const alert = CreateAlertSuccess("Ai raspuns corect !");

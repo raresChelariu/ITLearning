@@ -48,8 +48,8 @@ function IsValidUi() {
 
     const values = [inputEmail.value, inputPassword.value];
 
-    for (let i = 0; i < values.length; i++) {
-        let value = values[i];
+    for (const element of values) {
+        let value = element;
         if (value === "" || value.trim().length === 0) {
             alert("Completeaza toate campurile!");
             return false;

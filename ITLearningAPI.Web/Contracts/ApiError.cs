@@ -4,7 +4,7 @@ namespace ITLearningAPI.Web.Contracts;
 
 public class ApiError
 {
-    public string ErrorMessage;
+    public string ErrorMessage { get; set; }
 
     public static ApiError WithParameterException(string arg,
         [CallerArgumentExpression("arg")] string parameterName = "param")

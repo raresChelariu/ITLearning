@@ -57,8 +57,8 @@ function HandleNextItemApiResponse(response) {
     itemParent.dataset.itemId = courseItemData["itemId"];
     itemParent.innerHTML = "";
     let itemCollection = BuildDomItemCollectionFromApiResponse(courseItemData);
-    for (let i = 0; i < itemCollection.length; i++) {
-        itemParent.appendChild(itemCollection[i]);
+    for (const element of itemCollection) {
+        itemParent.appendChild(element);
     }
     hljs.highlightAll();
 }

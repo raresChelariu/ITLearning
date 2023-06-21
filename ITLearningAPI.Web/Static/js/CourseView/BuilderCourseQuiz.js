@@ -12,7 +12,7 @@ const stepIds = {
 export function BuildCourseQuiz(data) {
     const title = buildTitle(data);
     const quiz = buildQuiz(data);
-    const checkChoice = buildCheckChoice(data);
+    const checkChoice = buildCheckChoice();
     return [title, quiz, checkChoice];
 }
 
@@ -41,8 +41,8 @@ function buildQuiz(data) {
     quiz.appendChild(question);
     const dataQuizChoices = data["possibleAnswers"];
 
-    for (let i = 0; i < dataQuizChoices.length; i++) {
-        const quizChoice = buildQuizChoice(dataQuizChoices[i]);
+    for (const element of dataQuizChoices) {
+        const quizChoice = buildQuizChoice(element);
         quiz.appendChild(quizChoice);
     }
     return quiz;
@@ -133,8 +133,8 @@ function InvalidAnswerCallback(message) {
 function getUserChoiceIds() {
     let quizChoiceUserIds = [];
     let inputNodeList = document.querySelectorAll("input");
-    for (let index = 0; index < inputNodeList.length; index++) {
-        const input = inputNodeList[index];
+    for (const element of inputNodeList) {
+        const input = element;
         if (input.checked === true) {
             quizChoiceUserIds.push(input.dataset.choiceId);
         }

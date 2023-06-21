@@ -14,9 +14,8 @@ buttonRegister.addEventListener("click", RegisterUser);
 
 function RegisterUser() {
     const uiValidationRules = [PasswordMatch, AllTextFieldsNonEmpty, UserRoleIsNotEmptyValue];
-    for (let i = 0; i < uiValidationRules.length; i++) {
-        let rule = uiValidationRules[i];
-        if (!rule()) {
+    for (const element of uiValidationRules) {
+        if (!element()) {
             return;
         }
     }
@@ -32,8 +31,7 @@ function RegisterUser() {
         password: password,
         role: userRoleId
     };
-    console.log(requestBody);
-    return;
+
     FetchHttpPostJson("/api/user/register", requestBody)
         .then(() => {
             alert("Te-ai inregistrat cu succes!");  
@@ -49,8 +47,8 @@ function AllTextFieldsNonEmpty() {
     const password = document.getElementById(pageIds.InputPassword).value;
     
     const values = [email, username, password];
-    for (let i = 0; i < values.length; i++) {
-        const value = values[i];
+    for (const element of values) {
+        const value = element;
         if (value === null || value === undefined || 
             value === "" || value.trim().length === 0) {
             alert("Completeaza toate campurile!");

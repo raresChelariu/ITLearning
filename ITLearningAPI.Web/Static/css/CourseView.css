@@ -7,6 +7,8 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    font-size: 25px;
+    overflow-x: hidden;
 }
 
 .white-box {
@@ -39,10 +41,6 @@ body {
     transform: translateY(-50%);
 }
 
-body {
-    font-size: 25px;
-    overflow-x: hidden;
-}
 
 main {
     padding: 40px 25px;
@@ -162,8 +160,4 @@ nav a:hover {
 .wikiContentText {
     font-size: 1.5em;
     color: white;
-}
-
-.button-reset-progress {
-    
 }
