@@ -38,6 +38,7 @@
     <None Update="Static\css\SqlPlayground.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Remove="Configuration\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -109,7 +110,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configuration\" />
     <Folder Include="Logs\" />
   </ItemGroup>
 </Project>
