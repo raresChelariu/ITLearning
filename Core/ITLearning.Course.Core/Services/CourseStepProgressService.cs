@@ -24,7 +24,7 @@ public class CourseStepProgressService : ICourseStepProgressService
     public async Task<IEnumerable<CourseStepWithUserProgress>> GetStepTitlesWithProgress(long userId, long courseId)
     {
         var itemDetails = await _itemRepository.GetItemDetailsByCourseId(courseId);
-        if (itemDetails == null)
+        if (itemDetails is null)
         {
             _logger.LogError("No item details found for {@CourseId}", courseId);
             return null;

@@ -29,8 +29,8 @@ public class CourseController : ControllerBase
     [Route("{id:long}")]
     public async Task GetCoursePage(long id)
     {
-        var course = _courseRepository.GetById(id);
-        if (course == null)
+        var course = await _courseRepository.GetById(id);
+        if (course is null)
         {
             await _staticAssetResponseService.RespondWithStaticAsset(Response, "AccessDenied.html");
             return;

@@ -21,7 +21,7 @@ public class MixedAuthenticationService : IMixedAuthenticationService
         }
         var claims = _jwtService.GetClaims(token);
         
-        if (claims == null)
+        if (claims is null)
         {
             return Task.FromResult(AuthenticateResult.Fail("Invalid token"));
         }

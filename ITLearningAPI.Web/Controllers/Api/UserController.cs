@@ -48,7 +48,7 @@ public class UserController : ControllerBase
     {
         var user = await _userRepository.GetUserByUserIdentifierAsync(request.UserIdentifier);
 
-        if (user == null || !Hasher.VerifyPasswordHash(request.Password, user.PasswordSalt, user.PasswordHash))
+        if (user is null || !Hasher.VerifyPasswordHash(request.Password, user.PasswordSalt, user.PasswordHash))
         {
             return Unauthorized();
         }

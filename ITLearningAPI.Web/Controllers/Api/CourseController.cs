@@ -46,7 +46,7 @@ public class CourseController : ControllerBase
 
         var courses = await _courseRepository.GetByAuthorId(user.Id);
 
-        if (courses == null)
+        if (courses is null)
             return BadRequest();
 
         return Ok(courses);
@@ -58,7 +58,7 @@ public class CourseController : ControllerBase
     {
         var courses = await _courseRepository.GetAll();
 
-        if (courses == null)
+        if (courses is null)
             return BadRequest();
 
         return Ok(courses);
@@ -103,7 +103,7 @@ public class CourseController : ControllerBase
 
         var courses = await _courseRepository.GetByStudentId(user.Id);
 
-        if (courses == null)
+        if (courses is null)
             return BadRequest();
 
         return Ok(courses);

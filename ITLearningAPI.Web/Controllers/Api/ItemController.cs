@@ -1,6 +1,5 @@
 using ITLearning.Course.Core.Contracts;
 using ITLearning.Domain;
-using ITLearning.Infrastructure.DataAccess.Contracts;
 using ITLearningAPI.Web.Authorization;
 using ITLearningAPI.Web.Contracts;
 using Microsoft.AspNetCore.Authorization;
@@ -13,18 +12,15 @@ namespace ITLearningAPI.Web.Controllers.Api;
 public class ItemController : ControllerBase
 {
     private readonly ICourseItemFetcher _itemFetcher;
-    private readonly ICourseItemRepository _itemRepository;
     private readonly ICourseProgressService _courseProgressService;
     private readonly ICourseStepProgressService _courseStepProgressService;
     
     public ItemController(
         ICourseItemFetcher itemFetcher,
-        ICourseItemRepository itemRepository,
         ICourseProgressService courseProgressService,
         ICourseStepProgressService courseStepProgressService)
     {
         _itemFetcher = itemFetcher ?? throw new ArgumentNullException(nameof(itemFetcher));
-        _itemRepository = itemRepository ?? throw new ArgumentNullException(nameof(itemRepository));
         _courseProgressService =
             courseProgressService ?? throw new ArgumentNullException(nameof(courseProgressService));
         _courseStepProgressService = courseStepProgressService ?? throw new ArgumentNullException(nameof(courseStepProgressService));
@@ -60,7 +56,7 @@ public class ItemController : ControllerBase
     {
         var user = HttpContext.GetUser();
         var result = await _courseProgressService.AdvanceUserToNextItem(user.Id, request.CourseId, request.ItemId);
-        if (result == null)
+        if (result is null)
         {
             return NoContent();
         }

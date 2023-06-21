@@ -6,7 +6,7 @@ public static class TypeGuard
 {
     public static T ThrowIfNull<T>(T arg, [CallerArgumentExpression("arg")] string parameterName = "param")
     {
-        if (arg == null)
+        if (arg is null)
         {
             throw new ArgumentNullException($"{parameterName} is null");
         }
