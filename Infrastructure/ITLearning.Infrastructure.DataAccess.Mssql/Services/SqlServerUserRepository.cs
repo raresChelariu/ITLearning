@@ -59,7 +59,7 @@ internal class SqlServerUserRepository : IUserRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(InsertUserAsync), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(InsertUserAsync), ex);
             return -1;
         }
     }
@@ -83,7 +83,7 @@ internal class SqlServerUserRepository : IUserRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetUserByUserIdentifierAsync), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetUserByUserIdentifierAsync), ex);
             return null;
         }
     }
@@ -106,7 +106,7 @@ internal class SqlServerUserRepository : IUserRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetUserByUserIdentifierAsync), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetUserByUserIdentifierAsync), ex);
             return null;
         }
     }

@@ -39,7 +39,7 @@ public class SqlServerCourseScriptRepository : ICourseScriptRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(CreateScript), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(CreateScript), ex);
             return -1;
         }
     }
@@ -63,7 +63,7 @@ public class SqlServerCourseScriptRepository : ICourseScriptRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetScriptsByCourseId), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetScriptsByCourseId), ex);
             return null;
         }
     }

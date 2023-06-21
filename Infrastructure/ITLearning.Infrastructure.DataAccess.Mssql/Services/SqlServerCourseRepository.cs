@@ -10,10 +10,10 @@ namespace ITLearning.Infrastructure.DataAccess.Mssql.Services;
 
 internal class SqlServerCourseRepository : ICourseRepository
 {
-    private readonly ILogger<SqlServerUserRepository> _logger;
+    private readonly ILogger<SqlServerCourseRepository> _logger;
     private readonly IDatabaseConnector _databaseConnector;
 
-    public SqlServerCourseRepository(ILogger<SqlServerUserRepository> logger, IDatabaseConnector databaseConnector)
+    public SqlServerCourseRepository(ILogger<SqlServerCourseRepository> logger, IDatabaseConnector databaseConnector)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _databaseConnector = databaseConnector ?? throw new ArgumentNullException(nameof(databaseConnector));
@@ -65,7 +65,7 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(Insert), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(Insert), ex);
             return -1;
         }
     }
@@ -90,7 +90,7 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetByAuthorId), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetByAuthorId), ex);
             return null;
         }
     }
@@ -114,7 +114,7 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetAll), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetAll), ex);
             return null;
         }
     }
@@ -140,7 +140,7 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetByAuthorIdAndCourseId), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetByAuthorIdAndCourseId), ex);
             return null;
         }
     }
@@ -165,7 +165,7 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetById), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetById), ex);
             return null;
         }
     }
@@ -194,7 +194,7 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetNextItemId), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetNextItemId), ex);
             return null;
         }
     }
@@ -215,7 +215,7 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(UpdateUserCourseProgress), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(UpdateUserCourseProgress), ex);
         }
     }
 
@@ -241,7 +241,7 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetUsersLastItemId), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetUsersLastItemId), ex);
             return -1;
         }
     }
@@ -261,11 +261,11 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(ResetUserProgress), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(ResetUserProgress), ex);
         }
     }
 
-    public async Task<IEnumerable<Course>> GetByStudentId(long studentId)
+    public async Task<IEnumerable<Course>> GetByStudentId(long userId)
     {
         const string query = "CoursesGetByStudentId";
         try
@@ -273,18 +273,18 @@ internal class SqlServerCourseRepository : ICourseRepository
             var connection = _databaseConnector.GetSqlConnection();
             var parameters = new DynamicParameters(new
             {
-                UserID = studentId
+                UserID = userId
             });
             var result = await connection.QueryAsync<Course>(query, parameters, null, null, CommandType.StoredProcedure);
             if (result is null)
             {
-                _logger.LogWarning("No courses found for student with {@UserId}", studentId);
+                _logger.LogWarning("No courses found for student with {@UserId}", userId);
             }
             return result;
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetByStudentId), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetByStudentId), ex);
             return null;
         }
     }
@@ -304,7 +304,7 @@ internal class SqlServerCourseRepository : ICourseRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetSqlCoursesByUserId), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetSqlCoursesByUserId), ex);
             return null;
         }
     }

@@ -69,7 +69,7 @@ internal class SqlServerVideoRepository : IVideoRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(InsertVideo), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(InsertVideo), ex);
             return -1;
         }
     }
@@ -90,7 +90,7 @@ internal class SqlServerVideoRepository : IVideoRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetVideoItemDetailsById), ex);
+            _logger.LogError(ex,"Db failure for {@Operation}! {@Exception}", nameof(GetVideoItemDetailsById), ex);
             return null;
         }
     } 
@@ -116,9 +116,6 @@ internal class SqlServerVideoRepository : IVideoRepository
             }
 
             var content = (byte[]) reader["Content"];
-            // var contentSize = (long) reader["ContentSize"];
-            // var content = new byte[contentSize];
-            // _ = reader.GetBytes(1, 0L, content, 0, (int) contentSize);
             return new Video
             {
                 Content = content, 
@@ -127,7 +124,7 @@ internal class SqlServerVideoRepository : IVideoRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetVideoContentById), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetVideoContentById), ex);
             return null;
         }
     }

@@ -42,7 +42,7 @@ internal class SqlServerCourseWikiRepository : ICourseWikiRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(CreateWiki), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(CreateWiki), ex);
             return -1;
         }
     }
@@ -62,7 +62,7 @@ internal class SqlServerCourseWikiRepository : ICourseWikiRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetWikiByItemId), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetWikiByItemId), ex);
             return null;
         }
     }

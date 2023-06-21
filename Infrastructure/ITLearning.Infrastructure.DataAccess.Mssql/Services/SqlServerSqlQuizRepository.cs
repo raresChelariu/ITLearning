@@ -41,7 +41,7 @@ internal class SqlServerSqlQuizRepository : ISqlQuizRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(CreateSqlQuiz), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(CreateSqlQuiz), ex);
             return -1;
         }
     }
@@ -62,7 +62,7 @@ internal class SqlServerSqlQuizRepository : ISqlQuizRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetSqlQuizById), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetSqlQuizById), ex);
             return null;
         }
     }

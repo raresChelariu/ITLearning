@@ -37,7 +37,7 @@ internal class SqlServerCourseItemRepository : ICourseItemRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetItemDetailById), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetItemDetailById), ex);
             return null;
         }
     }
@@ -58,7 +58,7 @@ internal class SqlServerCourseItemRepository : ICourseItemRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(GetItemDetailsByCourseId), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetItemDetailsByCourseId), ex);
             return null;
         }
     }

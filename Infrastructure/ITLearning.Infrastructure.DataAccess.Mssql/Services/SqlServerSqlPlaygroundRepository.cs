@@ -25,7 +25,8 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
         ( NAME = N'Xy', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\Xy.mdf' , SIZE = 8192KB , FILEGROWTH = 65536KB )
         LOG ON 
         ( NAME = N'Xy_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\Xy_log.ldf' , SIZE = 8192KB , FILEGROWTH = 65536KB )
-        WITH LEDGER = OFF".Replace("Xy", databaseName);
+        WITH LEDGER = OFF"
+            .Replace("Xy", databaseName);
         
         try
         {
@@ -36,7 +37,7 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(CreateDatabase), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(CreateDatabase), ex);
         }
     }
 
@@ -53,7 +54,7 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(CreateSomeTable), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(CreateSomeTable), ex);
         }
     }
 
@@ -69,7 +70,7 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception} {@DatabaseName} {@ScriptText}",
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception} {@DatabaseName} {@ScriptText}",
                 nameof(CreateSomeTable), ex, dbName, scriptText);
             return new ScriptRunningError
             {
@@ -94,7 +95,7 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(MarkCourseDatabaseToUser), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(MarkCourseDatabaseToUser), ex);
         }
     }
 
@@ -116,7 +117,7 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(DropDatabaseIfExists), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(DropDatabaseIfExists), ex);
         }
     }
 
@@ -136,7 +137,7 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(DropDatabaseIfExists), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(DropDatabaseIfExists), ex);
             return null;
         }
     }
@@ -155,7 +156,7 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError("Db failure for {@Operation}! {@Exception}", nameof(DropDatabaseIfExists), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(DropDatabaseIfExists), ex);
             return null;
         }
     }
