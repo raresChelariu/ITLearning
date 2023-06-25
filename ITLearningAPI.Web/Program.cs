@@ -17,8 +17,8 @@ builder.Services
 builder.Services.AddRouting();
 
 builder.Services
-       .AddEndpointsApiExplorer()
-       .AddSwaggerGen()
+       //.AddEndpointsApiExplorer()
+       //.AddSwaggerGen()
        .AddItLearningServices(builder.Configuration);
 
 builder.Services
@@ -41,11 +41,11 @@ builder.Services
        .AddCheck<HealthCheckHandler>(HealthCheckHandler.TAG);
 
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
 
 app.UseAuthentication();
 app.UseRouting();
