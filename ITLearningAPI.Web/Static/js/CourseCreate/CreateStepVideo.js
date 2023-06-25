@@ -1,5 +1,6 @@
 import {FetchHttpPostFormData} from "/js/Fetcher.js";
 import {AddStepToSummary} from "/js/CourseCreate/CourseCreateSummary.js";
+import {CreateLoader, RemoveLoader} from "/js/Loader.js";
 
 const urlVideoUpload = "/api/video/upload";
 
@@ -7,6 +8,8 @@ const stepIds = {
     FormStepVideo: "formStepVideo",
     InputVideoTitle: "inputTitleStepVideo",
     InputVideoFile: "inputVideoFile",
+    TextForDisplayingVideoFilename: "textForDisplayingVideoFilename",
+    StepBuilder: "stepBuilder"
 }
 
 export function GetVideoStepBuilder() {
@@ -25,6 +28,7 @@ export function GetVideoStepBuilder() {
     form.appendChild(emptyParagraph);
     form.appendChild(createLabelVideo());
     form.appendChild(createInputVideo());
+    form.appendChild(createTextForDisplayingVideoFilename())
     form.appendChild(emptyParagraph);
     form.appendChild(createFormSubmit());
 
@@ -58,11 +62,39 @@ function createLabelVideo() {
     return label;
 }
 
+function getFilenameFromFilePath(fullPath) {
+    if (fullPath) {
+        const startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+        let filename = fullPath.substring(startIndex);
+        if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+            filename = filename.substring(1);
+        }
+        return filename;
+    }
+    return "";
+}
+
+
+function createTextForDisplayingVideoFilename() {
+    const element = document.createElement("p");
+    element.innerText = "";
+    element.id = stepIds.TextForDisplayingVideoFilename;
+    return element;
+}
+
 function createInputVideo() {
     const inputVideo = document.createElement("input");
     inputVideo.setAttribute("type", "file");
     inputVideo.setAttribute("name", "file");
     inputVideo.id = stepIds.InputVideoFile;
+    inputVideo.addEventListener("change", () => {
+        const videoInput = document.getElementById(stepIds.InputVideoFile);
+        const filePath = videoInput.value;
+        
+        const filename = getFilenameFromFilePath(filePath);
+        const videoFilenameText = document.getElementById(stepIds.TextForDisplayingVideoFilename);
+        videoFilenameText.innerText = filename;
+    });
     return inputVideo;
 }
 
@@ -83,15 +115,30 @@ async function VideoCreateRequest(event) {
     
     formData.append("courseId", courseId);
     
+    ToggleShowLoader();    
     FetchHttpPostFormData(urlVideoUpload, formData)
         .then(() => {
+            ToggleShowLoader();
             alert("Pasul Video a fost creat cu succes!");
             AddStepToSummary({
                 stepTitle: document.getElementById(stepIds.InputVideoTitle).value
             });
         })
         .catch(err => {
+            ToggleShowLoader();
             alert("Pasul Video nu a putut fi creat!");
             console.log(err);
         });
+}
+
+function ToggleShowLoader() {
+    const isLoaderPresent = document.getElementById("loader") !== null; 
+    if (isLoaderPresent) {
+        RemoveLoader();
+        document.getElementById(stepIds.FormStepVideo).style.display = "block";
+        return;
+    }
+    const loader = CreateLoader();
+    document.getElementById(stepIds.FormStepVideo).style.display = "none";
+    document.getElementById(stepIds.StepBuilder).appendChild(loader);
 }
