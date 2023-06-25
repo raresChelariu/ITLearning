@@ -1,0 +1,835 @@
+{
+	"info": {
+		"_postman_id": "69b16f38-510f-4fdd-ba13-fc0259d58c36",
+		"name": "ITLearning",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"somestudent\",\r\n    \"email\": \"student@s.com\",\r\n    \"password\": \"student123\",\r\n    \"role\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ROOT}}/api/user/register",
+							"host": [
+								"{{ROOT}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"panther\",\r\n    \"email\": \"panther@pink.com\",\r\n    \"password\": \"panther123\",\r\n    \"role\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ROOT}}/api/user/register",
+									"host": [
+										"{{ROOT}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"register"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 06 May 2023 19:40:57 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Duplicate",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"panther\",\r\n    \"email\": \"panther@pink.com\",\r\n    \"password\": \"panther123\",\r\n    \"role\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ROOT}}/api/user/register",
+									"host": [
+										"{{ROOT}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"register"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 06 May 2023 19:41:16 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.8\",\n    \"title\": \"Conflict\",\n    \"status\": 409,\n    \"traceId\": \"00-6d0155fc4aba03a9942b6921b5924e2b-6ad0525156eeac61-00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "User Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.collectionVariables.set(\"authToken\", jsonData['token']);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userIdentifier\": \"student@s.com\",\r\n    \"password\": \"student123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ROOT}}/api/user/login",
+							"host": [
+								"{{ROOT}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success - Teacher",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userIdentifier\": \"panther@pink.com\",\r\n    \"password\": \"panther123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ROOT}}/api/user/login",
+									"host": [
+										"{{ROOT}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 06 May 2023 19:42:03 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6InBhbnRoZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJwYW50aGVyQHBpbmsuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsImV4cCI6MTY4MzQ4ODUyMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MjEwLGh0dHBzOi8vbG9jYWxob3N0OjcwMzIiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjUyMTAsaHR0cHM6Ly9sb2NhbGhvc3Q6NzAzMiJ9.Co3I4ritCsjV2VM4MVoffIyBuz6VbPKY7C5YsjeaPug\",\n    \"role\": \"teacher\"\n}"
+						},
+						{
+							"name": "Success - Student",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userIdentifier\": \"student@s.com\",\r\n    \"password\": \"student123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ROOT}}/api/user/login",
+									"host": [
+										"{{ROOT}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 23 May 2023 18:06:58 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "AuthToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoic29tZXN0dWRlbnQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI2IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoic3R1ZGVudEBzLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2dpdmVubmFtZSI6Ijk4ZTgxZjYxLTU0YWMtNDY0ZS04Y2EzLTg3MTc3NzlkNjliMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvZXhwaXJhdGlvbiI6IjYzODIwNDY1NjE5MTU3NTAwMyIsImV4cCI6MTY4NDg2ODgxOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MjEwLGh0dHBzOi8vbG9jYWxob3N0OjcwMzMiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjUyMTAsaHR0cHM6Ly9sb2NhbGhvc3Q6NzAzMyJ9.8pxYBhSyAWOQr9Qbcp2emW9boD6VdAm0uO8EpF82nGI; expires=Tue, 23 May 2023 19:06:59 GMT; path=/; secure; samesite=strict; httponly"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoic29tZXN0dWRlbnQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI2IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoic3R1ZGVudEBzLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2dpdmVubmFtZSI6Ijk4ZTgxZjYxLTU0YWMtNDY0ZS04Y2EzLTg3MTc3NzlkNjliMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvZXhwaXJhdGlvbiI6IjYzODIwNDY1NjE5MTU3NTAwMyIsImV4cCI6MTY4NDg2ODgxOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MjEwLGh0dHBzOi8vbG9jYWxob3N0OjcwMzMiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjUyMTAsaHR0cHM6Ly9sb2NhbGhvc3Q6NzAzMyJ9.8pxYBhSyAWOQr9Qbcp2emW9boD6VdAm0uO8EpF82nGI\",\n    \"role\": \"student\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "Get All Courses",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7032/api/course",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7032",
+							"path": [
+								"api",
+								"course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"CourseName\": \"Hey Hello\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ROOT}}/api/course",
+							"host": [
+								"{{ROOT}}"
+							],
+							"path": [
+								"api",
+								"course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Titles of Course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ROOT}}/api/item/course/2",
+							"host": [
+								"{{ROOT}}"
+							],
+							"path": [
+								"api",
+								"item",
+								"course",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Titles of Course",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ROOT}}/api/item/course/2",
+									"host": [
+										"{{ROOT}}"
+									],
+									"path": [
+										"api",
+										"item",
+										"course",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 14 Jun 2023 11:18:41 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"itemId\": 4,\n        \"itemTitle\": \"Math Quiz\",\n        \"type\": \"Quiz\"\n    },\n    {\n        \"itemId\": 7,\n        \"itemTitle\": \"About WHERE\",\n        \"type\": \"Wiki\"\n    },\n    {\n        \"itemId\": 6,\n        \"itemTitle\": \"Introduction\",\n        \"type\": \"Wiki\"\n    },\n    {\n        \"itemId\": 8,\n        \"itemTitle\": \"Linked Lists\",\n        \"type\": \"Video\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get Courses For SQL Playground",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ROOT}}/api/course/author/withscripts",
+							"host": [
+								"{{ROOT}}"
+							],
+							"path": [
+								"api",
+								"course",
+								"author",
+								"withscripts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get For Student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ROOT}}/api/course/student",
+							"host": [
+								"{{ROOT}}"
+							],
+							"path": [
+								"api",
+								"course",
+								"student"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Quiz",
+			"item": [
+				{
+					"name": "Create Quiz",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"courseId\": 2,\r\n    \"questionText\": \"3 + 5 = ?\",\r\n    \"choices\": [\r\n        {\r\n            \"choiceText\": \"7\",\r\n            \"isRight\": false\r\n        },\r\n        {\r\n            \"choiceText\": \"8\",\r\n            \"isRight\": true\r\n        },\r\n        {\r\n            \"choiceText\": \"9\",\r\n            \"isRight\": false\r\n        },\r\n        {\r\n            \"choiceText\": \"4 + 4\",\r\n            \"isRight\": true\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ROOT}}/api/quiz",
+							"host": [
+								"{{ROOT}}"
+							],
+							"path": [
+								"api",
+								"quiz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valldate Choices",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quizId\": \"4\",\r\n    \"quizChoiceIds\": [6, 8]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ROOT}}/api/quiz/validate",
+							"host": [
+								"{{ROOT}}"
+							],
+							"path": [
+								"api",
+								"quiz",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Items",
+			"item": [
+				{
+					"name": "Get Item",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ROOT}}/api/item?itemId=28",
+							"host": [
+								"{{ROOT}}"
+							],
+							"path": [
+								"api",
+								"item"
+							],
+							"query": [
+								{
+									"key": "itemId",
+									"value": "28"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Item - Quiz",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ROOT}}/api/item?itemId=4",
+									"host": [
+										"{{ROOT}}"
+									],
+									"path": [
+										"api",
+										"item"
+									],
+									"query": [
+										{
+											"key": "itemId",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 02 Jun 2023 16:47:17 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": 1,\n    \"courseId\": 2,\n    \"itemId\": 4,\n    \"questionText\": \"3 + 5 = ?\",\n    \"possibleAnswers\": [\n        {\n            \"quizChoiceId\": 5,\n            \"quizId\": 0,\n            \"choiceText\": \"7\",\n            \"correctChoice\": false\n        },\n        {\n            \"quizChoiceId\": 6,\n            \"quizId\": 0,\n            \"choiceText\": \"8\",\n            \"correctChoice\": true\n        },\n        {\n            \"quizChoiceId\": 7,\n            \"quizId\": 0,\n            \"choiceText\": \"9\",\n            \"correctChoice\": false\n        },\n        {\n            \"quizChoiceId\": 8,\n            \"quizId\": 0,\n            \"choiceText\": \"4 + 4\",\n            \"correctChoice\": true\n        }\n    ],\n    \"title\": \"Math Quiz\"\n}"
+						},
+						{
+							"name": "Get Item - Video",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ROOT}}/api/item?itemId=8",
+									"host": [
+										"{{ROOT}}"
+									],
+									"path": [
+										"api",
+										"item"
+									],
+									"query": [
+										{
+											"key": "itemId",
+											"value": "8"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 05 Jun 2023 21:54:25 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": 3,\n    \"itemId\": 8,\n    \"title\": \"Linked Lists\",\n    \"content\": null,\n    \"contentType\": \"video/mp4\",\n    \"courseId\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Next Item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"courseId\": 8,\r\n    \"itemId\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ROOT}}/api/item/next",
+							"host": [
+								"{{ROOT}}"
+							],
+							"path": [
+								"api",
+								"item",
+								"next"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Video",
+			"item": [
+				{
+					"name": "Get By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ROOT}}/api/video?videoId=8",
+							"host": [
+								"{{ROOT}}"
+							],
+							"path": [
+								"api",
+								"video"
+							],
+							"query": [
+								{
+									"key": "videoId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SqlPlayground",
+			"item": [
+				{
+					"name": "Test",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ROOT}}/course/test",
+							"host": [
+								"{{ROOT}}"
+							],
+							"path": [
+								"course",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ROOT}}/api/course/author/withscripts",
+							"host": [
+								"{{ROOT}}"
+							],
+							"path": [
+								"api",
+								"course",
+								"author",
+								"withscripts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Run SQL",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"courseId\": 28,\r\n    \"queryText\": \"SELECT * FROM Customers\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ROOT}}/api/sqlplayground/run",
+							"host": [
+								"{{ROOT}}"
+							],
+							"path": [
+								"api",
+								"sqlplayground",
+								"run"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SqlQuiz",
+			"item": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6InBhbnRoZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJwYW50aGVyQHBpbmsuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVGVhY2hlciIsImV4cCI6MTY4MzgyNjQ3NywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MjEwLGh0dHBzOi8vbG9jYWxob3N0OjcwMzIiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjUyMTAsaHR0cHM6Ly9sb2NhbGhvc3Q6NzAzMiJ9.p1GhPCFJzIKHFR_qUwDn5ofbDaDdGUYVZPPiO_NtkW8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ROOT}}/api/user",
+					"host": [
+						"{{ROOT}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ROOT",
+			"value": "https://localhost:7033",
+			"type": "default"
+		},
+		{
+			"key": "authToken",
+			"value": ""
+		},
+		{
+			"key": "ROOTMARKED",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
