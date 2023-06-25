@@ -11,7 +11,7 @@ body {
 
 .subtitle, .title {
     text-align: center;
-    color: #505050;
+    color: white;
 }
 
 .title {
@@ -26,6 +26,6 @@ body {
 
 
 .subtitle {
-    font-size: 30px;
+    font-size: 2em;
     font-weight: bold;
 }
