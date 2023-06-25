@@ -39,7 +39,7 @@ public class UserController : ControllerBase
         {
             return Conflict();
         }
-        return NoContent();
+        return Ok(userId);
     }
 
     [AllowAnonymous]
