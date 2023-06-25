@@ -1,4 +1,4 @@
-export function CreateLoader(parent) {
+export function CreateLoader() {
     const element = document.createElement("div");
     element.classList.add("loader");
     element.id = "loader";
