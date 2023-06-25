@@ -1,7 +1,9 @@
 using System.Diagnostics;
 using ITLearningAPI.Web;
 using ITLearningAPI.Web.Authorization;
+using ITLearningAPI.Web.HealthCheck;
 using ITLearningAPI.Web.Middleware;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 Activity.DefaultIdFormat = ActivityIdFormat.W3C;
 
@@ -40,6 +42,10 @@ builder.Services.AddAuthorization(options =>
     options.AddItLearningPolicies();
 });
 
+builder.Services
+       .AddHealthChecks()
+       .AddCheck<HealthCheckHandler>(HealthCheckHandler.TAG);
+
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
@@ -50,6 +56,10 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseRouting();
 app.UseAuthorization();
-app.UseEndpoints(ep => ep.MapControllers());
+app.MapControllers();
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = HealthCheckResponseWriter.WriteResponse
+});
 app.UseMiddleware<RequestLoggingMiddleware>();
 app.Run();
