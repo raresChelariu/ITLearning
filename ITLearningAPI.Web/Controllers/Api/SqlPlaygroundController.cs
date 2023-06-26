@@ -46,6 +46,6 @@ public class SqlPlaygroundController : ControllerBase
         
         await _sqlDatabaseBuilder.RecreateDatabase(user.Id, request.CourseId);
         
-        return Ok();
+        return Ok(request.CourseId);
     }
 }

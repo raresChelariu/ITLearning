@@ -71,7 +71,7 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
         catch (Exception ex)
         {
             _logger.LogError(ex, "Db failure for {@Operation}! {@Exception} {@DatabaseName} {@ScriptText}",
-                nameof(CreateSomeTable), ex, dbName, scriptText);
+                nameof(RunScriptForDatabase), ex, dbName, scriptText);
             return new ScriptRunningError
             {
                 Exception = ex
@@ -137,7 +137,7 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(DropDatabaseIfExists), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetCourseDatabaseName), ex);
             return null;
         }
     }
@@ -156,7 +156,7 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(DropDatabaseIfExists), ex);
+            _logger.LogError(ex, "Db failure for {@Operation}! {@Exception}", nameof(GetQueryResults), ex);
             return null;
         }
     }

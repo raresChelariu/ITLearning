@@ -9,21 +9,18 @@ export function QueryResultToHtmlTable(courseId, queryText, displayElementId) {
         courseId: courseId,
         queryText: queryText
     };
-    
+
     return new Promise(async (resolve, reject) => {
         try {
             const response = await FetchHttpPostJson("/api/sqlplayground/run", request);
-            const parsedResponse = JSON.parse(response["result"] + ""); 
-            if (Array.isArray(parsedResponse) && parsedResponse.length === 0)
-            {
+            const parsedResponse = JSON.parse(response["result"] + "");
+            if (Array.isArray(parsedResponse) && parsedResponse.length === 0) {
                 reject("Empty array");
-            }
-            else {
+            } else {
                 JsonToHtmlTable(parsedResponse, displayElementId);
                 resolve(1);
             }
-        }
-        catch (err) {
+        } catch (err) {
             reject(err);
         }
     });
@@ -34,15 +31,20 @@ export function RecreateDatabase(courseId) {
     const request = {
         courseId: courseId
     };
-    return FetchHttpPostJson("/api/sqlplayground/recreate", request);
+    return FetchHttpPostJson("/api/sqlplayground/recreate", request)
+        .then(() => {
+            alert("Baza de date a fost recreata cu succes!");
+        }).catch(() => {
+            alert("Baza de date nu a putut fi recreată!");
+        });
 }
 
 function JsonToHtmlTable(jsonDataArray, targetContainerId) {
     document.getElementById(targetContainerId).innerHTML = "";
-    
+
     const keys = Object.keys(jsonDataArray[0]);
     const data = createDataForGridJs(jsonDataArray, keys);
-    
+
     if (grid === null) {
         grid = new Grid({
             columns: keys,
@@ -58,12 +60,12 @@ function JsonToHtmlTable(jsonDataArray, targetContainerId) {
         columns: keys,
         data: data
     }).forceRender();
-    
+
 }
 
 function createDataForGridJs(data, keys) {
     const result = [];
-    
+
     for (const element of data) {
         const row = [];
         for (const key of keys) {
@@ -71,7 +73,7 @@ function createDataForGridJs(data, keys) {
         }
         result.push(row);
     }
-    
+
     return result;
 }
 
@@ -112,8 +114,7 @@ export function SetButtonOnClickHandlers() {
                 let alert;
                 if (err === "Empty array") {
                     alert = CreateAlertWarning("Interogarea nu a returnat niciun rand!");
-                }
-                else {
+                } else {
                     alert = CreateAlertError("Interogarea nu a putut fi executata cu succes!");
                 }
                 const parent = document.getElementById(pageIds.QueryResultView);
