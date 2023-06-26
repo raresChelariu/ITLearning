@@ -15,7 +15,18 @@ const pageIds = {
     StepBuilder: "stepBuilder",
     SelectItemType: "selectItemType",
     ButtonCreateCourse: "buttonCreateCourse",
+    TextForDisplayingScriptFilename: "textForDisplayingScriptFilename"
 };
+
+const inputScriptUpload = document.getElementById(pageIds.InputScriptUpload);
+inputScriptUpload.addEventListener("change", () => {
+    const inputScriptUpload = document.getElementById(pageIds.InputScriptUpload);
+    const scriptFilepath = inputScriptUpload.value;
+
+    const filename = getFilenameFromFilePath(scriptFilepath);
+    const videoFilenameText = document.getElementById(pageIds.TextForDisplayingScriptFilename);
+    videoFilenameText.innerText = filename;
+});
 
 const panelUploadScript = document.getElementById(pageIds.PanelUploadScript);
 panelUploadScript.style.display = "none";
@@ -133,4 +144,16 @@ function SubmitCourseScript() {
     formData.append("courseId", courseId);
 
     return FetchHttpPostFormData("/api/courseScript", formData);
+}
+
+function getFilenameFromFilePath(fullPath) {
+    if (fullPath) {
+        const startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+        let filename = fullPath.substring(startIndex);
+        if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+            filename = filename.substring(1);
+        }
+        return filename;
+    }
+    return "";
 }
