@@ -83,7 +83,7 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
     {
         try
         {
-            const string query = "INSERT INTO PlaygroundUsers (CourseID, UserID, DatabaseName) VALUES (@CourseID, @UserID, @DatabaseName)";
+            const string query = "PlaygroundUsersInsert";
             var connection = _databaseConnector.GetSqlConnection();
             var parameters = new DynamicParameters(new 
             {
@@ -91,7 +91,7 @@ internal class SqlServerSqlPlaygroundRepository : ISqlPlaygroundRepository
                 UserID = userId,
                 DatabaseName = dbName
             });
-            await connection.ExecuteAsync(query, parameters);
+            await connection.ExecuteAsync(query, parameters, null, null, CommandType.StoredProcedure);
         }
         catch (Exception ex)
         {
