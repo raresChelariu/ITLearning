@@ -8,7 +8,7 @@ public static class MsSqlDiEx
 {
     public static IServiceCollection AddDataAccessMssql(this IServiceCollection services)
     {
-        services.AddSingleton<IVideoRepository, SqlServerVideoRepository>();
+        // services.AddSingleton<IVideoRepository, SqlServerVideoRepository>();
         services.AddSingleton<IUserRepository, SqlServerUserRepository>();
         services.AddSingleton<ICourseRepository, SqlServerCourseRepository>();
         services.AddSingleton<IQuizRepository, SqlServerQuizRepository>();

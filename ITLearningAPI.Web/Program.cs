@@ -61,5 +61,5 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 {
     ResponseWriter = HealthCheckResponseWriter.WriteResponse
 });
-app.UseMiddleware<RequestLoggingMiddleware>();
+// app.UseMiddleware<RequestLoggingMiddleware>();
 app.Run();

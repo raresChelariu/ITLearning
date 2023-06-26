@@ -40,14 +40,17 @@ public class RequestLoggingMiddleware
     private static async Task<string> RequestAsLogMessage(HttpRequest request, string traceId, string spanId)
     {
         var message = new StringBuilder();
+        var requestPath = GetPath(request);
         message.AppendLine($"Trace Id: {traceId}");
         message.AppendLine($"Span Id: {spanId}");
-        message.AppendLine($"Request Url: {GetPath(request)}");
+        message.AppendLine($"Request Url: {requestPath}");
         message.AppendLine($"Request HTTP Verb: {request.Method}");
         message.AppendLine($"Request Headers: {Environment.NewLine} {GetHeadersAsString(request.Headers)}");
         message.AppendLine("Request Body: ");
-        message.AppendLine($"{await GetBody(request)}{Environment.NewLine}");
-
+        if (!requestPath.Contains("video"))
+        {
+            message.AppendLine($"{await GetBody(request)}{Environment.NewLine}");    
+        }
         return message.ToString();
     }
 

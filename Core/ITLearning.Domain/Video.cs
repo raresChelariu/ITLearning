@@ -9,4 +9,6 @@ public class Video : ICourseItem
     public byte[] Content { get; set; }
     public string ContentType { get; set; }
     public long CourseId { get; set; }
+    
+    public string Filename { get; set; }
 }
