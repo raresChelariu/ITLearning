@@ -10,6 +10,12 @@ Activity.DefaultIdFormat = ActivityIdFormat.W3C;
 var builder = WebApplication.CreateBuilder(args);
 builder.AddSerilogLogging();
 
+builder.Services.AddHttpClient("Internal", httpClient =>
+{
+    var internalUrl = builder.Configuration["InternalUrl"] ?? throw new ArgumentException(nameof(builder.Configuration));
+    httpClient.BaseAddress = new Uri(internalUrl);
+});
+
 builder.Services
     .AddControllers()
     .AddControllersAsServices();
