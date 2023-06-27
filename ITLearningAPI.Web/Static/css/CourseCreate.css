@@ -225,3 +225,7 @@ input, textarea{
 p {
     font-size: 1.5em;
 }
+
+#inputQueryAnswer {
+    width: 75vw;
+}
