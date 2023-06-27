@@ -4,20 +4,23 @@ import {CreateAlertError, CreateAlertWarning} from "/js/Alert.js";
 
 let grid = null;
 
-
+marked.use({
+    mangle: false,
+    headerIds: false     
+});
 export function PreviewQueryWithSyntaxHighlighting() {
     const previewer = document.getElementById(pageIds.QueryHighlightPreview);
 
-    document.getElementById(pageIds.InputQuery).addEventListener("input", UpdateQueryPreview);
+    const inputQuery = document.getElementById(pageIds.InputQuery);
+    inputQuery.addEventListener("input", UpdateQueryPreview);
 }
 
 function UpdateQueryPreview() {
     const userSqlQuery = document.getElementById(pageIds.InputQuery).value;
     const previewer = document.getElementById(pageIds.QueryHighlightPreview);
-    // marked.use({
-    //    
-    // });
-    previewer.innerHTML = marked.parse(userSqlQuery);
+    
+    const userSqlQueryInMarkdownFormat = "```sql \r\n" + userSqlQuery + "\r\n```";
+    previewer.innerHTML = marked.parse(userSqlQueryInMarkdownFormat);
     hljs.highlightAll();
 }
 

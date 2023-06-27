@@ -1,6 +1,11 @@
 import {FetchHttpPostJson} from "/js/Fetcher.js";
 import {AddStepToSummary} from "/js/CourseCreate/CourseCreateSummary.js";
 
+marked.use({
+    mangle: false,
+    headerIds: false
+});
+
 const stepIds = {
     InputWikiTitle : "inputWikiTitle",
     InputWikiContent: "inputWikiContent",
