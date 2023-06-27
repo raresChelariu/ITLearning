@@ -4,6 +4,23 @@ import {CreateAlertError, CreateAlertWarning} from "/js/Alert.js";
 
 let grid = null;
 
+
+export function PreviewQueryWithSyntaxHighlighting() {
+    const previewer = document.getElementById(pageIds.QueryHighlightPreview);
+
+    document.getElementById(pageIds.InputQuery).addEventListener("input", UpdateQueryPreview);
+}
+
+function UpdateQueryPreview() {
+    const userSqlQuery = document.getElementById(pageIds.InputQuery).value;
+    const previewer = document.getElementById(pageIds.QueryHighlightPreview);
+    // marked.use({
+    //    
+    // });
+    previewer.innerHTML = marked.parse(userSqlQuery);
+    hljs.highlightAll();
+}
+
 export function QueryResultToHtmlTable(courseId, queryText, displayElementId) {
     const request = {
         courseId: courseId,
@@ -137,7 +154,8 @@ const pageIds = {
     QueryResultView: "queryResultView",
     ButtonRecreateDatabase: "buttonRecreateDb",
     ButtonRunSqlQuery: "buttonRunSqlQuery",
-    InputQuery: "queryInput"
+    InputQuery: "queryInput",
+    QueryHighlightPreview: "queryHighlightPreview"
 };
 
 function GetCourseFromSelectedOption() {

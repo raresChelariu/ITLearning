@@ -17,7 +17,7 @@ body {
 }
 
 .logo {
-    background-color: blue;
+    background-color: transparent;
     width: 150px;
     height: 150px;
     border-radius: 50%;

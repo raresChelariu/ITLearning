@@ -6,8 +6,13 @@ const pageIds = {
     InputConfirmPassword: "inputPasswordConfirm",
     InputEmail: "inputEmail",
     InputUsername: "inputUsername",
-    SelectUserRole: "selectUserRole"
+    SelectUserRole: "selectUserRole",
+    ButtonHome: "buttonHome"
 };
+const buttonHome = document.getElementById(pageIds.ButtonHome);
+buttonHome.addEventListener("click", () => {
+    window.location.href = "/"; 
+});
 
 const buttonRegister = document.getElementById(pageIds.ButtonRegister);
 buttonRegister.addEventListener("click", RegisterUser);

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Immutable;
 using ITLearning.Web.StaticAssets;
 using System.Net;
-using System.Text;
 using ITLearningAPI.Web.Interfaces;
 
 namespace ITLearningAPI.Web.Services;
@@ -44,9 +43,9 @@ public class StaticAssetResponseService : IStaticAssetResponseService
         }
 
         response.Headers.ContentType = staticType.ContentType;
-        var contents = await File.ReadAllTextAsync(fileDiskPath);
+        var contents = await File.ReadAllBytesAsync(fileDiskPath);
         response.StatusCode = (int)HttpStatusCode.OK;
-        await response.Body.WriteAsync(Encoding.UTF8.GetBytes(contents));
+        await response.Body.WriteAsync(contents);
         await response.CompleteAsync();
     }
 
