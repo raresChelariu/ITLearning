@@ -8,8 +8,8 @@ const stepIds = {
 };
 
 export function GetSqlQuizStepBuilder() {
-    const emptyParagraph = document.createElement("p");
-    
+    const emptyParagraph = () => document.createElement("p");
+
     const labelTitle = createQuizLabelTitle();
     const inputTitle = createQuizInputTitle();
 
@@ -23,8 +23,8 @@ export function GetSqlQuizStepBuilder() {
 
     return [labelTitle, inputTitle
         , labelQuizQuestion, inputQuizQuestion
-        , labelQueryAnswer, inputQueryAnswer
-        , emptyParagraph
+        , labelQueryAnswer, emptyParagraph(), inputQueryAnswer
+        , emptyParagraph()
         , buttonAddStep];
 }
 

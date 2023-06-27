@@ -190,6 +190,10 @@ input[type="file"] {
     display: none;
 }
 
+input[type="text"], textarea {
+    width: 25em;
+}
+
 .custom-file-upload {
     border: 1px solid #ccc;
     display: inline-block;
